@@ -16,6 +16,7 @@ public class CadastrarDTO {
     @NotBlank
     private String segundoNome;
     @Email
+    @NotBlank
     private String email;
     @NotBlank
     private String senha;
