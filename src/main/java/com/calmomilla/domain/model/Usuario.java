@@ -27,14 +27,23 @@ public class Usuario implements UserDetails {
 
     @NotBlank
     private String nome;
+
     @NotBlank
     private String segundoNome;
+
     @Email
     private String email;
+
     @NotBlank
     private String senha;
+
+    @NotBlank
+    private String foto;
+
     @NotNull
     private UserRole role;
+
+
 
 
     @Override

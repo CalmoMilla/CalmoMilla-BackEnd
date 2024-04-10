@@ -4,11 +4,11 @@ import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
-import com.calmomilla.domain.model.Usuario;
 import com.calmomilla.domain.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +22,10 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @PostMapping("/login/google")
+    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastrarDTO cadastrarDTO) {
+        return authService.loginGoogle(cadastrarDTO);
+    }
     @PostMapping("/login")
     public ResponseEntity<LoginOutput> login(@RequestBody @Valid AuthDTO authDTO){
 

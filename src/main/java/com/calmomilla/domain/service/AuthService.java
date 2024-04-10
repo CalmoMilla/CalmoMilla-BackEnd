@@ -7,11 +7,14 @@ import com.calmomilla.api.dto.output.UsuarioOutput;
 import com.calmomilla.configs.security.TokenService;
 import com.calmomilla.domain.model.Usuario;
 import com.calmomilla.domain.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +26,9 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final TokenService tokenService;
-    public ResponseEntity<LoginOutput>login(AuthDTO authDTO){
+
+
+    public ResponseEntity<LoginOutput> login(AuthDTO authDTO) {
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(authDTO.getEmail(), authDTO.getSenha());
         var auth = authenticationManager.authenticate(usernamePassword);
@@ -34,9 +39,9 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<UsuarioOutput> cadastrar(CadastrarDTO cadastrarDTO){
+    public ResponseEntity<UsuarioOutput> cadastrar(CadastrarDTO cadastrarDTO) {
 
-        if (userRepository.findByEmail(cadastrarDTO.getEmail()) !=  null)return ResponseEntity.badRequest().build();
+        if (userRepository.findByEmail(cadastrarDTO.getEmail()) != null) return ResponseEntity.badRequest().build();
 
 
         String senhaCriptografada = new BCryptPasswordEncoder().encode(cadastrarDTO.getSenha());
@@ -44,8 +49,17 @@ public class AuthService {
         Usuario usuario = modelMapper.map(cadastrarDTO, Usuario.class);
         Usuario usuarioCadastrado = userRepository.save(usuario);
         UsuarioOutput usuarioOutput = modelMapper.map(usuarioCadastrado, UsuarioOutput.class);
-        return ResponseEntity.ok(usuarioOutput);
+
+        return new ResponseEntity<>(usuarioOutput, HttpStatus.CREATED);
     }
 
 
+    public ResponseEntity<?> loginGoogle(CadastrarDTO cadastrarDTO) {
+        if (userRepository.findByEmail(cadastrarDTO.getEmail()) == null) {
+          return cadastrar(cadastrarDTO);
+        }else {
+            AuthDTO authDTO = modelMapper.map(cadastrarDTO, AuthDTO.class);
+            return login(authDTO);
+        }
+    }
 }
