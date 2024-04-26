@@ -1,4 +1,4 @@
-package com.calmomilla.configs;
+package com.calmomilla.api.configs;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

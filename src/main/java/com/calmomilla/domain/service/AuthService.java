@@ -4,17 +4,15 @@ import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
-import com.calmomilla.configs.security.TokenService;
+import com.calmomilla.api.configs.security.TokenService;
 import com.calmomilla.domain.model.Usuario;
 import com.calmomilla.domain.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

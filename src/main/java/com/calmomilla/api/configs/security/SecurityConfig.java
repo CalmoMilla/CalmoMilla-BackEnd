@@ -1,4 +1,4 @@
-package com.calmomilla.configs.security;
+package com.calmomilla.api.configs.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

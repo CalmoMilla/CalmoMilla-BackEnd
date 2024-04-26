@@ -1,4 +1,4 @@
-package com.calmomilla.configs.security;
+package com.calmomilla.api.configs.security;
 
 import com.calmomilla.domain.repository.UserRepository;
 import jakarta.servlet.FilterChain;

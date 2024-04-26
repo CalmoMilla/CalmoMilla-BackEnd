@@ -1,4 +1,4 @@
-package com.calmomilla.configs.security;
+package com.calmomilla.api.configs.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
