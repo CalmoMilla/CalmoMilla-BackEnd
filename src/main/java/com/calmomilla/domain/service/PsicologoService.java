@@ -26,10 +26,21 @@ public class PsicologoService {
     public List<BuscarPsicologoOutput> buscarTodos(){
 
         List<Psicologo> psicologos = psicologoRepository.findAll();
-        System.out.println(psicologos);
         List<BuscarPsicologoOutput> psicologoOutputs = mapperUtils.mapList(psicologos, BuscarPsicologoOutput.class);
-        System.out.println(psicologoOutputs);
         return psicologoOutputs;
+
+    }
+
+    public ResponseEntity<BuscarPsicologoOutput> buscarPorId(String id){
+        if (psicologoRepository.findById(id).isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        Psicologo psicologo = psicologoRepository.findById(id).get();
+
+        BuscarPsicologoOutput psicologoOutput = modelMapper.map(psicologo, BuscarPsicologoOutput.class);
+
+        return ResponseEntity.ok(psicologoOutput);
 
     }
 

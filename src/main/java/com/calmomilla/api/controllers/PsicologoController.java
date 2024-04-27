@@ -24,6 +24,11 @@ public class PsicologoController {
         return psicologoService.buscarTodos();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<BuscarPsicologoOutput> buscarPorId(@PathVariable String id){
+        return psicologoService.buscarPorId(id);
+    }
+
     @PutMapping
     public ResponseEntity<AtualizarPsicologoOutput>atualizar(@RequestBody @Valid AtualizarPsicologoInput psicologoInput){
 
