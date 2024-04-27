@@ -2,9 +2,11 @@ package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.AtualizarPsicologoInput;
 import com.calmomilla.api.dto.output.AtualizarPsicologoOutput;
+import com.calmomilla.api.dto.output.BuscarPsicologoOutput;
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PsicologoRepository;
 
+import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
@@ -20,10 +22,14 @@ public class PsicologoService {
 
     private final PsicologoRepository psicologoRepository;
     private final ModelMapper modelMapper;
+    private final ModelMapperUtils mapperUtils;
+    public List<BuscarPsicologoOutput> buscarTodos(){
 
-    public List<Psicologo> buscarTodos(){
-
-       return psicologoRepository.findAll();
+        List<Psicologo> psicologos = psicologoRepository.findAll();
+        System.out.println(psicologos);
+        List<BuscarPsicologoOutput> psicologoOutputs = mapperUtils.mapList(psicologos, BuscarPsicologoOutput.class);
+        System.out.println(psicologoOutputs);
+        return psicologoOutputs;
 
     }
 
@@ -32,7 +38,7 @@ public class PsicologoService {
             return ResponseEntity.noContent().build();
         }
        Psicologo psicologo = psicologoRepository.findById(psicologoInput.getId()).get();
-        psicologo= modelMapper.map(psicologoInput,Psicologo.class);
+        psicologo = modelMapper.map(psicologoInput,Psicologo.class);
         psicologoRepository.save(psicologo);
         AtualizarPsicologoOutput psicologoOutput = modelMapper.map(psicologo, AtualizarPsicologoOutput.class);
         return ResponseEntity.ok(psicologoOutput);

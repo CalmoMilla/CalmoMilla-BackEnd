@@ -3,7 +3,7 @@ package com.calmomilla.api.controllers;
 
 import com.calmomilla.api.dto.input.AtualizarPsicologoInput;
 import com.calmomilla.api.dto.output.AtualizarPsicologoOutput;
-import com.calmomilla.domain.model.Psicologo;
+import com.calmomilla.api.dto.output.BuscarPsicologoOutput;
 import com.calmomilla.domain.service.PsicologoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class PsicologoController {
 
     PsicologoService psicologoService;
     @GetMapping
-    public List<Psicologo> buscarTodos(){
+    public List<BuscarPsicologoOutput> buscarTodos(){
         return psicologoService.buscarTodos();
     }
 
