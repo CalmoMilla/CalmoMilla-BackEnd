@@ -13,7 +13,6 @@ public class CadastrarDTO {
 
     @NotBlank
     private String nome;
-    @NotBlank
     private String segundoNome;
     @Email
     @NotBlank

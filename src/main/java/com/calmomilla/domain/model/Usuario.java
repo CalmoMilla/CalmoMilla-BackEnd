@@ -26,7 +26,6 @@ public class Usuario implements UserDetails {
     @NotBlank
     private String nome;
 
-    @NotBlank
     private String segundoNome;
 
     @Email
