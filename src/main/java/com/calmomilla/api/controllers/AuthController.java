@@ -2,6 +2,8 @@ package com.calmomilla.api.controllers;
 
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
+import com.calmomilla.api.dto.input.CadastroPsicologoInput;
+import com.calmomilla.api.dto.output.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
 import com.calmomilla.domain.service.AuthService;
@@ -33,10 +35,18 @@ public class AuthController {
 
     }
 
-    @PostMapping("/cadastro")
+    @PostMapping("/cadastro-paciente")
     public ResponseEntity<UsuarioOutput> cadastrar(@RequestBody @Valid CadastrarDTO cadastrarDTO){
 
         return authService.cadastrar(cadastrarDTO);
 
     }
+
+    @PostMapping("/cadastro-psicologo")
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(@RequestBody @Valid CadastroPsicologoInput cadastroPsicologoInput){
+
+        return authService.cadastrar(cadastroPsicologoInput);
+
+    }
+
 }

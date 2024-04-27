@@ -30,6 +30,7 @@ public class Usuario implements UserDetails {
     private String segundoNome;
 
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotBlank
@@ -41,13 +42,17 @@ public class Usuario implements UserDetails {
     @NotNull
     private UserRole role;
 
-
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == UserRole.ADMIN) return  List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.role == UserRole.ADMIN){
+            return  List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+                            new SimpleGrantedAuthority("ROLE_USER"));
+        } else if (this.role == UserRole.PSICOLOGO) {
+            return List.of(new SimpleGrantedAuthority("ROLE_PSICOLOGO"),
+                            new SimpleGrantedAuthority("ROLE_USER"));
+        }else {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
     }
 
     @Override

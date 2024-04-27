@@ -2,11 +2,16 @@ package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
+import com.calmomilla.api.dto.input.CadastroPsicologoInput;
+import com.calmomilla.api.dto.output.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
 import com.calmomilla.api.configs.security.TokenService;
+import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.model.Usuario;
+import com.calmomilla.domain.repository.PsicologoRepository;
 import com.calmomilla.domain.repository.UserRepository;
+import com.calmomilla.domain.utils.UserRole;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -24,7 +29,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final TokenService tokenService;
-
+    private final PsicologoRepository psicologoRepository;
 
     public ResponseEntity<LoginOutput> login(AuthDTO authDTO) {
 
@@ -41,7 +46,6 @@ public class AuthService {
 
         if (userRepository.findByEmail(cadastrarDTO.getEmail()) != null) return ResponseEntity.badRequest().build();
 
-
         String senhaCriptografada = new BCryptPasswordEncoder().encode(cadastrarDTO.getSenha());
         cadastrarDTO.setSenha(senhaCriptografada);
         Usuario usuario = modelMapper.map(cadastrarDTO, Usuario.class);
@@ -50,12 +54,26 @@ public class AuthService {
 
         return new ResponseEntity<>(usuarioOutput, HttpStatus.CREATED);
     }
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) {
 
+        if (psicologoRepository.findByEmail(psicologoInput.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
+        var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
+        psicologoInput.setSenha(senhaCriptografada);
+        Psicologo psicologo = modelMapper.map(psicologoInput, Psicologo.class);
+        Psicologo psicologoCadastrado = psicologoRepository.save(psicologo);
+
+        CadastroPsicologoOutput psicologoOutput = modelMapper.map(psicologoCadastrado, CadastroPsicologoOutput.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(psicologoOutput);
+
+    }
 
     public ResponseEntity<?> loginGoogle(CadastrarDTO cadastrarDTO) {
         if (userRepository.findByEmail(cadastrarDTO.getEmail()) == null) {
-          return cadastrar(cadastrarDTO);
-        }else {
+            return cadastrar(cadastrarDTO);
+        } else {
             AuthDTO authDTO = modelMapper.map(cadastrarDTO, AuthDTO.class);
             return login(authDTO);
         }

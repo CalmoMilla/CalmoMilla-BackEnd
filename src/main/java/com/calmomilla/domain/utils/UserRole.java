@@ -3,7 +3,8 @@ package com.calmomilla.domain.utils;
 public enum UserRole {
 
     ADMIN("admin"),
-    USER("user");
+    USER("user"),
+    PSICOLOGO("psicologo");
 
     private String role;
 
