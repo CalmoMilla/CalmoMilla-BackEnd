@@ -10,7 +10,9 @@ import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import org.modelmapper.internal.util.Assert;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class PsicologoService {
 
     public ResponseEntity<BuscarPsicologoOutput> buscarPorId(String id){
         if (psicologoRepository.findById(id).isEmpty()){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.noContent().build();
         }
 
         Psicologo psicologo = psicologoRepository.findById(id).get();
@@ -45,13 +47,22 @@ public class PsicologoService {
     }
 
     public ResponseEntity<AtualizarPsicologoOutput> atualizar(AtualizarPsicologoInput psicologoInput) {
-        if (psicologoRepository.findById(psicologoInput.getId()).isEmpty()){
+
+        BuscarPsicologoOutput buscarPsicologoOutput = buscarPorId(psicologoInput.getId()).getBody();
+
+        if (buscarPsicologoOutput == null){
             return ResponseEntity.noContent().build();
         }
-       Psicologo psicologo = psicologoRepository.findById(psicologoInput.getId()).get();
+        Psicologo psicologo = modelMapper.map(buscarPsicologoOutput,Psicologo.class);
+
+        if (!psicologo.getSenha().equals(psicologoInput.getSenha())){
+            String senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
+            psicologoInput.setSenha(senhaCriptografada);
+        }
+
         psicologo = modelMapper.map(psicologoInput,Psicologo.class);
-        psicologoRepository.save(psicologo);
-        AtualizarPsicologoOutput psicologoOutput = modelMapper.map(psicologo, AtualizarPsicologoOutput.class);
+        Psicologo psicologoSalvo = psicologoRepository.save(psicologo);
+        AtualizarPsicologoOutput psicologoOutput = modelMapper.map(psicologoSalvo, AtualizarPsicologoOutput.class);
         return ResponseEntity.ok(psicologoOutput);
 
 
