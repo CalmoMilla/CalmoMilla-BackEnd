@@ -1,5 +1,6 @@
 package com.calmomilla.api.dto.input;
 
+import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.utils.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -29,6 +31,15 @@ public class AtualizarPsicologoInput {
 
     @Email
     private String email;
+
+    @NotBlank
+    private String genero;
+
+    private LocalDate dataNasc;
+
+    private Endereco endereco;
+
+    private String telefone;
 
     @NotBlank
     private String senha;
