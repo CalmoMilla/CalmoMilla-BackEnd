@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,10 +32,10 @@ public class Usuario implements UserDetails {
     @NotBlank
     private String genero;
 
-//    private LocalDateTime dataNasc;
-//
-//    @OneToOne
-//    private Endereco endereco;
+   private LocalDate dataNasc;
+
+   @OneToOne(optional = true)
+   private Endereco endereco;
 
     @Email
     @Column(unique = true)

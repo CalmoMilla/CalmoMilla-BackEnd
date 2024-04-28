@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -24,10 +25,12 @@ public class CadastrarDTO {
     @NotBlank
     private String genero;
 
-//    private LocalDateTime dataNasc;
-//
-//    @OneToOne
-//    private Endereco endereco;
+    private LocalDate dataNasc;
+
+    private Endereco endereco;
+
+    private String telefone;
+
     @NotBlank
     private String senha;
     @NotBlank
