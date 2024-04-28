@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,12 +29,23 @@ public class Usuario implements UserDetails {
 
     private String segundoNome;
 
+    @NotBlank
+    private String genero;
+
+//    private LocalDateTime dataNasc;
+//
+//    @OneToOne
+//    private Endereco endereco;
+
     @Email
     @Column(unique = true)
     private String email;
 
     @NotBlank
     private String senha;
+
+    @Column(unique = true)
+    private String telefone;
 
     @NotBlank
     private String foto;
