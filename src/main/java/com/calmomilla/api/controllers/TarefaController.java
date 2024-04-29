@@ -43,7 +43,7 @@ public class TarefaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable String id ) throws NoSuchMethodError {
+    public ResponseEntity<Void> deletar(@PathVariable String id) throws NoSuchMethodException  {
         return tarefaService.deletar(id);
     }
 
