@@ -22,7 +22,7 @@ import java.util.List;
 public class TarefaService {
     private final TarefaRepository tarefaRepository;
     private final ModelMapper modelMapper;
-    private final ModelMapperUtils modelMapperUtils;
+    private final ModelMapperUtils mapperUtils;
 
     public ResponseEntity<CadastroTarefaOutput> criar(CadastroTarefaInput cadastroTarefaInput) {
         Tarefa tarefa = modelMapper.map(cadastroTarefaInput, Tarefa.class);
@@ -31,9 +31,9 @@ public class TarefaService {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaOutput);
     }
 
-    public ResponseEntity<Void> deletar(String id) throws NoSuchMethodError {
+    public ResponseEntity<Void> deletar(String id) throws NoSuchMethodException {
         if (tarefaRepository.findById(id).isEmpty()) {
-            throw new NoSuchMethodError("id não encontrado");
+            throw new NoSuchMethodException("id não encontrado");
         }
         tarefaRepository.deleteById(id);
         return ResponseEntity.noContent().build();
