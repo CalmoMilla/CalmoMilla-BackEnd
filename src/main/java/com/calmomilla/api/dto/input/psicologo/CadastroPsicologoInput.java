@@ -1,10 +1,11 @@
-package com.calmomilla.api.dto.output;
+package com.calmomilla.api.dto.input.psicologo;
 
 import com.calmomilla.domain.model.Endereco;
-import jakarta.persistence.Column;
+import com.calmomilla.domain.utils.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AtualizarPsicologoOutput {
+public class CadastroPsicologoInput {
 
     @NotBlank
     private String nome;
@@ -44,5 +45,9 @@ public class AtualizarPsicologoOutput {
 
     @NotBlank
     private String numeroRegistro;
+
+    @NotNull
+    private UserRole role;
+
 
 }

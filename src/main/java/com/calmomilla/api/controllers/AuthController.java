@@ -2,8 +2,8 @@ package com.calmomilla.api.controllers;
 
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
-import com.calmomilla.api.dto.input.CadastroPsicologoInput;
-import com.calmomilla.api.dto.output.CadastroPsicologoOutput;
+import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
+import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
 import com.calmomilla.domain.service.AuthService;

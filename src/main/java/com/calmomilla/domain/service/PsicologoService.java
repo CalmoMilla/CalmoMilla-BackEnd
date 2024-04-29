@@ -1,8 +1,8 @@
 package com.calmomilla.domain.service;
 
-import com.calmomilla.api.dto.input.AtualizarPsicologoInput;
-import com.calmomilla.api.dto.output.AtualizarPsicologoOutput;
-import com.calmomilla.api.dto.output.BuscarPsicologoOutput;
+import com.calmomilla.api.dto.input.psicologo.AtualizarPsicologoInput;
+import com.calmomilla.api.dto.output.psicologo.AtualizarPsicologoOutput;
+import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PsicologoRepository;
 
@@ -10,13 +10,11 @@ import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-import org.modelmapper.internal.util.Assert;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

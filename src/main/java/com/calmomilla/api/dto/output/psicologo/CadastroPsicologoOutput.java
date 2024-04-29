@@ -1,4 +1,4 @@
-package com.calmomilla.api.dto.output;
+package com.calmomilla.api.dto.output.psicologo;
 
 import lombok.Getter;
 import lombok.Setter;

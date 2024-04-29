@@ -1,13 +1,10 @@
 package com.calmomilla.domain.model;
 
-import com.calmomilla.api.dto.input.CadastroTarefaInput;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Data

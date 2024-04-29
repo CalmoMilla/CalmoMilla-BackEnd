@@ -1,4 +1,4 @@
-package com.calmomilla.api.dto.input;
+package com.calmomilla.api.dto.input.dia;
 
 import com.calmomilla.domain.model.Tarefa;
 import jakarta.validation.constraints.NotNull;

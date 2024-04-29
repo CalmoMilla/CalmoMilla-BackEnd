@@ -1,20 +1,18 @@
-package com.calmomilla.api.dto.output;
+package com.calmomilla.api.dto.output.psicologo;
 
-import jakarta.persistence.Column;
+import com.calmomilla.domain.model.Endereco;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
-public class BuscarPsicologoOutput {
-
-    private String id;
+public class AtualizarPsicologoOutput {
 
     @NotBlank
     private String nome;
@@ -29,6 +27,15 @@ public class BuscarPsicologoOutput {
     private String senha;
 
     @NotBlank
+    private String genero;
+
+    private LocalDate dataNasc;
+
+    private Endereco endereco;
+
+    private String telefone;
+
+    @NotBlank
     private String foto;
 
     @NotEmpty
@@ -36,6 +43,5 @@ public class BuscarPsicologoOutput {
 
     @NotBlank
     private String numeroRegistro;
-
 
 }

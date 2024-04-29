@@ -1,4 +1,4 @@
-package com.calmomilla.api.dto.output;
+package com.calmomilla.api.dto.output.dia;
 
 import com.calmomilla.domain.model.Tarefa;
 import lombok.Getter;

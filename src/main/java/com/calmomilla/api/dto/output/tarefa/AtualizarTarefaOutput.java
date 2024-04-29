@@ -1,18 +1,19 @@
-package com.calmomilla.api.dto.output;
+package com.calmomilla.api.dto.output.tarefa;
 
 
 import com.calmomilla.domain.model.Dia;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class CadastroTarefaOutput {
+public class AtualizarTarefaOutput {
 
-    private String id;
+    @NotNull
     private String descricaoTarefa;
+
+    @NotNull
     private Dia dia;
 
 }

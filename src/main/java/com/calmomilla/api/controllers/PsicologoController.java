@@ -1,9 +1,9 @@
 package com.calmomilla.api.controllers;
 
 
-import com.calmomilla.api.dto.input.AtualizarPsicologoInput;
-import com.calmomilla.api.dto.output.AtualizarPsicologoOutput;
-import com.calmomilla.api.dto.output.BuscarPsicologoOutput;
+import com.calmomilla.api.dto.input.psicologo.AtualizarPsicologoInput;
+import com.calmomilla.api.dto.output.psicologo.AtualizarPsicologoOutput;
+import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
 import com.calmomilla.domain.service.PsicologoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

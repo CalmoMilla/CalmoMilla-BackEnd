@@ -1,8 +1,7 @@
 package com.calmomilla.domain.service;
 
-import com.calmomilla.api.dto.input.CadastroDiaInput;
-import com.calmomilla.api.dto.input.CadastroTarefaInput;
-import com.calmomilla.api.dto.output.CadastroDiaOutput;
+import com.calmomilla.api.dto.input.dia.CadastroDiaInput;
+import com.calmomilla.api.dto.output.dia.CadastroDiaOutput;
 import com.calmomilla.domain.model.Dia;
 import com.calmomilla.domain.repository.DiaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;

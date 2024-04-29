@@ -1,8 +1,8 @@
 package com.calmomilla.api.controllers;
 
 
-import com.calmomilla.api.dto.input.CadastroDiaInput;
-import com.calmomilla.api.dto.output.CadastroDiaOutput;
+import com.calmomilla.api.dto.input.dia.CadastroDiaInput;
+import com.calmomilla.api.dto.output.dia.CadastroDiaOutput;
 import com.calmomilla.domain.service.DiaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
