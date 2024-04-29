@@ -25,19 +25,19 @@ public class PsicologoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BuscarPsicologoOutput> buscarPorId(@PathVariable String id){
+    public ResponseEntity<BuscarPsicologoOutput> buscarPorId(@PathVariable String id) throws NoSuchMethodException {
         return psicologoService.buscarPorId(id);
     }
 
     @PutMapping
-    public ResponseEntity<AtualizarPsicologoOutput>atualizar(@RequestBody @Valid AtualizarPsicologoInput psicologoInput){
+    public ResponseEntity<AtualizarPsicologoOutput>atualizar(@RequestBody @Valid AtualizarPsicologoInput psicologoInput) throws NoSuchMethodException {
 
         return psicologoService.atualizar(psicologoInput);
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void>deletar(@PathVariable String id){
+    public ResponseEntity<Void>deletar(@PathVariable String id) throws NoSuchMethodException {
         return psicologoService.deletar(id);
     }
 

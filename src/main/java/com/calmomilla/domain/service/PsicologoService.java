@@ -33,9 +33,9 @@ public class PsicologoService {
 
     }
 
-    public ResponseEntity<BuscarPsicologoOutput> buscarPorId(String id){
-        if (psicologoRepository.findById(id).isEmpty()){
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<BuscarPsicologoOutput> buscarPorId(String id) throws NoSuchMethodException {
+        if (psicologoRepository.findById(id).isEmpty()) {
+           throw new NoSuchMethodException("id não encontrado");
         }
 
         Psicologo psicologo = psicologoRepository.findById(id).get();
@@ -46,13 +46,10 @@ public class PsicologoService {
 
     }
 
-    public ResponseEntity<AtualizarPsicologoOutput> atualizar(AtualizarPsicologoInput psicologoInput) {
+    public ResponseEntity<AtualizarPsicologoOutput> atualizar(AtualizarPsicologoInput psicologoInput) throws NoSuchMethodException {
 
         BuscarPsicologoOutput buscarPsicologoOutput = buscarPorId(psicologoInput.getId()).getBody();
 
-        if (buscarPsicologoOutput == null){
-            return ResponseEntity.noContent().build();
-        }
         Psicologo psicologo = modelMapper.map(buscarPsicologoOutput,Psicologo.class);
 
         if (!psicologo.getSenha().equals(psicologoInput.getSenha())){
@@ -68,10 +65,10 @@ public class PsicologoService {
 
     }
 
-    public ResponseEntity<Void>deletar(String id){
+    public ResponseEntity<Void>deletar(String id) throws NoSuchMethodException {
 
         if (psicologoRepository.findById(id).isEmpty()){
-            return ResponseEntity.badRequest().build();
+            throw new NoSuchMethodException("id não encontrado");
         }
         psicologoRepository.deleteById(id);
        return ResponseEntity.noContent().build();
