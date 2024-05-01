@@ -62,7 +62,5 @@ public class TarefaService {
        Tarefa tarefaSalva = tarefaRepository.save(tarefa);
        AtualizarTarefaOutput atualizarTarefaOutput = modelMapper.map(tarefaSalva, AtualizarTarefaOutput.class);
        return ResponseEntity.ok(atualizarTarefaOutput);
-
-
     }
 }

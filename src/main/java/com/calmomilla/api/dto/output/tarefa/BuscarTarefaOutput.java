@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class BuscarTarefaOutput {
 
+    @NotNull
     private String id;
 
     @NotNull
