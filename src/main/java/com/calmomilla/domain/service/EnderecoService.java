@@ -2,12 +2,10 @@ package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.endereco.AtualizarEnderecoInput;
 import com.calmomilla.api.dto.input.endereco.CadastroEnderecoInput;
-import com.calmomilla.api.dto.input.tarefa.AtualizarTarefaInput;
 import com.calmomilla.api.dto.output.endereco.AtualizarEnderecoOutput;
 import com.calmomilla.api.dto.output.endereco.BuscarEnderecoOutput;
 import com.calmomilla.api.dto.output.endereco.CadastroEnderecoOutput;
 import com.calmomilla.domain.model.Endereco;
-import com.calmomilla.domain.model.Tarefa;
 import com.calmomilla.domain.repository.EnderecoRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
