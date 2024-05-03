@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AtualizarTarefaOutput {
+public class AtualizarRotinaOutput {
     @NotNull
     private List<Dia> dias;
 }

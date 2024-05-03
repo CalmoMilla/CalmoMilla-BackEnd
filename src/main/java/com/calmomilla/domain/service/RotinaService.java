@@ -1,8 +1,11 @@
 package com.calmomilla.domain.service;
 
+import com.calmomilla.api.dto.input.rotina.AtualizarRotinaInput;
 import com.calmomilla.api.dto.input.rotina.CadastroRotinaInput;
+import com.calmomilla.api.dto.output.rotina.AtualizarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
+import com.calmomilla.api.dto.output.tarefa.BuscarTarefaOutput;
 import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.repository.RotinaRepository;
@@ -12,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -43,4 +48,20 @@ public class RotinaService {
         BuscarRotinaOutput buscarRotinaOutput = modelMapper.map(rotina, BuscarRotinaOutput.class);
         return ResponseEntity.ok(buscarRotinaOutput);
     }
+
+    public List<BuscarRotinaOutput> buscarTodos() {
+        List<Rotina> rotinas = rotinaRepository.findAll();
+        List<BuscarRotinaOutput> buscarRotinas = mapperUtils.mapList(rotinas, BuscarRotinaOutput.class);
+        return buscarRotinas;
+    }
+
+    public ResponseEntity<AtualizarRotinaOutput> atualizar (AtualizarRotinaInput atualizarRotina) throws NoSuchMethodException {
+        BuscarRotinaOutput buscarRotinaOutput = buscarPorId(atualizarRotina.getId()).getBody();
+        Rotina rotina = modelMapper.map(buscarRotinaOutput, Rotina.class);
+        rotina = modelMapper.map(atualizarRotina, Rotina.class);
+        Rotina rotinaSalva = rotinaRepository.save(rotina);
+        AtualizarRotinaOutput atualizarRotinaOutput = modelMapper.map(rotinaSalva, AtualizarRotinaOutput.class);
+        return ResponseEntity.ok(atualizarRotinaOutput);
+    }
+
 }
