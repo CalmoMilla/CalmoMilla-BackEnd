@@ -4,7 +4,6 @@ import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.utils.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,11 +19,11 @@ public class CadastroPacienteInput {
     private String nome;
 
     private String segundoNome;
+
     @Email
     @NotBlank
     private String email;
 
-    @NotBlank
     private String genero;
 
     private LocalDate dataNasc;
