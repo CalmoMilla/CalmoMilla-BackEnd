@@ -26,7 +26,7 @@ public class ApinExeptionHandler  extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatus(status);
-        problemDetail.setTitle("Um ou mais campos esão invalidos");
+        problemDetail.setTitle("Um ou mais campos estão invalidos!");
         problemDetail.setType(URI.create("https://calmomilla.com/erros/campos-invalidos"));
 
         var fields = ex.getBindingResult().getAllErrors().stream()
