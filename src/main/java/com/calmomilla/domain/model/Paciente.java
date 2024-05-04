@@ -1,16 +1,16 @@
-//package com.calmomilla.domain.model;
-//
-//
-//import jakarta.persistence.Entity;
-//import jakarta.validation.constraints.NotNull;
-//import lombok.Data;
-//
-//@Entity
-//@Data
-//public class Paciente extends Usuario {
-//
-//    @NotNull
-//    private Agenda agenda;
-//
-//
-//}
+package com.calmomilla.domain.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Entity
+public class  Paciente extends Usuario{
+
+    @OneToOne
+    private Rotina rotina;
+
+}

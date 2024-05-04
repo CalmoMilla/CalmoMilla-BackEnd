@@ -1,8 +1,8 @@
 package com.calmomilla.domain.service;
 
+
 import com.calmomilla.api.dto.input.tarefa.AtualizarTarefaInput;
 import com.calmomilla.api.dto.input.tarefa.CadastroTarefaInput;
-import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
 import com.calmomilla.api.dto.output.tarefa.AtualizarTarefaOutput;
 import com.calmomilla.api.dto.output.tarefa.BuscarTarefaOutput;
 import com.calmomilla.api.dto.output.tarefa.CadastroTarefaOutput;
