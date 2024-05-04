@@ -2,12 +2,15 @@ package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
+import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
+import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
 import com.calmomilla.api.configs.security.TokenService;
 import com.calmomilla.domain.exception.NegocioException;
+import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.model.Usuario;
 import com.calmomilla.domain.repository.PsicologoRepository;
@@ -29,7 +32,8 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final TokenService tokenService;
-    private final PsicologoRepository psicologoRepository;
+    private final PsicologoService psicologoService;
+    private final PacienteService pacienteService;
 
     public ResponseEntity<LoginOutput> login(AuthDTO authDTO) {
 
@@ -42,41 +46,22 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<UsuarioOutput> cadastrar(CadastrarDTO cadastrarDTO) {
-
-        if (userRepository.findByEmail(cadastrarDTO.getEmail()) != null) {
-            throw new NegocioException("esse email ja está em uso");
-        }
-
-        String senhaCriptografada = new BCryptPasswordEncoder().encode(cadastrarDTO.getSenha());
-        cadastrarDTO.setSenha(senhaCriptografada);
-        Usuario usuario = modelMapper.map(cadastrarDTO, Usuario.class);
-        Usuario usuarioCadastrado = userRepository.save(usuario);
-        UsuarioOutput usuarioOutput = modelMapper.map(usuarioCadastrado, UsuarioOutput.class);
-
-        return new ResponseEntity<>(usuarioOutput, HttpStatus.CREATED);
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) {
+    return pacienteService.cadastrar(pacienteInput);
     }
+
     public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) {
 
-        if (psicologoRepository.findByEmail(psicologoInput.getEmail()).isPresent()) {
-            throw new NegocioException("esse email ja está em uso");
-        }
-        var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
-        psicologoInput.setSenha(senhaCriptografada);
-        Psicologo psicologo = modelMapper.map(psicologoInput, Psicologo.class);
-        Psicologo psicologoCadastrado = psicologoRepository.save(psicologo);
-
-        CadastroPsicologoOutput psicologoOutput = modelMapper.map(psicologoCadastrado, CadastroPsicologoOutput.class);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(psicologoOutput);
+        return psicologoService.cadastrar(psicologoInput);
 
     }
 
-    public ResponseEntity<?> loginGoogle(CadastrarDTO cadastrarDTO) {
-        if (userRepository.findByEmail(cadastrarDTO.getEmail()) == null) {
-            return cadastrar(cadastrarDTO);
+    public ResponseEntity<?> loginGoogle(CadastroPacienteInput pacienteInput) {
+        if (userRepository.findByEmail(pacienteInput.getEmail()) == null) {
+
+            return cadastrar(pacienteInput);
         } else {
-            AuthDTO authDTO = modelMapper.map(cadastrarDTO, AuthDTO.class);
+            AuthDTO authDTO = modelMapper.map(pacienteInput, AuthDTO.class);
             return login(authDTO);
         }
     }

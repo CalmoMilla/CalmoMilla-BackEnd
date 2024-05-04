@@ -1,8 +1,12 @@
 package com.calmomilla.domain.service;
 
+
 import com.calmomilla.api.dto.input.psicologo.AtualizarPsicologoInput;
+import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
 import com.calmomilla.api.dto.output.psicologo.AtualizarPsicologoOutput;
 import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
+import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
+import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PsicologoRepository;
 
@@ -10,6 +14,7 @@ import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,6 +46,22 @@ public class PsicologoService {
         BuscarPsicologoOutput psicologoOutput = modelMapper.map(psicologo, BuscarPsicologoOutput.class);
 
         return ResponseEntity.ok(psicologoOutput);
+
+    }
+
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) {
+
+        if (psicologoRepository.findByEmail(psicologoInput.getEmail()).isPresent()) {
+            throw new NegocioException("esse email ja está em uso");
+        }
+        var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
+        psicologoInput.setSenha(senhaCriptografada);
+        Psicologo psicologo = modelMapper.map(psicologoInput, Psicologo.class);
+        Psicologo psicologoCadastrado = psicologoRepository.save(psicologo);
+
+        CadastroPsicologoOutput psicologoOutput = modelMapper.map(psicologoCadastrado, CadastroPsicologoOutput.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(psicologoOutput);
 
     }
 

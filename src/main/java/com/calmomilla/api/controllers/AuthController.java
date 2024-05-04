@@ -2,7 +2,9 @@ package com.calmomilla.api.controllers;
 
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
+import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
+import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
@@ -25,8 +27,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/google")
-    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastrarDTO cadastrarDTO) {
-        return authService.loginGoogle(cadastrarDTO);
+    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastroPacienteInput pacienteInput) {
+        return authService.loginGoogle(pacienteInput);
     }
     @PostMapping("/login")
     public ResponseEntity<LoginOutput> login(@RequestBody @Valid AuthDTO authDTO){
@@ -36,9 +38,9 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro-paciente")
-    public ResponseEntity<UsuarioOutput> cadastrar(@RequestBody @Valid CadastrarDTO cadastrarDTO){
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(@RequestBody @Valid CadastroPacienteInput pacienteInput){
 
-        return authService.cadastrar(cadastrarDTO);
+        return authService.cadastrar(pacienteInput);
 
     }
 
