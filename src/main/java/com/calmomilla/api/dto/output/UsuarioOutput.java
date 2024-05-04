@@ -9,7 +9,6 @@ import lombok.Setter;
 public class UsuarioOutput {
 
     private String nome;
-    private String segundoNome;
     private String email;
     private String senha;
 

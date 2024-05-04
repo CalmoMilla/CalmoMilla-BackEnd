@@ -21,7 +21,6 @@ public class AtualizarPacienteInput {
     @NotBlank
     private String nome;
 
-    private String segundoNome;
     @Email
     @NotBlank
     private String email;

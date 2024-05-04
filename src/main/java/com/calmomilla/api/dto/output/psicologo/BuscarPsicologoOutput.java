@@ -17,11 +17,7 @@ public class BuscarPsicologoOutput {
 
     private String id;
 
-
     private String nome;
-
-
-    private String segundoNome;
 
     private String email;
 

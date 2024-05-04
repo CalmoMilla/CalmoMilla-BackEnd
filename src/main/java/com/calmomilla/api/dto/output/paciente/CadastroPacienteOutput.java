@@ -13,9 +13,6 @@ public class CadastroPacienteOutput {
 
     private String nome;
 
-
-    private String segundoNome;
-
     private String email;
 
 

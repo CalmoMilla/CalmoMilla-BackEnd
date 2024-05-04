@@ -18,8 +18,6 @@ public class CadastroPacienteInput {
     @NotBlank
     private String nome;
 
-    private String segundoNome;
-
     @Email
     @NotBlank
     private String email;

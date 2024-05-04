@@ -12,8 +12,6 @@ public class AtualizarPacienteOutput {
 
     private String nome;
 
-    private String segundoNome;
-
     private String email;
 
     private String senha;

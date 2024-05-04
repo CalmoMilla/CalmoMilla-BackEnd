@@ -14,19 +14,14 @@ import java.util.List;
 @Setter
 public class AtualizarPsicologoOutput {
 
-    @NotBlank
     private String nome;
 
-    @NotBlank
-    private String segundoNome;
 
-    @Email
     private String email;
 
-    @NotBlank
+
     private String senha;
 
-    @NotBlank
     private String genero;
 
     private LocalDate dataNasc;
@@ -35,13 +30,10 @@ public class AtualizarPsicologoOutput {
 
     private String telefone;
 
-    @NotBlank
     private String foto;
 
-    @NotEmpty
     private List<String> especializacoes;
 
-    @NotBlank
     private String numeroRegistro;
 
 }

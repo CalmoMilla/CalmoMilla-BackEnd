@@ -19,9 +19,6 @@ public class CadastroPsicologoInput {
     @NotBlank
     private String nome;
 
-    @NotBlank
-    private String segundoNome;
-
     @Email
     private String email;
 

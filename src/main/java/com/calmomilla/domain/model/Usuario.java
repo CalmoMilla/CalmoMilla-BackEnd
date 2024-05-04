@@ -27,8 +27,6 @@ public class Usuario implements UserDetails {
     @NotBlank
     private String nome;
 
-    private String segundoNome;
-
     private String genero;
 
    private LocalDate dataNasc;
