@@ -12,6 +12,7 @@ import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +28,8 @@ public class PacienteService {
     private final PacienteRepository pacienteRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
+    private EmailService emailService;
+
     public List<BuscarPacienteOutput> buscarTodos(){
         List<Paciente> pacientes = pacienteRepository.findAll();
         List<BuscarPacienteOutput> pacienteOutputs = mapperUtils.mapList(pacientes, BuscarPacienteOutput.class);
@@ -54,6 +57,10 @@ public class PacienteService {
         Paciente paciente = modelMapper.map(pacienteInput,Paciente.class);
         paciente = pacienteRepository.save(paciente);
         CadastroPacienteOutput pacienteOutput= modelMapper.map(paciente,CadastroPacienteOutput.class);
+
+        emailService.enviarEmailTexto(paciente.getEmail(), "Novo usuário cadastrado",
+                "Você está recebendo um email de cadastro");
+
 
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteOutput);
     }
