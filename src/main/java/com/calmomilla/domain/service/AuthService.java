@@ -50,7 +50,7 @@ public class AuthService {
     return pacienteService.cadastrar(pacienteInput);
     }
 
-    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) {
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) throws NoSuchMethodException {
 
         return psicologoService.cadastrar(psicologoInput);
 

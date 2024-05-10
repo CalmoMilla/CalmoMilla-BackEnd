@@ -45,7 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro-psicologo")
-    public ResponseEntity<CadastroPsicologoOutput> cadastrar(@RequestBody @Valid CadastroPsicologoInput cadastroPsicologoInput){
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(@RequestBody @Valid CadastroPsicologoInput cadastroPsicologoInput) throws NoSuchMethodException {
 
         return authService.cadastrar(cadastroPsicologoInput);
 

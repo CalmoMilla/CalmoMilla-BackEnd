@@ -60,7 +60,7 @@ public class PacienteService {
         paciente = pacienteRepository.save(paciente);
         CadastroPacienteOutput pacienteOutput= modelMapper.map(paciente,CadastroPacienteOutput.class);
 
-       if (!emailService.enviarEmailTexto(paciente.getEmail(), "Novo usuário cadastrado", "Você está recebendo um email de cadastro")){
+       if (!emailService.enviarEmailDeBoasVindas(paciente.getEmail(), "Novo usuário cadastrado")){
            deletar(paciente.getId());
            throw new NegocioException("Erro ao enviar o email");
        }

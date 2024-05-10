@@ -28,6 +28,7 @@ public class PsicologoService {
     private final PsicologoRepository psicologoRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
+    private final EmailService emailService;
     public List<BuscarPsicologoOutput> buscarTodos(){
 
         List<Psicologo> psicologos = psicologoRepository.findAll();
@@ -49,7 +50,7 @@ public class PsicologoService {
 
     }
 
-    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) {
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) throws NoSuchMethodException {
 
         if (psicologoRepository.findByEmail(psicologoInput.getEmail()).isPresent()) {
             throw new NegocioException("esse email ja está em uso");
@@ -61,6 +62,10 @@ public class PsicologoService {
 
         CadastroPsicologoOutput psicologoOutput = modelMapper.map(psicologoCadastrado, CadastroPsicologoOutput.class);
 
+        if (!emailService.enviarEmailDeBoasVindas(psicologo.getEmail(), "Novo usuário cadastrado")){
+            deletar(psicologo.getId());
+            throw new NegocioException("Erro ao enviar o email");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(psicologoOutput);
 
     }
