@@ -12,4 +12,7 @@ public class ModelMapperConfig {
         return new ModelMapper();
     }
 
+    @Bean
+    public String remetente(){return "";}
+
 }

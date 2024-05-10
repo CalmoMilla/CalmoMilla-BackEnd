@@ -27,7 +27,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/google")
-    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastroPacienteInput pacienteInput) {
+    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
         return authService.loginGoogle(pacienteInput);
     }
     @PostMapping("/login")
@@ -38,7 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro-paciente")
-    public ResponseEntity<CadastroPacienteOutput> cadastrar(@RequestBody @Valid CadastroPacienteInput pacienteInput){
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(@RequestBody @Valid CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
 
         return authService.cadastrar(pacienteInput);
 
@@ -50,5 +50,7 @@ public class AuthController {
         return authService.cadastrar(cadastroPsicologoInput);
 
     }
+
+
 
 }

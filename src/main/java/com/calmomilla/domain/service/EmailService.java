@@ -16,7 +16,7 @@ public class EmailService {
     private String remetente;
 
 
-    public String enviarEmailTexto(String destinatario, String assunto, String mensagem){
+    public Boolean enviarEmailTexto(String destinatario, String assunto, String mensagem){
 
         try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -25,9 +25,10 @@ public class EmailService {
             simpleMailMessage.setSubject(assunto);
             simpleMailMessage.setText(mensagem);
             mailSender.send(simpleMailMessage);
-            return "email enviado";
+            return true;
         }catch (Exception e){
-            return "Erro ao enviar email "+e.getMessage();
+            System.out.println(e.getMessage());
+            return false ;
         }
 
     }

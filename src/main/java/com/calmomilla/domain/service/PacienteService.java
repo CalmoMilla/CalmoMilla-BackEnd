@@ -10,6 +10,7 @@ import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,8 @@ public class PacienteService {
         return ResponseEntity.ok(pacienteOutput);
     }
 
-    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) {
+    @Transactional
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
 
         if (pacienteRepository.findByEmail(pacienteInput.getEmail()) != null) {
             throw new NegocioException("esse email ja está em uso");
@@ -58,10 +60,10 @@ public class PacienteService {
         paciente = pacienteRepository.save(paciente);
         CadastroPacienteOutput pacienteOutput= modelMapper.map(paciente,CadastroPacienteOutput.class);
 
-        emailService.enviarEmailTexto(paciente.getEmail(), "Novo usuário cadastrado",
-                "Você está recebendo um email de cadastro");
-
-
+       if (!emailService.enviarEmailTexto(paciente.getEmail(), "Novo usuário cadastrado", "Você está recebendo um email de cadastro")){
+           deletar(paciente.getId());
+           throw new NegocioException("Erro ao enviar o email");
+       }
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteOutput);
     }
     public ResponseEntity<AtualizarPacienteOutput>atualizar(AtualizarPacienteInput pacienteInput) throws NoSuchMethodException {

@@ -46,7 +46,7 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) {
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
     return pacienteService.cadastrar(pacienteInput);
     }
 
@@ -56,7 +56,7 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<?> loginGoogle(CadastroPacienteInput pacienteInput) {
+    public ResponseEntity<?> loginGoogle(CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
         if (userRepository.findByEmail(pacienteInput.getEmail()) == null) {
 
             return cadastrar(pacienteInput);
