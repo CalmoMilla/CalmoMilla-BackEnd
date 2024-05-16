@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/psicologos").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/pacientes").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/verify/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
