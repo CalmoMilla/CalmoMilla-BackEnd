@@ -57,9 +57,16 @@ public class ApinExeptionHandler  extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(NegocioException.class)
     public ProblemDetail handleNegocio(NegocioException e){
-        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-        problemDetail.setTitle(e.getMessage());
-        problemDetail.setType(URI.create("https://calmomilla.com/erros/regra-de-negocio"));
+        ProblemDetail problemDetail;
+        if (e.getMessage().equals(HttpStatus.INTERNAL_SERVER_ERROR.toString())){
+            problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            problemDetail.setTitle("Ocorreu um erro no servidor!");
+            problemDetail.setType(URI.create("https://calmomilla.com/erros/server-error"));
+        }else {
+            problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+            problemDetail.setTitle(e.getMessage());
+            problemDetail.setType(URI.create("https://calmomilla.com/erros/regra-de-negocio"));
+        }
 
         return problemDetail;
     }

@@ -16,6 +16,7 @@ public class EmailService {
     private JavaMailSender mailSender;
 
     public Boolean enviarEmailDeBoasVindas(String destinatario, String assunto){
+
         String corpoHtml = "<html><body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4;\">"
                 + "<div style=\"max-width: 600px; margin: 0 auto; padding: 20px;\">"
                 + "<h1 style=\"color: red; text-align: center;\">Olá, " + destinatario + "!</h1>"

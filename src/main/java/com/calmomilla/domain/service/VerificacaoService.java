@@ -4,10 +4,7 @@ import com.calmomilla.api.dto.input.verificacao.VerificacaoDTO;
 import com.calmomilla.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -67,20 +66,33 @@ public class VerificacaoService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // Retornando apenas a data de nascimento
         if (data == null){
-            throw new NegocioException("Erro ao verificar o seu cpf e data de nascimento");
+            throw new NegocioException("Erro ao verificar o seu cpf e data de nascimento verifique se digitou corretamente");
         }
-        String dataNasc = String.valueOf(data.get("data_nascimento"));
+
+        String dataNasc = String.valueOf(data.get("data_nascimento")).replace("\"","");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        LocalDate diaData = LocalDate.now();
-        var dia = diaData.getYear();
+        try {
+            Date date = dateFormat.parse(dataNasc);
+            LocalDate dataNascimento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dataAtual = LocalDate.now();
 
-        System.out.println(dia);
-        
-        System.out.println(diaData);
-        return ResponseEntity.ok(data);
+            // Calcular a idade
+            int idade = Period.between(dataNascimento, dataAtual).getYears();
+            System.out.println("Idade: " + idade);
+
+            // Verificar se a pessoa é maior de idade
+            if (idade >= 18) {
+                return ResponseEntity.ok("A pessoa é maior de idade");
+            } else {
+              throw new NegocioException("A pessoa é menor de idade");
+            }
+        } catch (ParseException e) {
+            System.out.println("Erro ao formatar a data: " + e.getMessage());
+            throw new NegocioException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 }
