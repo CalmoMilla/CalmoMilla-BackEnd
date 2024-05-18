@@ -21,7 +21,6 @@ public class BuscarPsicologoOutput {
 
     private String email;
 
-
     private String senha;
 
     private String telefone;
@@ -34,11 +33,8 @@ public class BuscarPsicologoOutput {
 
     private String foto;
 
-
     private List<String> especializacoes;
 
-
     private String numeroRegistro;
-
 
 }
