@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,12 +51,14 @@ public class PacienteService {
     @Transactional
     public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
 
-        if (pacienteRepository.findByEmail(pacienteInput.getEmail()) != null) {
-            throw new NegocioException("esse email ja está em uso");
+        if (pacienteRepository.existsByCpfOrEmailOrTelefone(pacienteInput.getCpf(), pacienteInput.getEmail(), pacienteInput.getTelefone())) {
+            throw new DataIntegrityViolationException("Recurso está em uso");
         }
 
         String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
         pacienteInput.setSenha(senhaCriptografada);
+        String cpfCriptografado = new  BCryptPasswordEncoder().encode(pacienteInput.getCpf());
+        pacienteInput.setCpf(cpfCriptografado);
         Paciente paciente = modelMapper.map(pacienteInput,Paciente.class);
         paciente = pacienteRepository.save(paciente);
         CadastroPacienteOutput pacienteOutput= modelMapper.map(paciente,CadastroPacienteOutput.class);
@@ -75,6 +78,10 @@ public class PacienteService {
         if (!paciente.getSenha().equals(pacienteInput.getSenha())){
             String senhaCriptografada = new BCryptPasswordEncoder().encode(paciente.getSenha());
             pacienteInput.setSenha(senhaCriptografada);
+        }
+        if (!paciente.getCpf().equals(pacienteInput.getCpf())){
+            String cpfCriptografado = new  BCryptPasswordEncoder().encode(pacienteInput.getCpf());
+            pacienteInput.setCpf(cpfCriptografado);
         }
         paciente = modelMapper.map(pacienteInput, Paciente.class);
         paciente = pacienteRepository.save(paciente);

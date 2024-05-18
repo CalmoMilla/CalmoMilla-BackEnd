@@ -14,6 +14,7 @@ import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,11 +53,13 @@ public class PsicologoService {
 
     public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) throws NoSuchMethodException {
 
-        if (psicologoRepository.findByEmail(psicologoInput.getEmail()).isPresent()) {
-            throw new NegocioException("esse email ja está em uso");
+        if (psicologoRepository.existsByCpfOrEmailOrTelefone(psicologoInput.getCpf(), psicologoInput.getEmail(), psicologoInput.getTelefone())) {
+            throw new DataIntegrityViolationException("Recurso está em uso");
         }
         var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
         psicologoInput.setSenha(senhaCriptografada);
+        String cpfCriptografado = new  BCryptPasswordEncoder().encode(psicologoInput.getCpf());
+        psicologoInput.setCpf(cpfCriptografado);
         Psicologo psicologo = modelMapper.map(psicologoInput, Psicologo.class);
         Psicologo psicologoCadastrado = psicologoRepository.save(psicologo);
 
@@ -80,7 +83,10 @@ public class PsicologoService {
             String senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
             psicologoInput.setSenha(senhaCriptografada);
         }
-
+        if (!psicologo.getCpf().equals(psicologoInput.getCpf())){
+            String cpfCriptografado = new  BCryptPasswordEncoder().encode(psicologoInput.getCpf());
+            psicologoInput.setCpf(cpfCriptografado);
+        }
         psicologo = modelMapper.map(psicologoInput,Psicologo.class);
         Psicologo psicologoSalvo = psicologoRepository.save(psicologo);
         AtualizarPsicologoOutput psicologoOutput = modelMapper.map(psicologoSalvo, AtualizarPsicologoOutput.class);
