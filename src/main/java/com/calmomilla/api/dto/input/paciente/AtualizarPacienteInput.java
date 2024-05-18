@@ -30,6 +30,8 @@ public class AtualizarPacienteInput {
 
     private LocalDate dataNasc;
 
+    private String cpf;
+
     private Endereco endereco;
 
     private String telefone;

@@ -16,6 +16,8 @@ public class BuscarPacienteOutput {
 
     private String email;
 
+    private String cpf;
+
     private UserRole role;
 
     private String senha;

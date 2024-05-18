@@ -24,6 +24,8 @@ public class CadastroPacienteInput {
 
     private String genero;
 
+    private String cpf;
+
     private LocalDate dataNasc;
 
     private Endereco endereco;

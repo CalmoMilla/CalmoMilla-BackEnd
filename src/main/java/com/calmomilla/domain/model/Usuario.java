@@ -28,6 +28,9 @@ public class Usuario implements UserDetails {
 
     private String genero;
 
+    @Column(unique = true)
+    private String cpf;
+
    private LocalDate dataNasc;
 
    @OneToOne(optional = true)

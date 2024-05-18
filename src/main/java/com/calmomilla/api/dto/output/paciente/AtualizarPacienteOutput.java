@@ -14,6 +14,8 @@ public class AtualizarPacienteOutput {
 
     private String email;
 
+    private String cpf;
+
     private String senha;
 
     private String foto;

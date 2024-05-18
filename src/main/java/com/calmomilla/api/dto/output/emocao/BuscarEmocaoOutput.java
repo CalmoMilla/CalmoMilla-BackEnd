@@ -3,12 +3,7 @@ package com.calmomilla.api.dto.output.emocao;
 import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.utils.Emocoes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
