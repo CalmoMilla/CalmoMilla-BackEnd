@@ -84,7 +84,7 @@ public class VerificacaoService {
 
             // Verificar se a pessoa é maior de idade
             if (idade >= 18) {
-                return ResponseEntity.ok("A pessoa é maior de idade");
+                return ResponseEntity.ok("A pessoa é maior de idade ");
             } else {
               throw new NegocioException("A pessoa é menor de idade");
             }
