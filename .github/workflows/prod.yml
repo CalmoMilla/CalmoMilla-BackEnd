@@ -24,3 +24,11 @@ jobs:
       - name: Push image docker
         run: docker push apbielzinx/calmomilla-api
 
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image para o docker hub
+        run: docker pull apbielzinx/calmomilla-api:latest
+      - name: run docker container
+        run: docker run -d -p 8080:8080 --name deploy_calmomilla-api apbielzinx/calmomilla-api
