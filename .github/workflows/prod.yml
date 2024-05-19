@@ -9,6 +9,18 @@ jobs:
     steps:
       - name: verificar codigo
         uses: actions/checkout@v3
-        
 
+      - name: setup java
+        uses: actions/setup/java
+        with:
+          distribution: 'temurin'
+          java-version: "17"
+      - name: construindo projeto
+        run: mvn clean install -DskipTests
+      - name: login docker hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: build docker image
+        run: docker build -t apbielzinx/calmomilla-api .
+      - name: Push image docker
+        run: docker push apbielzinx/calmomilla-api
 
