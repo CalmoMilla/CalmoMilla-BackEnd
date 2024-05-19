@@ -1,0 +1,14 @@
+name: Deploy back end Calmomilla
+
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: verificar codigo
+        uses: actions/checkout@v3
+        
+
+
