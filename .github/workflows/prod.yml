@@ -20,17 +20,17 @@ jobs:
       - name: login docker hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: build docker image
-        run: docker build -t apbielzinx/calmomilla-api .
+        run: docker build -t calmomilla/calmomilla-api .
       - name: Push image docker
-        run: docker push apbielzinx/calmomilla-api
+        run: docker push calmomilla/calmomilla-api
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull image para o docker hub
-        run: docker pull apbielzinx/calmomilla-api:latest
-      - name: remoce docker container
+        run: docker pull calmomilla/calmomilla-api:latest
+      - name: remove docker container
         run: docker rm -f deploy_calmomilla-api
       - name: run docker container
-        run: docker run -d -p 8080:8080 -e USER_DATA_BASE=${{secrets.USER_DATA_BASE}} -e URL_DATA_BASE='${{secrets.URL_DATA_BASE}}' -e PASSWORD_DATA_BASE='${{secrets.PASSWORD_DATA_BASE}}' --name deploy_calmomilla-api apbielzinx/calmomilla-api
+        run: docker run -d -p 8080:8080 -e USER_DATA_BASE=${{secrets.USER_DATA_BASE}} -e URL_DATA_BASE='${{secrets.URL_DATA_BASE}}' -e PASSWORD_DATA_BASE='${{secrets.PASSWORD_DATA_BASE}}' --name deploy_calmomilla-api calmomilla/calmomilla-api
