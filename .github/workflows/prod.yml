@@ -45,12 +45,12 @@ jobs:
           -e URL_DATA_BASE=${{secrets.URL_DATA_BASE}} \
           -e PASSWORD_DATA_BASE=${{secrets.PASSWORD_DATA_BASE}} \
           -e JWT_SECRET=${{secrets.JWT_SECRET}} \
-          -e MAIL_HOST=${{secrets.MAIL_HOST}} \
-          -e MAIL_PORT=${{secrets.MAIL_PORT}} \
-          -e MAIL_USERNAME=${{secrets.MAIL_USERNAME}} \
-          -e MAIL_PASSWORD=${{secrets.MAIL_PASSWORD}} \
-          -e MAIL_AUTH=${{secrets.MAIL_AUTH}} \
-          -e MAIL_ENABLE=${{secrets.MAIL_ENABLE}} \
-          -e API_TOKEN=${{secrets.API_TOKEN}} \
-          -e API_URL=${{secrets.API_URL}} \
+          -e MAIL_HOST=asd \
+          -e MAIL_PORT=555 \
+          -e MAIL_USERNAME=a \
+          -e MAIL_PASSWORD=a \
+          -e MAIL_AUTH=true \
+          -e MAIL_ENABLE=true \
+          -e API_TOKEN=a \
+          -e API_URL=a \
           calmomilla/calmomilla-api
