@@ -44,7 +44,7 @@ jobs:
           -e USER_DATA_BASE=${{secrets.USER_DATA_BASE}} \
           -e URL_DATA_BASE=${{secrets.URL_DATA_BASE}} \
           -e PASSWORD_DATA_BASE=${{secrets.PASSWORD_DATA_BASE}} \
-          -e JWT_SECRET=${{secrets.JWT_SECRET}} \
+          -e JWT_SECRET=4re44 \
           -e MAIL_HOST=asd \
           -e MAIL_PORT=555 \
           -e MAIL_USERNAME=a \
