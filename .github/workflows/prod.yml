@@ -40,4 +40,4 @@ jobs:
         run: docker rm -f deploy_calmomilla-api || true
 
       - name: run docker container
-        run: docker run -d -p 8080:8080 -e USER_DATA_BASE=${{secrets.USER_DATA_BASE}} -e URL_DATA_BASE='${{secrets.URL_DATA_BASE}}' -e PASSWORD_DATA_BASE='${{secrets.PASSWORD_DATA_BASE}}' -e JWT_SECRET='${{secrets.JWT_SECRET}}' -e MAIL_HOST='${{secrets.MAIL_HOST}}' -e MAIL_PORT=2525 -e MAIL_USERNAME=myusername -e MAIL_PASSWORD=mypassword -e MAIL_AUTH=true -e MAIL_ENABLE=true -e API_TOKEN=myapitoken -e API_URL=http://api.example.com --name deploy_calmomilla-api calmomilla/calmomilla-api
+        run: docker run -d -p 8080:8080 -e USER_DATA_BASE=${{secrets.USER_DATA_BASE}} -e URL_DATA_BASE='${{secrets.URL_DATA_BASE}}' -e PASSWORD_DATA_BASE='${{secrets.PASSWORD_DATA_BASE}}' -e JWT_SECRET='${{secrets.JWT_SECRET}}' -e MAIL_HOST='${{secrets.MAIL_HOST}}' -e MAIL_PORT=${{secrets.MAIL_PORT}} -e MAIL_USERNAME=myusername -e MAIL_PASSWORD=mypassword -e MAIL_AUTH=true -e MAIL_ENABLE=true -e API_TOKEN=myapitoken -e API_URL=http://api.example.com --name deploy_calmomilla-api calmomilla/calmomilla-api
