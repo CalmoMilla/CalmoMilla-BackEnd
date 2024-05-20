@@ -54,7 +54,7 @@ public class PacienteService {
         if (pacienteRepository.existsByCpfOrEmailOrTelefone(pacienteInput.getCpf(), pacienteInput.getEmail(), pacienteInput.getTelefone())) {
             throw new DataIntegrityViolationException("Recurso está em uso");
         }
-        System.out.println(pacienteInput.getSenha());
+
         String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
         pacienteInput.setSenha(senhaCriptografada);
         String cpfCriptografado = new  BCryptPasswordEncoder().encode(pacienteInput.getCpf());
