@@ -1,27 +1,25 @@
 package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.AuthDTO;
-import com.calmomilla.api.dto.input.CadastrarDTO;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
-import com.calmomilla.api.dto.output.UsuarioOutput;
+
 import com.calmomilla.api.configs.security.TokenService;
+
 import com.calmomilla.domain.exception.NegocioException;
-import com.calmomilla.domain.model.Paciente;
-import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.model.Usuario;
-import com.calmomilla.domain.repository.PsicologoRepository;
+
 import com.calmomilla.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,13 +34,17 @@ public class AuthService {
     private final PacienteService pacienteService;
 
     public ResponseEntity<LoginOutput> login(AuthDTO authDTO) {
-
-        var usernamePassword = new UsernamePasswordAuthenticationToken(authDTO.getEmail(), authDTO.getSenha());
-        var auth = authenticationManager.authenticate(usernamePassword);
-
-        var token = tokenService.gerarToken((Usuario) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginOutput(token));
+        String token = null;
+        try {
+            var usernamePassword = new UsernamePasswordAuthenticationToken(authDTO.getEmail(), authDTO.getSenha());
+            var auth = authenticationManager.authenticate(usernamePassword);
+            token = tokenService.gerarToken((Usuario) auth.getPrincipal());
+            return ResponseEntity.ok(new LoginOutput(token));
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException(e.getMessage());
+        } catch (Exception e) {
+            throw new NegocioException("Erro ao autenticar o usuario");
+        }
 
     }
 
