@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        main {
+            margin-top: 80px;
+        }
+        .welcome {
+            margin: auto;
+            width: 60%;
+            text-align: center;
+            font-size: 20px;
+        }
+        .welcome H2 {
+            margin: 0;
+        }
+        .acessePlataforma {
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .acessePlataforma a {
+            color: #EDD037;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .footer {
+            display: flex;
+            width: 70%;
+            margin: auto;
+            height: auto;
+            margin-top: 20px;
+            align-items: center;
+        }
+        .left-section {
+            width: 50%;
+            height: 100%;
+        }
+        .center-content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .logo-text {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 45px;
+            margin: 0;
+        }
+        .logo-image {
+            display: flex;
+            width: 100%;
+            height: auto;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .logo-img {
+            width: 150px;
+            height: 150px;
+        }
+        .social-section {
+            height: auto;
+            margin-top: 15px;
+        }
+        .github-link,
+        .linkedin-link {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        .github-icon,
+        .linkedin-icon {
+            width: 40px;
+        }
+        .github-text,
+        .linkedin-text {
+            color: rgb(25, 25, 25);
+            text-decoration: none;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .github-text,
+        .linkedin-text:hover {
+            color: rgb(0, 0, 0);
+        }
+        .line {
+            border: 1px solid black;
+            height: 250px;
+            display: flex;
+            width: 0.1px;
+            background-color: black;
+        }
+        span {
+            color: #EDD037;
+        }
+        .right-section {
+            width: 50%;
+            padding: 2rem;
+            text-align: center;
+        }
+        .textLogo {
+            width: 70%;
+            font-size: 50px;
+        }
+        @media screen and (max-width:1100px) {
+            main {
+                margin-top: 10px;
+            }
+        }
+        @media screen and (max-width:950px) {
+            .footer {
+                align-items: center;
+                flex-direction: column;
+                height: auto;
+                margin: auto;
+                width: 95%;
+            }
+            .social-section {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                margin: auto;
+                justify-content: center;
+            }
+            .left-section {
+                width: 100%;
+            }
+            .line {
+                display: none;
+            }
+            .right-section {
+                padding: 0;
+                width: 100%;
+            }
+            .textLogo {
+                width: 100%;
+            }
+            .welcome {
+                width: 90%;
+            }
+            .welcome h2 {
+                width: 100%;
+                margin: 0;
+            }
+        }
+        @media screen and (max-width:350px) {
+            .social-section {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="welcome">
+        <h2>Olá, ${destinatario} seja bem-vindo(a) ao CalmoMilla, agradecemos a confiança por se inscrever em nossa plataforma.</h2>
+    </div>
+    <div class="acessePlataforma">
+        <a href="#">Clique aqui para acessar a plataforma.</a>
+    </div>
+</main>
+<footer class="footer">
+    <div class="left-section">
+        <div class="center-content">
+            <h1 class="logo-text">CalmoMilla</h1>
+        </div>
+        <div class="logo-image">
+            <img class="logo-img" src="${imagem1}" alt="Logo Calmomilla"> <!-- Imagem inline aqui -->
+        </div>
+        <div class="social-section">
+            <div class="github-link">
+                <img class="github-icon" src="${imagem2}" alt="Logo GitHub">
+                <a class="github-text" href="https://github.com/CalmoMilla" target="_blank">
+                    <p style="margin: 0;">GitHub CalmoMilla</p>
+                </a>
+            </div>
+            <div class="linkedin-link">
+                <img class="linkedin-icon" src="${imagem3}" alt="Logo Linkedin">
+                <a class="linkedin-text" href="https://www.linkedin.com/company/calmomilla/?viewAsMember=true" target="_blank">
+                    <p>LinkedIn CalmoMilla</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="right-section">
+        <p class="textLogo"><span>Mente</span> em dia, a vida em <span>harmonia</span></p>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.calmomilla.domain.service;
 
 
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 
@@ -9,24 +10,33 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 @Service
 @AllArgsConstructor
 public class EmailService {
 
     private JavaMailSender mailSender;
 
-    public Boolean enviarEmailDeBoasVindas(String destinatario, String assunto){
 
-        String corpoHtml = "<html><body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4;\">"
-                + "<div style=\"max-width: 600px; margin: 0 auto; padding: 20px;\">"
-                + "<h1 style=\"color: red; text-align: center;\">Olá, " + destinatario + "!</h1>"
-                + "<p style=\"color: #666666;\">Seja bem-vindo ao nosso aplicativo.</p>"
-                + "<p style=\"color: #666666;\">Estamos muito felizes em tê-lo conosco.</p>"
-                + "<p style=\"color: #666666;\">Aqui está uma imagem de boas-vindas:</p>"
-                + "<img src=\"cid:imagem1\" style=\"max-width: 100%; display: block; margin: 0 auto;\">"
-                + "</div>"
-                + "</body></html>";
+    public Boolean enviarEmailDeBoasVindas(String destinatario, String assunto) {
         try {
+            // Cria o objeto MimeMessage
+            // Lê o conteúdo do arquivo HTML
+            ClassPathResource htmlResource = new ClassPathResource("static/boasVindas.html");
+            String corpoHtml = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())), "UTF-8");
+
+            // Substitui o marcador da imagem pelo identificador inline
+            corpoHtml = corpoHtml.replace("${destinatario}", destinatario);
+            corpoHtml = corpoHtml.replace("${imagem1}", "cid:imagem1");
+            corpoHtml = corpoHtml.replace("${imagem2}", "cid:imagem2");
+            corpoHtml = corpoHtml.replace("${imagem3}", "cid:imagem3");
+
+
+
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -34,18 +44,24 @@ public class EmailService {
             helper.setSubject(assunto);
             helper.setText(corpoHtml, true); // Configura para enviar como HTML
 
-            // Anexa a imagem de exemplo (utilize uma URL de imagem válida)
-            helper.addInline("imagem1", new ClassPathResource("static/logo.png"));
+            // Adiciona a imagem inline
+            helper.addInline("imagem1", new ClassPathResource("static/img/CalmoMillaLg.png"));
+            helper.addInline("imagem2", new ClassPathResource("static/img/github-mark.png"));
+            helper.addInline("imagem3", new ClassPathResource("static/img/icone-linkedin-ronde-noire.png"));
+
 
             mailSender.send(message);
             System.out.println("Email enviado com sucesso para: " + destinatario);
 
             return true;
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return false ;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return false;
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
     }
 
 }
