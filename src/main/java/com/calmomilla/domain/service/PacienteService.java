@@ -2,24 +2,24 @@ package com.calmomilla.domain.service;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.output.paciente.AtualizarPacienteOutput;
+import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Paciente;
 
-import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +45,15 @@ public class PacienteService {
             throw new NoSuchMethodException("id não encontrado");
         }
         BuscarPacienteOutput pacienteOutput = modelMapper.map(paciente.get(), BuscarPacienteOutput.class);
+        return ResponseEntity.ok(pacienteOutput);
+    }
+    public ResponseEntity<BuscarPacienteEmailOutput> buscarInfo(Principal principal) throws NoSuchMethodException {
+        Optional<Paciente> paciente = pacienteRepository.findByEmail(principal.getName());
+
+        if (paciente.isEmpty()) {
+            throw new NoSuchMethodException("Email não encontrado");
+        }
+        BuscarPacienteEmailOutput pacienteOutput = modelMapper.map(paciente.get(), BuscarPacienteEmailOutput.class);
         return ResponseEntity.ok(pacienteOutput);
     }
 

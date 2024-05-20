@@ -11,7 +11,6 @@ public class BuscarPacienteOutput {
 
     private String id;
 
-
     private String nome;
 
     private String email;
