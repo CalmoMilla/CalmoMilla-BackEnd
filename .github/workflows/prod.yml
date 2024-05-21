@@ -1,9 +1,7 @@
 name: Deploy back end Calmomilla
-
 on:
   push:
     branches: [main]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,5 +37,22 @@ jobs:
       - name: remove docker container
         run: docker rm -f deploy_calmomilla-api || true
 
+      # Etapa para baixar a imagem do MySQL
+      - name: Pull MySQL image
+        run: docker pull mysql:latest
+
+      # Etapa para iniciar o contêiner MySQL
+      - name: Run MySQL container
+        run: |
+          docker run -d --name mysql_db \
+          -e MYSQL_ROOT_PASSWORD=${{secrets.MYSQL_ROOT_PASSWORD}} \
+          -e MYSQL_DATABASE=${{secrets.MYSQL_DATABASE}} \
+          -e MYSQL_USER=${{secrets.MYSQL_USER}} \
+          -e MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
+          -p 3306:3306 \
+          -v mysql_data:/var/lib/mysql \
+          mysql:latest
+
+      # Etapa para iniciar o contêiner do seu backend
       - name: run docker container
         run: docker run -d -p 8080:8080 -e USER_DATA_BASE=${{secrets.USER_DATA_BASE}} -e URL_DATA_BASE='${{secrets.URL_DATA_BASE}}' -e PASSWORD_DATA_BASE='${{secrets.PASSWORD_DATA_BASE}}' -e JWT_SECRET='${{secrets.JWT_SECRET}}' -e MAIL_HOST='${{secrets.MAIL_HOST}}' -e MAIL_PORT=${{secrets.MAIL_PORT}} -e MAIL_USERNAME='${{secrets.MAIL_USERNAME}}' -e MAIL_PASSWORD='${{secrets.MAIL_PASSWORD}}' -e MAIL_AUTH=${{secrets.MAIL_AUTH}} -e MAIL_ENABLE=${{secrets.MAIL_ENABLE}} -e API_TOKEN='${{secrets.API_TOKEN}}' -e API_URL='${{secrets.API_TOKEN}}' --name deploy_calmomilla-api calmomilla/calmomilla-api
