@@ -37,21 +37,21 @@ jobs:
       - name: remove docker container
         run: docker rm -f deploy_calmomilla-api || true
 
-      # Etapa para baixar a imagem do MySQL
-      - name: Pull MySQL image
-        run: docker pull mysql:latest
-
-      # Etapa para iniciar o contêiner MySQL
-      - name: Run MySQL container
-        run: |
-          docker run -d --name mysql_db \
-          -e MYSQL_ROOT_PASSWORD=${{secrets.MYSQL_ROOT_PASSWORD}} \
-          -e MYSQL_DATABASE=${{secrets.MYSQL_DATABASE}} \
-          -e MYSQL_USER=${{secrets.MYSQL_USER}} \
-          -e MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
-          -p 3306:3306 \
-          -v mysql_data:/var/lib/mysql \
-          mysql:latest
+#      # Etapa para baixar a imagem do MySQL
+#      - name: Pull MySQL image
+#        run: docker pull mysql:latest
+#
+#      # Etapa para iniciar o contêiner MySQL
+#      - name: Run MySQL container
+#        run: |
+#          docker run -d --name mysql_db \
+#          -e MYSQL_ROOT_PASSWORD=${{secrets.MYSQL_ROOT_PASSWORD}} \
+#          -e MYSQL_DATABASE=${{secrets.MYSQL_DATABASE}} \
+#          -e MYSQL_USER=${{secrets.MYSQL_USER}} \
+#          -e MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
+#          -p 3306:3306 \
+#          -v mysql_data:/var/lib/mysql \
+#          mysql:latest
 
       # Etapa para iniciar o contêiner do seu backend
       - name: run docker container
