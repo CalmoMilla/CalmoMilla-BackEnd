@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -18,9 +21,6 @@ public class Tarefa{
     @NotNull
     private String descricaoTarefa;
 
-    @NotNull
-    @ManyToOne
-    private Dia dia;
 
 
 }

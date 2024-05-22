@@ -1,9 +1,12 @@
 package com.calmomilla.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,6 +17,13 @@ public class Rotina {
     private String id;
 
     @NotNull
-    @OneToMany
-    private List<Dia> dias;
+    private LocalDate diaRotina;
+
+    @NotNull
+    private boolean status;
+
+    @ManyToMany
+    private List<Tarefa> tarefas = new ArrayList<>();
+
+
 }
