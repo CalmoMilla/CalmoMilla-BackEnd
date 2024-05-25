@@ -9,6 +9,7 @@ public class BuscarPacienteEmailOutput {
 
     private String id;
     private String email;
+    private String nome;
     private String foto;
 
 }
