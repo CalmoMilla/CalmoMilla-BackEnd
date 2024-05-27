@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -34,9 +35,6 @@ public class CadastroPacienteInput {
 
     @NotBlank
     private String senha;
-
-    @NotBlank
-    private String foto;
 
     @NotNull
     private UserRole role;

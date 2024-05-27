@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class PsicologoController {
 
         return psicologoService.atualizar(psicologoInput);
 
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?>atualizarFoto(@RequestParam("file") MultipartFile file, @PathVariable String id) throws NoSuchMethodException {
+        return psicologoService.atualizarFoto(file,id);
     }
 
     @DeleteMapping("/{id}")

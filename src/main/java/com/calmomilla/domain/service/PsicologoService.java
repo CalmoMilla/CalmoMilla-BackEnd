@@ -7,10 +7,12 @@ import com.calmomilla.api.dto.output.psicologo.AtualizarPsicologoOutput;
 import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.domain.exception.NegocioException;
+import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PsicologoRepository;
 
 import com.calmomilla.domain.utils.ModelMapperUtils;
+import com.calmomilla.domain.utils.SalvarArquivo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
@@ -19,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -93,6 +96,24 @@ public class PsicologoService {
         return ResponseEntity.ok(psicologoOutput);
 
 
+    }
+
+    public ResponseEntity<?> atualizarFoto(MultipartFile file, String id){
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("Por favor, selecione um arquivo para upload.");
+        }
+
+        Psicologo psicologo = psicologoRepository.findById(id).orElseThrow(() -> new NegocioException("Usuario não encontrado"));
+        if (psicologo == null) {
+            return ResponseEntity.status(404).body("Usuário não encontrado.");
+        }
+
+        SalvarArquivo arquivo = new SalvarArquivo();
+
+        psicologo = arquivo.salvarFoto(file,psicologo);
+
+        psicologoRepository.save(psicologo);
+        return ResponseEntity.ok("foto salva com sucesso");
     }
 
     public ResponseEntity<Void>deletar(String id) throws NoSuchMethodException {

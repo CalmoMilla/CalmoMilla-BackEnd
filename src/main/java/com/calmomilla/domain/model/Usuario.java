@@ -46,7 +46,6 @@ public class Usuario implements UserDetails {
     @Column(unique = true)
     private String telefone;
 
-    @NotBlank
     private String foto;
 
     @NotNull
