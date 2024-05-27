@@ -29,8 +29,8 @@ public class SalvarArquivo {
             String newFileName = paciente.getId() + "." + fileExtension;
             String filePath = UPLOAD_DIR + newFileName;
             file.transferTo(new File(filePath));
-
-            paciente.setFoto(newFileName);
+            System.out.println(filePath);
+            paciente.setFoto(filePath);
             return paciente;
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,8 +55,8 @@ public class SalvarArquivo {
             String newFileName = psicologo.getId() + "." + fileExtension;
             String filePath = UPLOAD_DIR + newFileName;
             file.transferTo(new File(filePath));
-
-            psicologo.setFoto(newFileName);
+            System.out.println(filePath);
+            psicologo.setFoto(filePath);
             return psicologo;
         } catch (IOException e) {
             e.printStackTrace();
