@@ -10,7 +10,6 @@ import com.calmomilla.domain.model.Paciente;
 
 import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
-import com.calmomilla.domain.utils.SalvarArquivo;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,16 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -118,23 +110,6 @@ public class PacienteService {
     }
 
 
-    public ResponseEntity<?> atualizarFoto(MultipartFile file,String id){
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("Por favor, selecione um arquivo para upload.");
-        }
-
-        Paciente paciente = pacienteRepository.findById(id).orElseThrow(() -> new NegocioException("Usuario não encontrado"));
-        if (paciente == null) {
-            return ResponseEntity.status(404).body("Usuário não encontrado.");
-        }
-
-        SalvarArquivo arquivo = new SalvarArquivo();
-
-        paciente = arquivo.salvarFoto(file,paciente);
-
-        pacienteRepository.save(paciente);
-        return ResponseEntity.ok("foto salva com sucesso");
-        }
 
     }
 

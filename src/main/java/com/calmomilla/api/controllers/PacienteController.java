@@ -42,12 +42,6 @@ public class PacienteController {
         return pacienteService.atualizar(pacienteInput);
 
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<?>atualizarFoto(@RequestParam("file") MultipartFile file, @PathVariable String id) throws NoSuchMethodException {
-       return pacienteService.atualizarFoto(file,id);
-    }
-
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void>deletar(@PathVariable String id) throws NoSuchMethodException {

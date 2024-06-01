@@ -27,6 +27,9 @@ public class CadastroPacienteInput {
 
     private String cpf;
 
+    @NotBlank
+    private String foto;
+
     private LocalDate dataNasc;
 
     private Endereco endereco;

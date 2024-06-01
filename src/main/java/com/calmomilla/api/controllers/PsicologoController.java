@@ -37,11 +37,6 @@ public class PsicologoController {
 
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?>atualizarFoto(@RequestParam("file") MultipartFile file, @PathVariable String id) throws NoSuchMethodException {
-        return psicologoService.atualizarFoto(file,id);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void>deletar(@PathVariable String id) throws NoSuchMethodException {
         return psicologoService.deletar(id);
