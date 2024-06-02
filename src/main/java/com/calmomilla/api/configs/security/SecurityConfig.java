@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/fotosUsuarios/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/pacientes").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/verify/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/emocoes").hasRole("PACIENTE")
+                        .requestMatchers(HttpMethod.POST,"/emocoes").authenticated()
                         .requestMatchers(HttpMethod.GET,"/emocoes").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

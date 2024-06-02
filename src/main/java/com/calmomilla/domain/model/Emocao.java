@@ -26,12 +26,15 @@ public class Emocao {
 
     @NotBlank
     private String descricao;
+
     @NotNull
     private List<Emocoes> emocoes = new ArrayList<>();
+
     @NotNull
     private LocalDate dataRegistro;
 
     @ManyToOne
     @JsonIgnore
     private Paciente paciente;
+
 }

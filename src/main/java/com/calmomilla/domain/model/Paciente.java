@@ -19,4 +19,5 @@ public class  Paciente extends Usuario{
     @OneToMany
     private List<Emocao> emocaos = new ArrayList<>();
 
+
 }
