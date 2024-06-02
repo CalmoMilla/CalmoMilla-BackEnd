@@ -3,12 +3,14 @@ package com.calmomilla.domain.service;
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
+import com.calmomilla.api.dto.input.recuperarSenha.RecuperarSenhaInput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
 
 import com.calmomilla.api.configs.security.TokenService;
 
+import com.calmomilla.api.dto.output.recuperarSenha.RecuperarSenhaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Usuario;
 
@@ -32,6 +34,7 @@ public class AuthService {
     private final TokenService tokenService;
     private final PsicologoService psicologoService;
     private final PacienteService pacienteService;
+    private final EmailService emailService;
 
     public ResponseEntity<LoginOutput> login(AuthDTO authDTO) {
         String token = null;
@@ -66,5 +69,14 @@ public class AuthService {
             AuthDTO authDTO = modelMapper.map(pacienteInput, AuthDTO.class);
             return login(authDTO);
         }
+    }
+
+    public ResponseEntity<RecuperarSenhaOutput> recuperarSenha(RecuperarSenhaInput recuperarSenhaInput) {
+
+        if (emailService.enviarEmailDeRecuperarSenha(recuperarSenhaInput.getEmail(), "Recupere a sua conta!"));
+        RecuperarSenhaOutput senhaOutput = modelMapper.map(recuperarSenhaInput, RecuperarSenhaOutput.class);
+        senhaOutput.setResposta("Email enviado com sucesso para "+senhaOutput.getEmail());
+        return ResponseEntity.ok(senhaOutput);
+
     }
 }

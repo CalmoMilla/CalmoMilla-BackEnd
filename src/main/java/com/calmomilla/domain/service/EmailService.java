@@ -64,4 +64,41 @@ public class EmailService {
         }
     }
 
+    public Boolean enviarEmailDeRecuperarSenha(String destinatario, String assunto) {
+        try {
+            // Cria o objeto MimeMessage
+            // Lê o conteúdo do arquivo HTML
+            ClassPathResource htmlResource = new ClassPathResource("static/redefinirSenha.html");
+            String corpoHtml = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())), "UTF-8");
+
+            // Substitui o marcador da imagem pelo identificador inline
+            corpoHtml = corpoHtml.replace("${destinatario}", destinatario);
+            corpoHtml = corpoHtml.replace("${imagem1}", "cid:imagem1");
+            corpoHtml = corpoHtml.replace("${imagem2}", "cid:imagem2");
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setTo(destinatario);
+            helper.setSubject(assunto);
+            helper.setText(corpoHtml, true); // Configura para enviar como HTML
+
+            // Adiciona a imagem inline
+            helper.addInline("imagem2", new ClassPathResource("static/img/CalmoMillaLg.png"));
+            helper.addInline("imagem1", new ClassPathResource("static/img/LogoCalmomilla.png"));
+
+            mailSender.send(message);
+            System.out.println("Email enviado com sucesso para: " + destinatario);
+
+            return true;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return false;
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

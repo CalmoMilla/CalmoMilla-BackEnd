@@ -86,7 +86,6 @@ public class PacienteService {
         BuscarPacienteOutput pacienteOutput = buscarPorId(pacienteInput.getId()).getBody();
 
         Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
-
         if (!paciente.getSenha().equals(pacienteInput.getSenha())){
             String senhaCriptografada = new BCryptPasswordEncoder().encode(paciente.getSenha());
             pacienteInput.setSenha(senhaCriptografada);

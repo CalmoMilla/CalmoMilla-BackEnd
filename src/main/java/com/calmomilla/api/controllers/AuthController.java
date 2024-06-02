@@ -4,10 +4,12 @@ import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
+import com.calmomilla.api.dto.input.recuperarSenha.RecuperarSenhaInput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.UsuarioOutput;
+import com.calmomilla.api.dto.output.recuperarSenha.RecuperarSenhaOutput;
 import com.calmomilla.domain.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -51,6 +53,14 @@ public class AuthController {
         return authService.cadastrar(cadastroPsicologoInput);
 
     }
+
+    @PostMapping("/esqueciASenha")
+    public ResponseEntity<RecuperarSenhaOutput>recuperarSenha(@RequestBody @Valid RecuperarSenhaInput recuperarSenhaInput){
+
+        return  authService.recuperarSenha(recuperarSenhaInput);
+
+    }
+
 
 }
 
