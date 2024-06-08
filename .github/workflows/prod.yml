@@ -32,6 +32,9 @@ jobs:
     runs-on: self-hosted
     steps:
 
+      - name: remove docker content not used
+        run: docker system prune -a
+
       - name: remove docker container
         run: docker rm -f deploy_calmomilla-api || true
 
