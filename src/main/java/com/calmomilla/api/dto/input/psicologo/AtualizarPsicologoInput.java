@@ -36,6 +36,8 @@ public class AtualizarPsicologoInput {
 
     private String telefone;
 
+    private String descricao;
+
     @NotBlank
     private String senha;
 

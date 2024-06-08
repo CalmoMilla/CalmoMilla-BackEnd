@@ -22,6 +22,10 @@ public class AtualizarPsicologoOutput {
 
     private LocalDate dataNasc;
 
+    private String cpf;
+
+    private String senha;
+
     private Endereco endereco;
 
     private String telefone;
@@ -31,5 +35,7 @@ public class AtualizarPsicologoOutput {
     private List<String> especializacoes;
 
     private String numeroRegistro;
+
+    private String descricao;
 
 }

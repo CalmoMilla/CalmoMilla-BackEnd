@@ -21,6 +21,8 @@ public class BuscarPsicologoOutput {
 
     private String email;
 
+    private String cpf;
+
     private String senha;
 
     private String telefone;
@@ -32,6 +34,8 @@ public class BuscarPsicologoOutput {
     private LocalDate dataNasc;
 
     private String foto;
+
+    private String descricao;
 
     private List<String> especializacoes;
 
