@@ -5,252 +5,439 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <title>Email</title>
-    <style>
-        body {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            margin-top: 80px;
-        }
-
-        .welcome {
-            margin: auto;
-            width: 60%;
-            text-align: center;
-            font-size: 20px;
-        }
-
-        .welcome H2 {
-            margin: 0;
-        }
-
-        .acessePlataforma {
-            width: 100%;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-
-        .acessePlataforma a {
-
-            color: #EDD037;
-            text-decoration: none;
-            font-size: 20px;
-        }
-
-        .footer {
-            display: flex;
-            width: 70%;
-            margin: auto;
-            height: auto;
-            margin-top: 20px;
-            align-items: center;
-        }
-
-        .left-section {
-            width: 50%;
-            height: 100%;
-        }
-
-        .center-content {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .logo-text {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 45px;
-            margin: 0;
-        }
-
-        .logo-image {
-            display: flex;
-            width: 100%;
-            height: auto;
-            justify-content: center;
-            margin-top: 15px;
-        }
-
-        .logo-img {
-            width: 150px;
-            height: 150px;
-        }
-
-        .social-section {
-            height: auto;
-            margin-top: 15px;
-        }
-
-        .github-link,
-        .linkedin-link {
-            width: 100%;
-            height: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 15px;
-        }
-
-        .github-icon,
-        .linkedin-icon {
-            width: 40px;
-        }
-
-        .github-text,
-        .linkedin-text {
-            color: rgb(25, 25, 25);
-            text-decoration: none;
-            font-size: 18px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .github-text,
-        .linkedin-text:hover {
-            color: rgb(0, 0, 0);
-        }
-
-        .line {
-            border: 1px solid black;
-            height: 250px;
-            display: flex;
-            width: 0.1px;
-            background-color: black;
-        }
-
-        span {
-            color: #EDD037;
-        }
-
-        .right-section {
-            width: 50%;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .textLogo {
-            width: 70%;
-            font-size: 50px;
-        }
-
-        @media screen and (max-width:1100px) {
-            main {
-                margin-top: 10px;
-            }
-
-        }
-
-        @media screen and (max-width:950px) {
-
-            .footer {
-                align-items: center;
-                flex-direction: column;
-                height: auto;
-                margin: auto;
-                width: 95%;
-            }
-
-            .social-section {
-                display: flex;
-                width: 100%;
-                align-items: center;
-                margin: auto;
-                justify-content: center;
-            }
-
-            .left-section {
-                width: 100%;
-            }
-
-            .line {
-                display: none;
-            }
-
-            .right-section {
-                padding: 0;
-                width: 100%;
-            }
-
-            .textLogo {
-                width: 100%;
-            }
-
-            .welcome {
-                width: 90%;
-            }
-
-            .welcome h2 {
-                width: 100%;
-                margin: 0;
-            }
-        }
-
-        @media screen and (max-width:350px) {
-            .social-section {
-                display: block;
-            }
-        }
-    </style>
+    <title>Redefinir a Senha</title>
 </head>
 
+<style>
+    .social-section {
+        height: auto;
+        margin-top: 15px;
+    }
+
+    .github-link,
+    .linkedin-link {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 15px;
+    }
+
+    .github-icon,
+    .linkedin-icon {
+        width: 40px;
+    }
+
+    .github-text,
+    .linkedin-text {
+        color: rgb(25, 25, 25);
+        text-decoration: none;
+        font-size: 18px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .github-text,
+    .linkedin-text:hover {
+        color: rgb(0, 0, 0);
+    }
+
+    .right-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .textLogo {
+        width: 80%;
+        font-size: 50px;
+        color: black;
+    }
+
+    span {
+        color: #EDD037;
+    }
+</style>
+
 <body>
-<div style="background-color: #66ff00">
-    <main>
-        <div class="welcome">
-            <h2> Olá, ${destinatario} seja bem-vindo(a) ao CalmoMilla, agradecemos a confiança por se inscrever em nossa plataforma.
-            </h2>
-        </div>
-        <div class="acessePlataforma">
-            <a href="">Clique aqui para acessar a plataforma.</a>
-        </div>
-    </main>
 
-    <footer class="footer">
-        <div class="left-section">
-            <div class="center-content">
-                <h1 class="logo-text">CalmoMilla</h1>
-            </div>
-            <div class="logo-image">
-                <img class="logo-img"
-                     src="${imagem1}"
-                     alt="Logo Calmomilla"> <!-- IMAGE lOGO AQUI-->
-            </div>
-            <div class="social-section">
-                <div class="github-link">
-                    <img class="github-icon"
-                         src="${imagem2}"
-                         alt="Logo GitHub">
-                    <a class="github-text"
-                       href="https://github.com/CalmoMilla"
-                       target="_blank"> <!-- IMAGE github AQUI-->
-                        <p style="margin: 0; ">GitHub CalmoMilla</p>
-                    </a>
-                </div>
-                <div class="linkedin-link">
-                    <img class="linkedin-icon"
-                         src="${imagem3}"
-                         alt="Logo Linkedin"><!-- IMAGE linkedin AQUI-->
-                    <a class="linkedin-text"
-                       href="https://www.linkedin.com/company/calmomilla/?viewAsMember=true"
-                       target="_blank">
-                        <p>LinkedIn CalmoMilla</p>
-                    </a>
-                </div>
-            </div>
+    <div id=":nn">
+        <div class="qQVYZb"></div>
+        <div class="utdU2e"></div>
+        <div class="lQs8Hd"
+             jsaction="SN3rtf:rcuQ6b"
+             jscontroller="i3Ohde"></div>
+        <div class="wl4W9b"
+             jsaction="LNSvUb:.CLIENT;xSdBYb:.CLIENT;CDWmBe:.CLIENT;EtHLdc:.CLIENT;pQnh7:.CLIENT;pKHw7e:.CLIENT;Z03mxd:.CLIENT;NZLNxf:.CLIENT;bXglpe:.CLIENT;mzh2Bc:.CLIENT">
         </div>
-        <div class="line"></div>
-        <div class="right-section">
-            <p class="textLogo"> <span>
-                    Mente </span>em dia, a vida em <span>harmonia</span></p>
-        </div>
-    </footer>
-</div>
+    </div>
+    <div class="">
+        <div class="aHl"></div>
+        <div id=":qr"
+             tabindex="-1"></div>
+        <div id=":n5"
+             class="ii gt"
+             jslog="20277; u014N:xr6bB; 1:WyIjdGhyZWFkLWY6MTc5NjY3NDgzNDU0ODIwMDU1MyJd; 4:WyIjbXNnLWY6MTc5NjY3NDgzNDU0ODIwMDU1MyJd">
+            <div id=":n4"
+                 class="a3s aiL ">
+                <div id="m_414943200774147865:1lv">
+                    <div class="adM">
+                    </div>
+                    <div id="m_414943200774147865m_-9084706489346118848hs_body"
+                         bgcolor="#EAF0F6"
+                         style="margin:0!important;padding:0!important;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word">
+                        <div class="adM">
+                        </div>
+                        <div lang="pt"
+                             style="background-color:#eaf0f6"
+                             bgcolor="#eaf0f6">
+                            <div class="adM">
+                            </div>
+                            <table role="presentation"
+                                   cellpadding="0"
+                                   cellspacing="0"
+                                   style="border-spacing:0!important;border-collapse:collapse;margin:0;padding:0;width:100%!important;min-width:320px!important;height:100%!important"
+                                   width="100%"
+                                   height="100%">
+                                <tbody>
+                                    <tr>
+                                        <td valign="top"
+                                            style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word;padding-top:20px;padding-bottom:20px">
+                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_main"
+                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                <div id="m_414943200774147865m_-9084706489346118848section-0"
+                                                     style="padding-left:10px;padding-right:10px">
+                                                    <div style="min-width:280px;max-width:600px;Margin-left:auto;Margin-right:auto;border-collapse:collapse;border-spacing:0;background-color:#eaf0f6;padding-bottom:10px;padding-top:10px"
+                                                         bgcolor="#eaf0f6">
+                                                        <div id="m_414943200774147865m_-9084706489346118848column-0-0">
+                                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module-0-0-0"
+                                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                <table role="presentation"
+                                                                       width="100%"
+                                                                       cellpadding="0"
+                                                                       cellspacing="0"
+                                                                       style="border-spacing:0!important;border-collapse:collapse">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td align="center"
+                                                                                valign="top"
+                                                                                style="border-collapse:collapse;font-family:Arial,sans-serif;color:#23496d;word-break:break-word;text-align:center;padding:10px 20px;font-size:0px">
+                                                                                <img alt="Logo Calmomilla"
+                                                                                     src="${imagem1}"
+                                                                                     style="outline:none;text-decoration:none;max-width:100%;font-size:16px"
+                                                                                     width="200"
+                                                                                     height="40"
+                                                                                     align="middle"
+                                                                                     class="CToWUd"
+                                                                                     data-bit="iit">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="m_414943200774147865m_-9084706489346118848section-1"
+                                                     style="padding-left:10px;padding-right:10px">
+                                                    <div style="min-width:280px;max-width:600px;Margin-left:auto;Margin-right:auto;border-collapse:collapse;border-spacing:0;background-color:#ffffff;padding-bottom:30px;padding-top:30px"
+                                                         bgcolor="#ffffff">
+                                                        <div id="m_414943200774147865m_-9084706489346118848column-1-0">
+                                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module-1-0-0"
+                                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                <table role="presentation"
+                                                                       width="100%"
+                                                                       cellpadding="0"
+                                                                       cellspacing="0"
+                                                                       style="border-spacing:0!important;border-collapse:collapse">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td align="center"
+                                                                                valign="top"
+                                                                                style="border-collapse:collapse;font-family:Arial,sans-serif;color:#23496d;word-break:break-word;text-align:center;padding:10px 20px;font-size:0px">
+                                                                                <img alt="ilustracao"
+                                                                                     src="${imagem2}"
+                                                                                     style="outline:none;text-decoration:none;max-width:100%;font-size:16px"
+                                                                                     width="150"
+                                                                                     height="150"
+                                                                                     align="middle"
+                                                                                     class="CToWUd a6T"
+                                                                                     data-bit="iit"
+                                                                                     tabindex="0">
+                                                                                <div class="a6S"
+                                                                                     dir="ltr"
+                                                                                     style="opacity: 0.01; left: 377.5px; top: 367.5px;">
+                                                                                    <span data-is-tooltip-wrapper="true"
+                                                                                          class="a5q"
+                                                                                          jsaction="JIbuQc:.CLIENT"><button
+                                                                                                class="VYBDae-JX-I VYBDae-JX-I-ql-wdeprb-MD85tf-DKzjMe VYBDae-JX-I-ql-ay5-ays CgzRE"
+                                                                                                jscontroller="PIVayb"
+                                                                                                jsaction="click:h5M12e; clickmod:h5M12e;pointerdown:FEiYhc;pointerup:mF5Elf;pointerenter:EX0mI;pointerleave:vpvbp;pointercancel:xyn4sd;contextmenu:xexox;focus:h06R8; blur:zjh6rb;mlnRJb:fLiPzd;"
+                                                                                                data-idom-class="CgzRE"
+                                                                                                jsname="hRZeKc"
+                                                                                                aria-label="Download attachment "
+                                                                                                data-tooltip-enabled="true"
+                                                                                                data-tooltip-id="tt-c150"
+                                                                                                data-tooltip-classes="AZPksf"
+                                                                                                id=""
+                                                                                                jslog="91252; u014N:cOuCgd,Kr2w4b,xr6bB; 4:WyIjbXNnLWY6MTc5NjY3NDgzNDU0ODIwMDU1MyJd; 43:WyJpbWFnZS9qcGVnIl0."><span
+                                                                                                  class="OiePBf-zPjgPe VYBDae-JX-UHGRz"></span><span
+                                                                                                  class="bHC-Q"
+                                                                                                  data-unbounded="false"
+                                                                                                  jscontroller="LBaJxb"
+                                                                                                  jsname="m9ZlFb"
+                                                                                                  soy-skip=""
+                                                                                                  ssk="6:RWVI5c"></span><span
+                                                                                                  class="VYBDae-JX-ank-Rtc0Jf"
+                                                                                                  jsname="S5tZuc"
+                                                                                                  aria-hidden="true"><span
+                                                                                                      class="bzc-ank"
+                                                                                                      aria-hidden="true"><svg
+                                                                                                         height="20"
+                                                                                                         viewBox="0 -960 960 960"
+                                                                                                         width="20"
+                                                                                                         focusable="false"
+                                                                                                         class=" aoH">
+                                                                                                        <path
+                                                                                                              d="M480-336 288-528l51-51 105 105v-342h72v342l105-105 51 51-192 192ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85Q725.68-192 695.96-192H263.72Z">
+                                                                                                        </path>
+                                                                                                    </svg></span></span>
+                                                                                            <div class="VYBDae-JX-ano">
+                                                                                            </div>
+                                                                                        </button>
+                                                                                        <div class="ne2Ple-oshW8e-J9"
+                                                                                             id="tt-c150"
+                                                                                             role="tooltip"
+                                                                                             aria-hidden="true">
+                                                                                            Download</div>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div dir="ltr"
+                                                                                     style="opacity:0.01">
+                                                                                    <span>
+                                                                                        <button aria-label="Download attachment "
+                                                                                                id="m_414943200774147865">
+                                                                                            <span></span><span></span>
+                                                                                            <span aria-hidden="true">
+                                                                                                <span
+                                                                                                      aria-hidden="true">
+                                                                                                    <u></u>
+                                                                                                    <u></u><u></u>
+                                                                                                    <u></u>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <div></div>
+                                                                                        </button>
+                                                                                        <div id="m_414943200774147865tt-c307"
+                                                                                             role="tooltip"
+                                                                                             aria-hidden="true">
+                                                                                            Download</div>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <table role="presentation"
+                                                                   cellpadding="0"
+                                                                   cellspacing="0"
+                                                                   width="100%"
+                                                                   style="border-spacing:0!important;border-collapse:collapse">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td
+                                                                            style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word;padding:10px 10px 10px">
+                                                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module-1-0-1"
+                                                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                                <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module-1-0-1_"
+                                                                                     style="color:inherit;font-size:inherit;line-height:inherit">
 
+                                                                                    <p
+                                                                                       style="font-weight:bold;font-size:18px;line-height:131%; text-align: center; justify-content: center;">
+                                                                                        <span
+                                                                                              style="font-family:Lato,Tahoma,sans-serif; color: #000; margin:auto;  width: 100%; ">Olá
+                                                                                            , ${destinatario} seja bem-vindo(a) ao
+                                                                                            CalmoMilla, agradecemos a
+                                                                                            confiança por se inscrever
+                                                                                            em nossa plataforma.</span>
+                                                                                    </p>
+                                                                                    <p
+                                                                                       style="line-height:175%;font-weight:bold">
+                                                                                        &nbsp;</p>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table role="presentation"
+                                                                   cellpadding="0"
+                                                                   cellspacing="0"
+                                                                   width="100%"
+                                                                   style="border-spacing:0!important;border-collapse:collapse">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td
+                                                                            style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word;padding:10px 20px">
+                                                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module_17055892730712"
+                                                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                                <table align="center"
+                                                                                       border="0"
+                                                                                       cellpadding="0"
+                                                                                       cellspacing="0"
+                                                                                       role="presentation"
+                                                                                       style="border-spacing:0!important;border-collapse:separate!important">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="center"
+                                                                                                valign="middle"
+                                                                                                bgcolor="#fff56a"
+                                                                                                style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word;border-radius:8px;background-color:#F5AF00">
+                                                                                                <a href="http://www.calmomilla.org/"
+                                                                                                   style="color:#00a4bd;font-size:19px;font-family:Lato,Tahoma,sans-serif;Margin:0;text-transform:none;text-decoration:none;padding:12px 18px;display:block"
+                                                                                                   target="_blank"
+                                                                                                   data-saferedirecturl="https://www.google.com/url?q=https://nj2gk482.r.us-east-1.awstrack.me/L0/https:%252F%252Fapi.letrus.com.br%252Freset%252FNzU2OTU5%252Fc5oi50-b6ac0cb947bad8b76a7170df03e28662%252F/1/0100018ef123e191-a443ef9a-88f7-4b98-b2dd-0d49b2b0ee3b-000000/Y9t_LHQO31qWYNAvsh9BBcTq3iU%3D370&amp;source=gmail&amp;ust=1717434925985000&amp;usg=AOvVaw1GmaSK0xgjfiC4m1fcmKP2"
+                                                                                                   jslog="32272; 1:WyIjdGhyZWFkLWY6MTc5NjY3NDgzNDU0ODIwMDU1MyJd; 4:WyIjbXNnLWY6MTc5NjY3NDgzNDU0ODIwMDU1MyJd">
+                                                                                                    <strong
+                                                                                                            style="color:#ffffff;font-weight:bold;text-decoration:none;font-style:normal">Acessar
+                                                                                                        Plataforma</strong>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table role="presentation"
+                                                                   cellpadding="0"
+                                                                   cellspacing="0"
+                                                                   width="100%"
+                                                                   style="border-spacing:0!important;border-collapse:collapse">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td
+                                                                            style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word;padding:10px 20px 24px">
+                                                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module_17083470881511"
+                                                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                                <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module_17083470881511_"
+                                                                                     style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                                    <p
+                                                                                       style="font-size:18px;line-height:175%">
+                                                                                        &nbsp;</p>
+                                                                                    <p
+                                                                                       style="font-size:18px;line-height:175%;font-weight:normal">
+                                                                                        <span
+                                                                                              style="font-family:Lato,Tahoma,sans-serif; color: #000;">Atenciosamente,</span>
+                                                                                    </p>
+                                                                                    <p
+                                                                                       style="font-size:18px;line-height:175%">
+                                                                                        <span
+                                                                                              style="font-family:Lato,Tahoma,sans-serif"><span
+                                                                                                  style="font-weight:normal;  color: #000;">Equipe
+                                                                                                Calmomilla</span></span>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table role="presentation"
+                                                                   cellpadding="0"
+                                                                   cellspacing="0"
+                                                                   width="100%"
+                                                                   style="border-spacing:0!important;border-collapse:collapse">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td
+                                                                            style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word;padding:10px 20px">
+                                                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module_17055893636053"
+                                                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                                <div class="right-section">
+                                                                                    <p class="textLogo"> <span>
+                                                                                            Mente </span>em dia, vida
+                                                                                        em <span>harmonia</span></p>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="m_414943200774147865m_-9084706489346118848section-3"
+                                                     style="padding-left:10px;padding-right:10px">
+                                                    <div
+                                                         style="min-width:280px;max-width:600px;Margin-left:auto;Margin-right:auto;border-collapse:collapse;border-spacing:0;padding-bottom:20px;padding-top:20px">
+                                                        <div id="m_414943200774147865m_-9084706489346118848column-3-0">
+                                                            <div id="m_414943200774147865m_-9084706489346118848hs_cos_wrapper_module-3-0-0"
+                                                                 style="color:inherit;font-size:inherit;line-height:inherit">
+                                                                <table role="presentation"
+                                                                       width="100%"
+                                                                       cellpadding="0"
+                                                                       cellspacing="0"
+                                                                       style="border-spacing:0!important;border-collapse:collapse;font-family:Arial,sans-serif;font-size:12px;line-height:135%;color:#23496d;margin-bottom:0;padding:0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td align="center"
+                                                                                valign="top"
+                                                                                style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px;color:#23496d;word-break:break-word;text-align:center;margin-bottom:0;line-height:135%;padding:10px 20px">
+                                                                                <p style="font-weight:bold">
+                                                                                    <span
+                                                                                          style="font-family:Lato,Tahoma,sans-serif; color: #F5AF00;">Calmomilla</span>
+                                                                                </p>
+                                                                                <p><span
+                                                                                          style="font-family:Lato,Tahoma,sans-serif; color: #000;">
+                                                                                        SENAC LAPA TITO</span>
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <img src="https://ci3.googleusercontent.com/meips/ADKq_NZkOWHmiwzc-GBAky4tth-EYtgsVDxNeCeegwUSuuoIJ_Ctr95TwBrmziufHD0jv6t4Vr4yH0HAjZTAs8AtEFJNu9fG4I-UDRokoGhziKnAEHQP2SO_PjWQowAthTUhRfesisiXw1N7dL69KtE_22e0JqFXosDBJDuE_L6XxtvDhhv0=s0-d-e1-ft#https://cRWb-04.na1.hubspotlinks.com/Cto/U+113/cRWb-04/VVnrS169FdpNW4XHrlR3N4RLrVhPn1w59JyNFW1qZLbK8fYCkH2kt1"
+                             alt=""
+                             width="1"
+                             height="1"
+                             border="0"
+                             style="display:none!important;min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important"
+                             class="CToWUd"
+                             data-bit="iit">
+                    </div>
+                </div><img alt=""
+                     src="https://ci3.googleusercontent.com/meips/ADKq_NY4uZWy13GxCGUKc7Vgv7N5I6Em6oMlmZyxxCFJuG5A-M5f-XWxmgvSAeN-vrXVobNEDUZ1IN1WJZO8FsS5FJPzMxg3Q_P7zFPd2a1Rrlst_BxQLg5SM5k-_XRCoPXyOj0iDDnZX0iVGJ30oBQ-Kwe2thNm-KlcwdoASqr64gaXuKG_9_bcrgPukp1XDlkRavSlZs1S3LiXeN8iCZGEkA=s0-d-e1-ft#https://nj2gk482.r.us-east-1.awstrack.me/I0/0100018ef123e191-a443ef9a-88f7-4b98-b2dd-0d49b2b0ee3b-000000/6ojYu2Ve0xx_MJUhvcHZrb0Yt44=370"
+                     style="display:none;width:1px;height:1px"
+                     class="CToWUd"
+                     data-bit="iit">
+                <div class="yj6qo"></div>
+                <div class="adL">
+                </div>
+            </div>
+        </div>
+        <div class="WhmR8e"
+             data-hash="0"></div>
+    </div>
+    </div>
+    <div class="ajx"></div>
+    </div>
 </body>
 
 </html>
