@@ -33,7 +33,7 @@ jobs:
     steps:
 
       - name: remove docker content not used
-        run: docker system prune -a
+        run: docker system prune -a --force
 
       - name: remove docker container
         run: docker rm -f deploy_calmomilla-api || true
