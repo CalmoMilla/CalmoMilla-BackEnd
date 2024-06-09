@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,7 +29,6 @@ public class VerificacaoCpf {
 
     private final ObjectMapper objectMapper;
 
-
     public ResponseEntity<?> enviarDados(VerificacaoDTO verificacaoDTO) throws ParseException {
         // Dados que você deseja enviar
         String origem = "web";
@@ -52,22 +50,28 @@ public class VerificacaoCpf {
 
         // Realizando a chamada para a API
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, request, String.class);
+        ResponseEntity<String> response;
+        try {
+            response = restTemplate.postForEntity(apiUrl, request, String.class);
+        } catch (Exception e) {
+            throw new NegocioException("Erro ao conectar com a API: " + e.getMessage());
+        }
 
         // Pegando a resposta
         String responseBody = response.getBody();
-        JsonNode data = null;
+        JsonNode data;
         try {
             JsonNode root = objectMapper.readTree(responseBody);
             data = root.path("data").get(0); // Assumindo que há apenas um objeto de dados
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (data == null){
-            throw new NegocioException("Erro ao verificar o seu cpf e data de nascimento verifique se digitou corretamente");
+            throw new NegocioException("Erro ao processar a resposta da API: " + e.getMessage());
         }
 
-        String dataNasc = String.valueOf(data.get("data_nascimento")).replace("\"","");
+        if (data == null) {
+            throw new NegocioException("Erro ao verificar o seu CPF e data de nascimento. Verifique se digitou corretamente.");
+        }
+
+        String dataNasc = data.get("data_nascimento").asText();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
@@ -81,15 +85,13 @@ public class VerificacaoCpf {
 
             // Verificar se a pessoa é maior de idade
             if (idade >= 18) {
-                return ResponseEntity.ok("A pessoa é maior de idade ");
+                return ResponseEntity.ok("A pessoa é maior de idade.");
             } else {
-                return ResponseEntity.badRequest().body("Você é menor de idade, não pode efetuar cadastro");
+                return ResponseEntity.badRequest().body("Você é menor de idade, não pode efetuar cadastro.");
             }
         } catch (ParseException e) {
             System.out.println("Erro ao formatar a data: " + e.getMessage());
             throw new NegocioException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
-
 }
