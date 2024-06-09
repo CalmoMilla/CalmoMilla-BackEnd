@@ -24,6 +24,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+
 @Service
 @AllArgsConstructor
 public class AuthService {
@@ -51,17 +53,17 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws NoSuchMethodException, ParseException {
     return pacienteService.cadastrar(pacienteInput);
     }
 
-    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) throws NoSuchMethodException {
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) throws NoSuchMethodException, ParseException {
 
         return psicologoService.cadastrar(psicologoInput);
 
     }
 
-    public ResponseEntity<?> loginGoogle(CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
+    public ResponseEntity<?> loginGoogle(CadastroPacienteInput pacienteInput) throws NoSuchMethodException, ParseException {
         if (userRepository.findByEmail(pacienteInput.getEmail()) == null) {
 
             return cadastrar(pacienteInput);

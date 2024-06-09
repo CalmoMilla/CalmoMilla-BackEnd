@@ -1,4 +1,4 @@
-package com.calmomilla.domain.service;
+package com.calmomilla.domain.utils;
 
 import com.calmomilla.api.dto.input.verificacao.VerificacaoDTO;
 import com.calmomilla.domain.exception.NegocioException;
@@ -11,19 +11,16 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Service
 @AllArgsConstructor
-public class VerificacaoService {
+public class VerificacaoCpf {
 
     @Value("${api.infosimples.url}")
     private String apiUrl;
@@ -86,7 +83,7 @@ public class VerificacaoService {
             if (idade >= 18) {
                 return ResponseEntity.ok("A pessoa é maior de idade ");
             } else {
-              throw new NegocioException("A pessoa é menor de idade");
+                return ResponseEntity.badRequest().body("Você é menor de idade, não pode efetuar cadastro");
             }
         } catch (ParseException e) {
             System.out.println("Erro ao formatar a data: " + e.getMessage());

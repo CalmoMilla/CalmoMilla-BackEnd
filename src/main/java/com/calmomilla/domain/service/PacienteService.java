@@ -1,6 +1,7 @@
 package com.calmomilla.domain.service;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
+import com.calmomilla.api.dto.input.verificacao.VerificacaoDTO;
 import com.calmomilla.api.dto.output.paciente.AtualizarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
@@ -10,6 +11,7 @@ import com.calmomilla.domain.model.Paciente;
 
 import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
+import com.calmomilla.domain.utils.VerificacaoCpf;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +34,7 @@ public class PacienteService {
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
     private EmailService emailService;
+    private VerificacaoCpf verificacaoService;
 
     public List<BuscarPacienteOutput> buscarTodos(){
         List<Paciente> pacientes = pacienteRepository.findAll();
@@ -58,12 +62,18 @@ public class PacienteService {
     }
 
     @Transactional
-    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) {
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws ParseException {
 
         if (pacienteRepository.existsByCpfOrEmailOrTelefone(pacienteInput.getCpf(), pacienteInput.getEmail(), pacienteInput.getTelefone())) {
             throw new DataIntegrityViolationException("Recurso está em uso");
         }
 
+        var verificaCpf = verificacaoService.enviarDados(new VerificacaoDTO(pacienteInput.getCpf(),pacienteInput.getDataNasc()));
+
+        if (verificaCpf.getStatusCode() != HttpStatus.OK){
+            throw new NegocioException(String.valueOf(verificaCpf.getBody()));
+
+        }
         String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
         pacienteInput.setSenha(senhaCriptografada);
         String cpfCriptografado = new BCryptPasswordEncoder().encode(pacienteInput.getCpf());

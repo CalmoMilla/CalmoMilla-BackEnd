@@ -1,16 +1,23 @@
 package com.calmomilla.api.dto.input.verificacao;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class VerificacaoDTO {
     @NotBlank
     private String cpf;
 
-    @NotBlank
-    private String dataNasc;
+   @NotNull
+    private LocalDate dataNasc;
 
+//    public VerificacaoDTO(String cpf, LocalDate dataNasc) {
+//    }
 }

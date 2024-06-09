@@ -3,6 +3,7 @@ package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.psicologo.AtualizarPsicologoInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
+import com.calmomilla.api.dto.input.verificacao.VerificacaoDTO;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.psicologo.AtualizarPsicologoOutput;
 import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoEmailOutput;
@@ -14,6 +15,7 @@ import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PsicologoRepository;
 
 import com.calmomilla.domain.utils.ModelMapperUtils;
+import com.calmomilla.domain.utils.VerificacaoCpf;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +39,7 @@ public class PsicologoService {
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
     private final EmailService emailService;
+    private final VerificacaoCpf verificacaoCpf;
     public List<BuscarPsicologoOutput> buscarTodos(){
 
         List<Psicologo> psicologos = psicologoRepository.findAll();
@@ -67,10 +71,14 @@ public class PsicologoService {
     }
 
 
-    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) throws NoSuchMethodException {
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(CadastroPsicologoInput psicologoInput) throws NoSuchMethodException, ParseException {
 
         if (psicologoRepository.existsByCpfOrEmailOrTelefone(psicologoInput.getCpf(), psicologoInput.getEmail(), psicologoInput.getTelefone())) {
             throw new DataIntegrityViolationException("Recurso está em uso");
+        }
+
+        if (verificacaoCpf.enviarDados(new VerificacaoDTO(psicologoInput.getCpf(),psicologoInput.getDataNasc())).getStatusCode() != HttpStatus.OK){
+            throw new NegocioException("seu cpf ou data de nascimente estão invalidos! verifique");
         }
         var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
         psicologoInput.setSenha(senhaCriptografada);

@@ -33,6 +33,8 @@ public class EmailService {
             corpoHtml = corpoHtml.replace("${destinatario}", destinatario);
             corpoHtml = corpoHtml.replace("${imagem1}", "cid:imagem1");
             corpoHtml = corpoHtml.replace("${imagem2}", "cid:imagem2");
+            corpoHtml = corpoHtml.replace("${imagem3}", "cid:imagem3");
+            corpoHtml = corpoHtml.replace("${imagem4}", "cid:imagem4");
 
 
             MimeMessage message = mailSender.createMimeMessage();
@@ -45,6 +47,8 @@ public class EmailService {
             // Adiciona a imagem inline
             helper.addInline("imagem1", new ClassPathResource("static/img/LogoCalmomilla.png"));
             helper.addInline("imagem2", new ClassPathResource("static/img/CalmoMillaLg.png"));
+            helper.addInline("imagem3", new ClassPathResource("static/img/instagram.png"));
+            helper.addInline("imagem4", new ClassPathResource("static/img/icone-linkedin-ronde-noire.png"));
 
 
             mailSender.send(message);

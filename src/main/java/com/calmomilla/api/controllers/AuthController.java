@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 @AllArgsConstructor
 @RestController
@@ -30,7 +31,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/google")
-    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
+    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastroPacienteInput pacienteInput) throws NoSuchMethodException, ParseException {
         return authService.loginGoogle(pacienteInput);
     }
     @PostMapping("/login")
@@ -41,14 +42,14 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro-paciente")
-    public ResponseEntity<CadastroPacienteOutput> cadastrar(@RequestBody @Valid CadastroPacienteInput pacienteInput) throws NoSuchMethodException {
+    public ResponseEntity<CadastroPacienteOutput> cadastrar(@RequestBody @Valid CadastroPacienteInput pacienteInput) throws NoSuchMethodException, ParseException {
 
         return authService.cadastrar(pacienteInput);
 
     }
 
     @PostMapping("/cadastro-psicologo")
-    public ResponseEntity<CadastroPsicologoOutput> cadastrar(@RequestBody @Valid CadastroPsicologoInput cadastroPsicologoInput) throws NoSuchMethodException {
+    public ResponseEntity<CadastroPsicologoOutput> cadastrar(@RequestBody @Valid CadastroPsicologoInput cadastroPsicologoInput) throws NoSuchMethodException, ParseException {
 
         return authService.cadastrar(cadastroPsicologoInput);
 
