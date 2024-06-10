@@ -50,7 +50,6 @@ public class AuthService {
     private final PsicologoService psicologoService;
     private final PacienteService pacienteService;
     private final EmailService emailService;
-    private final PacienteRepository pacienteRepository;
 
     public ResponseEntity<LoginOutput> login(AuthDTO authDTO) {
         String token = null;
