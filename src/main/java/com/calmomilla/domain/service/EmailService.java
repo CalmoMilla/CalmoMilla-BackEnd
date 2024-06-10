@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -49,10 +51,8 @@ public class EmailService {
             helper.addInline("imagem2", new ClassPathResource("static/img/CalmoMillaLg.png"));
             helper.addInline("imagem3", new ClassPathResource("static/img/instagram.png"));
             helper.addInline("imagem4", new ClassPathResource("static/img/icone-linkedin-ronde-noire.png"));
-
-
+            
             mailSender.send(message);
-            System.out.println("Email enviado com sucesso para: " + destinatario);
 
             return true;
         } catch (MessagingException e) {
@@ -70,10 +70,14 @@ public class EmailService {
             // Cria o objeto MimeMessage
             // Lê o conteúdo do arquivo HTML
             ClassPathResource htmlResource = new ClassPathResource("static/redefinirSenha.html");
-            String corpoHtml = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())), "UTF-8");
+            String corpoHtml = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())), StandardCharsets.UTF_8);
 
             // Substitui o marcador da imagem pelo identificador inline
+            String encodedEmail = URLEncoder.encode(destinatario, StandardCharsets.UTF_8);
+
+            // Substitui o marcador pelo valor do destinatário
             corpoHtml = corpoHtml.replace("${destinatario}", destinatario);
+            corpoHtml = corpoHtml.replace("${email}", encodedEmail);
             corpoHtml = corpoHtml.replace("${imagem1}", "cid:imagem1");
             corpoHtml = corpoHtml.replace("${imagem2}", "cid:imagem2");
 
@@ -89,7 +93,6 @@ public class EmailService {
             helper.addInline("imagem1", new ClassPathResource("static/img/LogoCalmomilla.png"));
 
             mailSender.send(message);
-            System.out.println("Email enviado com sucesso para: " + destinatario);
 
             return true;
         } catch (MessagingException e) {

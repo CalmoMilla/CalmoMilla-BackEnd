@@ -80,6 +80,7 @@ public class PsicologoService {
         if (verificacaoCpf.enviarDados(new VerificacaoDTO(psicologoInput.getCpf(),psicologoInput.getDataNasc())).getStatusCode() != HttpStatus.OK){
             throw new NegocioException("seu cpf ou data de nascimente estão invalidos! verifique");
         }
+
         var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
         psicologoInput.setSenha(senhaCriptografada);
         String cpfCriptografado = new  BCryptPasswordEncoder().encode(psicologoInput.getCpf());
@@ -95,6 +96,15 @@ public class PsicologoService {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(psicologoOutput);
 
+    }
+
+    public ResponseEntity<BuscarPacienteEmailOutput> buscarPorEmail(String email) throws NoSuchMethodException {
+        Optional<Psicologo> paciente = psicologoRepository.findByEmail(email);
+        if (paciente.isEmpty()) {
+            throw new NoSuchMethodException("Email não encontrado");
+        }
+        BuscarPacienteEmailOutput pacienteOutput = modelMapper.map(paciente.get(), BuscarPacienteEmailOutput.class);
+        return ResponseEntity.ok(pacienteOutput);
     }
 
     public ResponseEntity<AtualizarPsicologoOutput> atualizar(AtualizarPsicologoInput psicologoInput) throws NoSuchMethodException {

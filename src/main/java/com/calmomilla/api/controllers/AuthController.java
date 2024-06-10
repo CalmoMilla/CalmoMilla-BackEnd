@@ -5,6 +5,7 @@ import com.calmomilla.api.dto.input.CadastrarDTO;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
 import com.calmomilla.api.dto.input.recuperarSenha.RecuperarSenhaInput;
+import com.calmomilla.api.dto.input.recuperarSenhaRedefinir.RecuperarSenhaRedefinirInput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.api.dto.output.LoginOutput;
@@ -56,10 +57,12 @@ public class AuthController {
     }
 
     @PostMapping("/esqueciASenha")
-    public ResponseEntity<RecuperarSenhaOutput>recuperarSenha(@RequestBody @Valid RecuperarSenhaInput recuperarSenhaInput){
-
+    public ResponseEntity<RecuperarSenhaOutput>recuperarSenha(@RequestBody @Valid RecuperarSenhaInput recuperarSenhaInput) throws NoSuchMethodException {
         return  authService.recuperarSenha(recuperarSenhaInput);
-
+    }
+    @PostMapping("/esqueciASenha/redefinir")
+    public ResponseEntity<RecuperarSenhaOutput>recuperarSenhaRedefinir(@RequestBody @Valid RecuperarSenhaRedefinirInput recuperarSenhaInput) throws NoSuchMethodException {
+        return  authService.recuperarSenhaRedefinir(recuperarSenhaInput);
     }
 
 

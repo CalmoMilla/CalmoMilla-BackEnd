@@ -61,6 +61,16 @@ public class PacienteService {
         return ResponseEntity.ok(pacienteOutput);
     }
 
+    public ResponseEntity<BuscarPacienteEmailOutput> buscarPorEmail(String email) throws NoSuchMethodException {
+        Optional<Paciente> paciente = pacienteRepository.findByEmail(email);
+        if (paciente.isEmpty()) {
+            throw new NoSuchMethodException("Email não encontrado");
+        }
+        BuscarPacienteEmailOutput pacienteOutput = modelMapper.map(paciente.get(), BuscarPacienteEmailOutput.class);
+        return ResponseEntity.ok(pacienteOutput);
+    }
+
+
     @Transactional
     public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws ParseException {
 
@@ -74,6 +84,7 @@ public class PacienteService {
             throw new NegocioException(String.valueOf(verificaCpf.getBody()));
 
         }
+
         String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
         pacienteInput.setSenha(senhaCriptografada);
         String cpfCriptografado = new BCryptPasswordEncoder().encode(pacienteInput.getCpf());
@@ -96,10 +107,16 @@ public class PacienteService {
         BuscarPacienteOutput pacienteOutput = buscarPorId(pacienteInput.getId()).getBody();
 
         Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
-        if (!paciente.getSenha().equals(pacienteInput.getSenha())){
-            String senhaCriptografada = new BCryptPasswordEncoder().encode(paciente.getSenha());
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(pacienteInput.getSenha(), paciente.getSenha())){
+            String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
             pacienteInput.setSenha(senhaCriptografada);
+        }else {
+            assert pacienteOutput != null;
+            pacienteInput.setSenha(pacienteOutput.getSenha());
         }
+
         if (!paciente.getCpf().equals(pacienteInput.getCpf())){
             String cpfCriptografado = new  BCryptPasswordEncoder().encode(pacienteInput.getCpf());
             pacienteInput.setCpf(cpfCriptografado);
