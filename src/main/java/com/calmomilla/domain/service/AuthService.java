@@ -1,6 +1,7 @@
 package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.AuthDTO;
+import com.calmomilla.api.dto.input.loginGoogle.LoginGoogleInput;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.AtualizarPsicologoInput;
@@ -77,13 +78,15 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<?> loginGoogle(CadastroPacienteInput pacienteInput) throws NoSuchMethodException, ParseException {
-        if (userRepository.findByEmail(pacienteInput.getEmail()) == null) {
-
-            return cadastrar(pacienteInput);
+    public ResponseEntity<?> loginGoogle(LoginGoogleInput loginGoogleInput) throws NoSuchMethodException, ParseException {
+       var usuario = userRepository.findByEmail(loginGoogleInput.getEmail());
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
         } else {
-            AuthDTO authDTO = modelMapper.map(pacienteInput, AuthDTO.class);
-            return login(authDTO);
+            if (loginGoogleInput.getSenha().isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+            return login(new AuthDTO(loginGoogleInput.getEmail(), loginGoogleInput.getSenha()));
         }
     }
 

@@ -51,7 +51,7 @@ public class EmailService {
             helper.addInline("imagem2", new ClassPathResource("static/img/CalmoMillaLg.png"));
             helper.addInline("imagem3", new ClassPathResource("static/img/instagram.png"));
             helper.addInline("imagem4", new ClassPathResource("static/img/icone-linkedin-ronde-noire.png"));
-            
+
             mailSender.send(message);
 
             return true;

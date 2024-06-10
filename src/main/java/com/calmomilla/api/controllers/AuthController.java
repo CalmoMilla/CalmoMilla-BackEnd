@@ -2,6 +2,7 @@ package com.calmomilla.api.controllers;
 
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.CadastrarDTO;
+import com.calmomilla.api.dto.input.loginGoogle.LoginGoogleInput;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
 import com.calmomilla.api.dto.input.recuperarSenha.RecuperarSenhaInput;
@@ -32,8 +33,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/google")
-    public ResponseEntity<?> loginGoogle(@RequestBody @Valid CadastroPacienteInput pacienteInput) throws NoSuchMethodException, ParseException {
-        return authService.loginGoogle(pacienteInput);
+    public ResponseEntity<?> loginGoogle(@RequestBody @Valid LoginGoogleInput loginGoogleInput) throws NoSuchMethodException, ParseException {
+        return authService.loginGoogle(loginGoogleInput);
     }
     @PostMapping("/login")
     public ResponseEntity<LoginOutput> login(@RequestBody @Valid AuthDTO authDTO){
