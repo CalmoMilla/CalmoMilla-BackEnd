@@ -78,12 +78,12 @@ public class PacienteService {
             throw new DataIntegrityViolationException("Recurso está em uso");
         }
 
-        var verificaCpf = verificacaoService.enviarDados(new VerificacaoDTO(pacienteInput.getCpf(),pacienteInput.getDataNasc()));
-
-        if (verificaCpf.getStatusCode() != HttpStatus.OK){
-            throw new NegocioException(String.valueOf(verificaCpf.getBody()));
-
-        }
+//        var verificaCpf = verificacaoService.enviarDados(new VerificacaoDTO(pacienteInput.getCpf(),pacienteInput.getDataNasc()));
+//
+//        if (verificaCpf.getStatusCode() != HttpStatus.OK){
+//            throw new NegocioException(String.valueOf(verificaCpf.getBody()));
+//
+//        }
 
         String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
         pacienteInput.setSenha(senhaCriptografada);

@@ -77,9 +77,9 @@ public class PsicologoService {
             throw new DataIntegrityViolationException("Recurso está em uso");
         }
 
-        if (verificacaoCpf.enviarDados(new VerificacaoDTO(psicologoInput.getCpf(),psicologoInput.getDataNasc())).getStatusCode() != HttpStatus.OK){
-            throw new NegocioException("seu cpf ou data de nascimente estão invalidos! verifique");
-        }
+//        if (verificacaoCpf.enviarDados(new VerificacaoDTO(psicologoInput.getCpf(),psicologoInput.getDataNasc())).getStatusCode() != HttpStatus.OK){
+//            throw new NegocioException("seu cpf ou data de nascimente estão invalidos! verifique");
+//        }
 
         var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
         psicologoInput.setSenha(senhaCriptografada);
