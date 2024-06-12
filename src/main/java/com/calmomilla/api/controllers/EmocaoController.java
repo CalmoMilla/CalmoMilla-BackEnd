@@ -27,7 +27,7 @@ public class EmocaoController {
         return emocaoService.buscarEmocaoPorId(id);
     }
 
-    @GetMapping("/paciente/{id}")
+    @GetMapping("/pacientes/{id}")
     public ResponseEntity<List<BuscarEmocaoOutput>>buscarPorIdPaciente(@PathVariable String id) throws NoSuchMethodException {
         return emocaoService.buscarEmocaoPorIdPaciente(id);
     }
