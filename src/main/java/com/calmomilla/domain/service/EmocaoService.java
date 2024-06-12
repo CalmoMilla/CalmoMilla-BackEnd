@@ -81,15 +81,17 @@ public class EmocaoService {
         int maiorEntreTres = Math.max(maiorEntreDois, meioTermo);
 
         String mensagem;
-        if (maiorEntreTres == triste) {
-            mensagem = "Parece que você está se sentindo triste. Estamos aqui para ajudar!";
-            emocaoInput.setDescricao(String.valueOf(Emocoes.TRISTE));
+        if (maiorEntreTres == meioTermo) {
+
+            emocaoInput.setDescricao(String.valueOf(Emocoes.MEIOTERMO));
+            mensagem = "Você parece estar em um meio termo. Estamos aqui para apoiar você!";
+
         } else if (maiorEntreTres == feliz) {
             emocaoInput.setDescricao(String.valueOf(Emocoes.FELIZ));
             mensagem = "Que ótimo! Você está se sentindo feliz!";
         } else {
-            emocaoInput.setDescricao(String.valueOf(Emocoes.MEIOTERMO));
-            mensagem = "Você parece estar em um meio termo. Estamos aqui para apoiar você!";
+            mensagem = "Parece que você está se sentindo triste. Estamos aqui para ajudar!";
+            emocaoInput.setDescricao(String.valueOf(Emocoes.TRISTE));
         }
         emocaoInput.setDataRegistro(LocalDate.now());
         Emocao emocao = modelMapper.map(emocaoInput,Emocao.class);

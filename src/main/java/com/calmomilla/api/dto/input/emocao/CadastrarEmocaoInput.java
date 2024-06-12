@@ -16,8 +16,8 @@ import java.util.List;
 @Setter
 public class CadastrarEmocaoInput {
 
-    @NotBlank
     private String descricao;
+
     @NotNull
     private List<Emocoes> emocoes = new ArrayList<>();
 
