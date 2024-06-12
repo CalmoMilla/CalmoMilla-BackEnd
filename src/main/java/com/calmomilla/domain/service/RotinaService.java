@@ -5,8 +5,6 @@ import com.calmomilla.api.dto.input.rotina.CadastroRotinaInput;
 import com.calmomilla.api.dto.output.rotina.AtualizarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
-import com.calmomilla.api.dto.output.tarefa.BuscarTarefaOutput;
-import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
@@ -51,8 +49,7 @@ public class RotinaService {
 
     public List<BuscarRotinaOutput> buscarTodos() {
         List<Rotina> rotinas = rotinaRepository.findAll();
-        List<BuscarRotinaOutput> buscarRotinas = mapperUtils.mapList(rotinas, BuscarRotinaOutput.class);
-        return buscarRotinas;
+        return mapperUtils.mapList(rotinas, BuscarRotinaOutput.class);
     }
 
     public ResponseEntity<AtualizarRotinaOutput> atualizar (AtualizarRotinaInput atualizarRotina) throws NoSuchMethodException {

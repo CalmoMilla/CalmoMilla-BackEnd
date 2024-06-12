@@ -50,8 +50,7 @@ public class EnderecoService {
 
     public List<BuscarEnderecoOutput> buscarTodos() {
         List<Endereco> enderecos = enderecoRepository.findAll();
-        List<BuscarEnderecoOutput> enderecosOutput = mapperUtils.mapList(enderecos, BuscarEnderecoOutput.class);
-        return enderecosOutput;
+        return mapperUtils.mapList(enderecos, BuscarEnderecoOutput.class);
     }
 
     public ResponseEntity<AtualizarEnderecoOutput> atualizar(AtualizarEnderecoInput atualizarEndereco) throws NoSuchMethodException {

@@ -1,5 +1,6 @@
 package com.calmomilla.domain.service;
 
+import com.calmomilla.api.configs.security.TokenService;
 import com.calmomilla.api.dto.input.AuthDTO;
 import com.calmomilla.api.dto.input.loginGoogle.LoginGoogleInput;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
@@ -8,36 +9,24 @@ import com.calmomilla.api.dto.input.psicologo.AtualizarPsicologoInput;
 import com.calmomilla.api.dto.input.psicologo.CadastroPsicologoInput;
 import com.calmomilla.api.dto.input.recuperarSenha.RecuperarSenhaInput;
 import com.calmomilla.api.dto.input.recuperarSenhaRedefinir.RecuperarSenhaRedefinirInput;
-import com.calmomilla.api.dto.output.paciente.AtualizarPacienteOutput;
-import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
+import com.calmomilla.api.dto.output.LoginOutput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
-import com.calmomilla.api.dto.output.LoginOutput;
-
-import com.calmomilla.api.configs.security.TokenService;
-
 import com.calmomilla.api.dto.output.recuperarSenha.RecuperarSenhaOutput;
 import com.calmomilla.domain.exception.NegocioException;
-import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Usuario;
-
-import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.text.ParseException;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -52,7 +41,7 @@ public class AuthService {
     private final EmailService emailService;
 
     public ResponseEntity<LoginOutput> login(AuthDTO authDTO) {
-        String token = null;
+        String token;
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(authDTO.getEmail(), authDTO.getSenha());
             var auth = authenticationManager.authenticate(usernamePassword);
@@ -61,7 +50,7 @@ public class AuthService {
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException(e.getMessage());
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             throw new NegocioException("Erro ao autenticar o usuario");
         }
 
@@ -77,7 +66,7 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<?> loginGoogle(LoginGoogleInput loginGoogleInput) throws NoSuchMethodException, ParseException {
+    public ResponseEntity<?> loginGoogle(LoginGoogleInput loginGoogleInput) {
        var usuario = userRepository.findByEmail(loginGoogleInput.getEmail());
         if (usuario == null) {
             return ResponseEntity.notFound().build();
@@ -89,10 +78,10 @@ public class AuthService {
         }
     }
 
-    public ResponseEntity<RecuperarSenhaOutput> recuperarSenha(RecuperarSenhaInput recuperarSenhaInput) throws NoSuchMethodException {
+    public ResponseEntity<RecuperarSenhaOutput> recuperarSenha(RecuperarSenhaInput recuperarSenhaInput) {
       var usuario = userRepository.findByEmail(recuperarSenhaInput.getEmail());
        if (usuario == null){throw new NegocioException("Email não encontrado");}
-        if (emailService.enviarEmailDeRecuperarSenha(recuperarSenhaInput.getEmail(), "Recupere a sua conta!"));
+        emailService.enviarEmailDeRecuperarSenha(recuperarSenhaInput.getEmail(), "Recupere a sua conta!");
         RecuperarSenhaOutput senhaOutput = new RecuperarSenhaOutput(recuperarSenhaInput.getEmail(), "Email enviado com sucesso para "+recuperarSenhaInput.getEmail());
         return ResponseEntity.ok(senhaOutput);
     }
@@ -109,6 +98,7 @@ public class AuthService {
         }
 
       var usuarioEncontrado = usuario.getBody();
+        assert usuarioEncontrado != null;
         if (usuarioEscolhido == 0){
             var usuarioEncontradoPaciente = pacienteService.buscarPorId(usuarioEncontrado.getId()).getBody();
             assert usuarioEncontradoPaciente != null;

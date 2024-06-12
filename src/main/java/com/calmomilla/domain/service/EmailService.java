@@ -55,8 +55,6 @@ public class EmailService {
         } catch (MessagingException e) {
             e.printStackTrace();
             return false;
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +65,7 @@ public class EmailService {
             // Cria o objeto MimeMessage
             // Lê o conteúdo do arquivo HTML
             ClassPathResource htmlResource = new ClassPathResource("static/redefinirSenha.html");
-            String corpoHtml = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())), StandardCharsets.UTF_8);
+            String corpoHtml = Files.readString(Paths.get(htmlResource.getURI()));
 
             // Substitui o marcador da imagem pelo identificador inline
             String encodedEmail = URLEncoder.encode(destinatario, StandardCharsets.UTF_8);
@@ -95,8 +93,6 @@ public class EmailService {
         } catch (MessagingException e) {
             e.printStackTrace();
             return false;
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

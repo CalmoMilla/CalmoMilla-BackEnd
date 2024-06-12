@@ -51,8 +51,7 @@ public class TarefaService {
 
     public List<BuscarTarefaOutput> buscarTodos() {
         List<Tarefa> tarefas = tarefaRepository.findAll();
-        List<BuscarTarefaOutput> tarefaOutputs = mapperUtils.mapList(tarefas, BuscarTarefaOutput.class);
-        return tarefaOutputs;
+        return mapperUtils.mapList(tarefas, BuscarTarefaOutput.class);
     }
 
     public ResponseEntity<AtualizarTarefaOutput> atualizar (AtualizarTarefaInput atualizarTarefa) throws NoSuchMethodException {
