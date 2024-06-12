@@ -10,7 +10,7 @@ import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoEmailOutput;
 import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
 import com.calmomilla.api.dto.output.psicologo.CadastroPsicologoOutput;
 import com.calmomilla.domain.exception.NegocioException;
-import com.calmomilla.domain.model.Paciente;
+
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PsicologoRepository;
 
@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.security.Principal;
 import java.text.ParseException;
@@ -43,8 +43,7 @@ public class PsicologoService {
     public List<BuscarPsicologoOutput> buscarTodos(){
 
         List<Psicologo> psicologos = psicologoRepository.findAll();
-        List<BuscarPsicologoOutput> psicologoOutputs = mapperUtils.mapList(psicologos, BuscarPsicologoOutput.class);
-        return psicologoOutputs;
+        return mapperUtils.mapList(psicologos, BuscarPsicologoOutput.class);
 
     }
 
@@ -80,6 +79,9 @@ public class PsicologoService {
 //        if (verificacaoCpf.enviarDados(new VerificacaoDTO(psicologoInput.getCpf(),psicologoInput.getDataNasc())).getStatusCode() != HttpStatus.OK){
 //            throw new NegocioException("seu cpf ou data de nascimente estão invalidos! verifique");
 //        }
+
+        verificacaoCpf.verificarLocalmente(
+                new VerificacaoDTO(psicologoInput.getCpf(), psicologoInput.getDataNasc()));
 
         var senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
         psicologoInput.setSenha(senhaCriptografada);

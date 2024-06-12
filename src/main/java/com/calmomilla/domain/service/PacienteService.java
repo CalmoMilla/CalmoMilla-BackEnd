@@ -34,7 +34,7 @@ public class PacienteService {
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
     private EmailService emailService;
-    private VerificacaoCpf verificacaoService;
+    private VerificacaoCpf verificacaoCpf;
 
     public List<BuscarPacienteOutput> buscarTodos(){
         List<Paciente> pacientes = pacienteRepository.findAll();
@@ -84,6 +84,9 @@ public class PacienteService {
 //            throw new NegocioException(String.valueOf(verificaCpf.getBody()));
 //
 //        }
+
+        verificacaoCpf.verificarLocalmente(
+                new VerificacaoDTO(pacienteInput.getCpf(), pacienteInput.getDataNasc()));
 
         String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
         pacienteInput.setSenha(senhaCriptografada);

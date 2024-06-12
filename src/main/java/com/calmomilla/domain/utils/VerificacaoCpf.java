@@ -29,7 +29,7 @@ public class VerificacaoCpf {
 
     private final ObjectMapper objectMapper;
 
-    public ResponseEntity<?> enviarDados(VerificacaoDTO verificacaoDTO) throws ParseException {
+    public ResponseEntity<?> enviarDados(VerificacaoDTO verificacaoDTO){
         // Dados que você deseja enviar
         String origem = "web";
         String timeout = "300";
@@ -94,4 +94,64 @@ public class VerificacaoCpf {
             throw new NegocioException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-}
+
+    public void verificarLocalmente(VerificacaoDTO verificacaoDTO){
+
+        if (!validarCpf(verificacaoDTO.getCpf())){
+            throw new NegocioException("CPF Invalido!");
+        }
+
+        if (!validarDataNasc(verificacaoDTO.getDataNasc())){
+            throw new NegocioException("Você é menor de idade não pode se cadastrar");
+        }
+    }
+
+    public static Boolean validarDataNasc(LocalDate dataNasc){
+
+        LocalDate dataAtual = LocalDate.now();
+
+        // Calcular a idade
+        int idade = Period.between(dataNasc, dataAtual).getYears();
+        System.out.println("Idade: " + idade);
+
+        // Verificar se a pessoa é maior de idade
+        return idade >= 18;
+
+    }
+
+    public static Boolean validarCpf(String CPF){
+
+        CPF = CPF.replace(".", "").replace("-", "");
+
+        if (CPF.length() != 11) {
+            return false;
+        }
+
+        if (CPF.matches("(\\d)\\1{10}")) {
+            return false;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < 9; i++) {
+            sum += (10 - i) * (CPF.charAt(i) - '0');
+        }
+
+        int firstDigit = 11 - (sum % 11);
+        if (firstDigit == 10 || firstDigit == 11) {
+            firstDigit = 0;
+        }
+
+        sum = 0;
+        for (int i = 0; i < 10; i++) {
+            sum += (11 - i) * (CPF.charAt(i) - '0');
+        }
+
+        int secondDigit = 11 - (sum % 11);
+        if (secondDigit == 10 || secondDigit == 11) {
+            secondDigit = 0;
+        }
+
+        return (firstDigit == (CPF.charAt(9) - '0')) && (secondDigit == (CPF.charAt(10) - '0'));
+    }
+    }
+
