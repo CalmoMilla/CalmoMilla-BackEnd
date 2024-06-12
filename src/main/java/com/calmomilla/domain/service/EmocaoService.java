@@ -52,7 +52,7 @@ public class EmocaoService {
 
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(id).getBody();
         Paciente paciente = modelMapper.map(pacienteOutput,Paciente.class);
-        List<Emocao> emocaos = emocaoRepository.findByPaciente(paciente);
+        List<Emocao> emocaos = emocaoRepository.findByPacienteOrderByDataRegistroDesc(paciente);
         List<BuscarEmocaoOutput> emocaoOutput = mapperUtils.mapList(emocaos, BuscarEmocaoOutput.class);
         return ResponseEntity.ok(emocaoOutput);
 
