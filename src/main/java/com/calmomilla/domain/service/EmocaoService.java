@@ -84,13 +84,13 @@ public class EmocaoService {
         if (maiorEntreTres == meioTermo) {
 
             emocaoInput.setDescricao(String.valueOf(Emocoes.MEIOTERMO));
-            mensagem = "Você parece estar em um meio termo. Estamos aqui para apoiar você!";
+            mensagem = "Você parece estar neutro. dias melhores virão!";
 
         } else if (maiorEntreTres == feliz) {
             emocaoInput.setDescricao(String.valueOf(Emocoes.FELIZ));
             mensagem = "Que ótimo! Você está se sentindo feliz!";
         } else {
-            mensagem = "Parece que você está se sentindo triste. Estamos aqui para ajudar!";
+            mensagem = "Poxa vimos que você está se sentindo triste, de um pulinho na nossas seção de Relaxamento.";
             emocaoInput.setDescricao(String.valueOf(Emocoes.TRISTE));
         }
         emocaoInput.setDataRegistro(LocalDate.now());
