@@ -110,11 +110,8 @@ public class VerificacaoCpf {
 
         LocalDate dataAtual = LocalDate.now();
 
-        // Calcular a idade
         int idade = Period.between(dataNasc, dataAtual).getYears();
-        System.out.println("Idade: " + idade);
 
-        // Verificar se a pessoa é maior de idade
         return idade >= 18;
 
     }
