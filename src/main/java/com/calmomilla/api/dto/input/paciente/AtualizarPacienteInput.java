@@ -1,5 +1,6 @@
 package com.calmomilla.api.dto.input.paciente;
 
+import com.calmomilla.domain.model.DadosPessoais;
 import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.utils.UserRole;
@@ -46,5 +47,8 @@ public class AtualizarPacienteInput {
     private UserRole role;
 
     private Rotina rotina;
+
+    private DadosPessoais dadosPessoais;
+
 
 }

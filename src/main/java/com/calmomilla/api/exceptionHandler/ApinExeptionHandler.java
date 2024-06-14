@@ -1,5 +1,6 @@
 package com.calmomilla.api.exceptionHandler;
 
+import com.calmomilla.domain.exception.DataNotFoundException;
 import com.calmomilla.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -36,6 +37,16 @@ public class ApinExeptionHandler  extends ResponseEntityExceptionHandler {
 
         problemDetail.setProperty("fields",fields);
         return super.handleExceptionInternal(ex, problemDetail,headers, status, request);
+    }
+
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ProblemDetail handleDataDataNotFound(DataNotFoundException e){
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NO_CONTENT);
+        problemDetail.setTitle("Recurso está em uso");
+        problemDetail.setType(URI.create("https://calmomilla.com/erros/recurso-em-uso"));
+
+        return problemDetail;
     }
 
 

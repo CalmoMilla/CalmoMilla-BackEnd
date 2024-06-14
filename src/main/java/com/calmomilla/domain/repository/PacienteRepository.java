@@ -15,4 +15,5 @@ public interface PacienteRepository extends JpaRepository<Paciente,String> {
 
     Optional<Paciente> findByEmail(String email);
 
+
 }

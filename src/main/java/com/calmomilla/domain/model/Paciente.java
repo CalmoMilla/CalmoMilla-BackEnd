@@ -16,9 +16,7 @@ public class  Paciente extends Usuario{
     @OneToMany
     private List<Emocao> emocaos = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dados_pessoais_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.REMOVE)
     private DadosPessoais dadosPessoais;
-
 
 }

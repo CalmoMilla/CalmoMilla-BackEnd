@@ -1,5 +1,6 @@
 package com.calmomilla.api.dto.output.paciente;
 
+import com.calmomilla.domain.model.DadosPessoais;
 import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.utils.UserRole;
@@ -36,5 +37,8 @@ public class BuscarPacienteOutput {
     private String foto;
 
     private Rotina rotina;
+
+    private DadosPessoais dadosPessoais;
+
 
 }

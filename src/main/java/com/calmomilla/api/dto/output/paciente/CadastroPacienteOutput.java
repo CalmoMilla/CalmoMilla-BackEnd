@@ -16,6 +16,4 @@ public class CadastroPacienteOutput {
 
     private String foto;
 
-    private Rotina rotina;
-
 }
