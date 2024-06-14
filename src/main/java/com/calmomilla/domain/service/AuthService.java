@@ -67,14 +67,13 @@ public class AuthService {
     }
 
     public ResponseEntity<?> loginGoogle(LoginGoogleInput loginGoogleInput) {
-       var usuario = userRepository.findByEmail(loginGoogleInput.getEmail());
+        String token;
+        var usuario = userRepository.findByEmail(loginGoogleInput.getEmail());
         if (usuario == null) {
             return ResponseEntity.notFound().build();
         } else {
-            if (loginGoogleInput.getSenha().isEmpty()) {
-                return ResponseEntity.badRequest().build();
-            }
-            return login(new AuthDTO(loginGoogleInput.getEmail(), loginGoogleInput.getSenha()));
+            token = tokenService.gerarToken(loginGoogleInput.getEmail());
+            return ResponseEntity.ok(new LoginOutput(token));
         }
     }
 

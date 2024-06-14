@@ -31,6 +31,20 @@ public class TokenService {
         }
     }
 
+    public String gerarToken(String email){
+        try{
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            String token = JWT.create()
+                    .withIssuer("calmomilla-api")
+                    .withSubject(email)
+                    .withExpiresAt(gerarExpiracao())
+                    .sign(algorithm);
+            return token;
+        }catch (JWTCreationException exception){
+            throw  new RuntimeException("Erro enquanto gerava o token", exception);
+        }
+    }
+
     public String validarToken(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
