@@ -6,6 +6,7 @@ import com.calmomilla.api.dto.output.paciente.AtualizarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
+import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Paciente;
 
@@ -31,6 +32,7 @@ import java.util.Optional;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final RotinaService rotinaService;
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
     private EmailService emailService;
@@ -38,8 +40,7 @@ public class PacienteService {
 
     public List<BuscarPacienteOutput> buscarTodos(){
         List<Paciente> pacientes = pacienteRepository.findAll();
-        List<BuscarPacienteOutput> pacienteOutputs = mapperUtils.mapList(pacientes, BuscarPacienteOutput.class);
-       return pacienteOutputs;
+        return mapperUtils.mapList(pacientes, BuscarPacienteOutput.class);
     }
 
     public ResponseEntity<BuscarPacienteOutput> buscarPorId(String id) throws NoSuchMethodException {
@@ -61,6 +62,7 @@ public class PacienteService {
         return ResponseEntity.ok(pacienteOutput);
     }
 
+
     public ResponseEntity<BuscarPacienteEmailOutput> buscarPorEmail(String email) throws NoSuchMethodException {
         Optional<Paciente> paciente = pacienteRepository.findByEmail(email);
         if (paciente.isEmpty()) {
@@ -70,6 +72,16 @@ public class PacienteService {
         return ResponseEntity.ok(pacienteOutput);
     }
 
+    public ResponseEntity<BuscarRotinaOutput> buscarRotina(String id) throws NoSuchMethodException {
+        BuscarPacienteOutput pacienteOutput = buscarPorId(id).getBody();
+        assert pacienteOutput != null;
+        if (pacienteOutput.getRotina() == null){
+            throw new NegocioException("Esse usuario ainda não tem uma rotina");
+        }
+
+        return rotinaService.buscarPorId(pacienteOutput.getRotina().getId());
+
+    }
 
     @Transactional
     public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws ParseException {
@@ -137,5 +149,6 @@ public class PacienteService {
         pacienteRepository.deleteById(pacienteOutput.getId());
         return ResponseEntity.noContent().build();
     }
+
 
 }

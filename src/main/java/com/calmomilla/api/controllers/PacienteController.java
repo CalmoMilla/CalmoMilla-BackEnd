@@ -5,7 +5,9 @@ import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.output.paciente.AtualizarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
+import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.domain.service.PacienteService;
+import com.calmomilla.domain.service.RotinaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import java.util.List;
 public class PacienteController {
 
   private final PacienteService pacienteService;
+
     @GetMapping
     public List<BuscarPacienteOutput> buscarTodos(){
         return pacienteService.buscarTodos();
@@ -33,10 +36,17 @@ public class PacienteController {
         return pacienteService.buscarPorId(id);
     }
 
+    @GetMapping("/rotina/{id}")
+    public ResponseEntity<BuscarRotinaOutput>buscarRotina(@PathVariable String id) throws NoSuchMethodException {
+        return pacienteService.buscarRotina(id);
+    }
+
     @GetMapping("/eu")
     public ResponseEntity<BuscarPacienteEmailOutput> buscarPorEmail(Principal principal) throws NoSuchMethodException {
         return pacienteService.buscarInfo(principal);
     }
+
+
     @PutMapping
     public ResponseEntity<AtualizarPacienteOutput>atualizar(@RequestBody @Valid AtualizarPacienteInput pacienteInput) throws NoSuchMethodException {
         return pacienteService.atualizar(pacienteInput);
