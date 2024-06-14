@@ -1,6 +1,6 @@
 package com.calmomilla.domain.model;
 
-import com.calmomilla.domain.utils.Emocoes;
+import com.calmomilla.domain.utils.enums.Emocoes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

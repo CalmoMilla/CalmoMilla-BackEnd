@@ -1,7 +1,7 @@
 package com.calmomilla.api.dto.output.emocao;
 
 import com.calmomilla.domain.model.Paciente;
-import com.calmomilla.domain.utils.Emocoes;
+import com.calmomilla.domain.utils.enums.Emocoes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;

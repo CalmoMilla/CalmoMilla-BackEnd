@@ -1,6 +1,7 @@
 package com.calmomilla.domain.model;
 
 import com.calmomilla.domain.utils.UserRole;
+import com.calmomilla.domain.utils.enums.Genero;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -26,7 +27,7 @@ public class Usuario implements UserDetails {
     @NotBlank
     private String nome;
 
-    private String genero;
+    private Genero genero;
 
     @Column(unique = true)
     private String cpf;

@@ -1,9 +1,6 @@
 package com.calmomilla.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -18,6 +15,10 @@ public class  Paciente extends Usuario{
 
     @OneToMany
     private List<Emocao> emocaos = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "dados_pessoais_id", referencedColumnName = "id")
+    private DadosPessoais dadosPessoais;
 
 
 }

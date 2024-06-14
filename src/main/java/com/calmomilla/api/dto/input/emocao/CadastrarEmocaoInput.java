@@ -1,9 +1,8 @@
 package com.calmomilla.api.dto.input.emocao;
 
 import com.calmomilla.domain.model.Paciente;
-import com.calmomilla.domain.utils.Emocoes;
+import com.calmomilla.domain.utils.enums.Emocoes;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;

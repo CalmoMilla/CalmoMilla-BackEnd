@@ -7,7 +7,7 @@ import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.domain.model.Emocao;
 import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.repository.EmocaoRepository;
-import com.calmomilla.domain.utils.Emocoes;
+import com.calmomilla.domain.utils.enums.Emocoes;
 import com.calmomilla.domain.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

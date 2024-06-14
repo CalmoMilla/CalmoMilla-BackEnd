@@ -1,4 +1,4 @@
-package com.calmomilla.domain.utils;
+package com.calmomilla.domain.utils.enums;
 
 public enum Emocoes {
 
