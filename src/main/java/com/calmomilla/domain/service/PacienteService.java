@@ -115,7 +115,7 @@ public class PacienteService {
         if (!passwordEncoder.matches(pacienteInput.getSenha(), paciente.getSenha())){
             String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
             pacienteInput.setSenha(senhaCriptografada);
-        }else {
+        } else {
             assert pacienteOutput != null;
             pacienteInput.setSenha(pacienteOutput.getSenha());
         }
@@ -138,7 +138,4 @@ public class PacienteService {
         return ResponseEntity.noContent().build();
     }
 
-
-
-    }
-
+}

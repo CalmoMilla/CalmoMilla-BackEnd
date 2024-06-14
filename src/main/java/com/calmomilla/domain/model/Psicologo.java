@@ -2,6 +2,7 @@ package com.calmomilla.domain.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Psicologo extends Usuario{
     @NotBlank
     private String numeroRegistro;
 
-
+    @ManyToMany
+    private List<Paciente> pacientes;
 
 }
