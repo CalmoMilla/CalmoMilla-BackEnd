@@ -2,12 +2,16 @@ package com.calmomilla.domain.service;
 
 import com.calmomilla.api.dto.input.rotina.AtualizarRotinaInput;
 import com.calmomilla.api.dto.input.rotina.CadastroRotinaInput;
+import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.rotina.AtualizarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
+import com.calmomilla.domain.model.Desempenho;
+import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
+import com.calmomilla.domain.utils.enums.Focos;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -22,8 +26,10 @@ public class RotinaService {
     private final RotinaRepository rotinaRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
+    private PacienteService pacienteService;
 
-    public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) {
+    public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
+        gerarRotina(cadastroRotinaInput.getPaciente().getId());
         Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
         Rotina rotinaSalva = rotinaRepository.save(rotina);
         CadastroRotinaOutput cadastroRotinaOutput = modelMapper.map(rotinaSalva, CadastroRotinaOutput.class);
@@ -60,5 +66,36 @@ public class RotinaService {
         AtualizarRotinaOutput atualizarRotinaOutput = modelMapper.map(rotinaSalva, AtualizarRotinaOutput.class);
         return ResponseEntity.ok(atualizarRotinaOutput);
     }
+
+    public ResponseEntity<?>gerarRotina(String id) throws NoSuchMethodException {
+
+     BuscarPacienteOutput  pacienteOutput = pacienteService.buscarPorId(id).getBody();
+
+        assert pacienteOutput != null;
+        var focos = pacienteOutput.getFocos();
+        Desempenho desempenho = pacienteOutput.getDesempenho();
+
+        // 20+
+        // M >= 20 == PESSIMO
+        // M >= 15 +-
+        //M >=10 BEM
+        //8 == MT BOM
+        if (desempenho.getJogos().getNome().equals("JogoMemoria")) {
+           //jogo da memoria
+            if (desempenho.getNivel() == 1 && desempenho.getPontuacao() == 8) {
+                // MT BOM
+            }
+        }
+        if (desempenho.getJogos().getNome().equals("Sudoku")){
+            //sudoku
+        }
+
+        if (desempenho.getJogos().getNome().equals("Quiz")){
+            //Quiz
+        }
+
+        return null;
+    }
+
 
 }

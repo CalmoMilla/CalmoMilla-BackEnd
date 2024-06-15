@@ -1,5 +1,6 @@
 package com.calmomilla.api.dto.input.rotina;
 
+import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Tarefa;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -21,5 +22,7 @@ public class CadastroRotinaInput {
 
     @NotNull
     private List<Tarefa> tarefas = new ArrayList<>();
+
+    private Paciente paciente;
 
 }

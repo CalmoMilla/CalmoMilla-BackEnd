@@ -1,5 +1,6 @@
 package com.calmomilla.domain.model;
 
+import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,35 +17,27 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Jogo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @NotBlank
     @Column(nullable = false)
     private String nome;
 
+    @NotNull
+    private Focos foco;
+
+    @OneToMany
+    private List<Desempenho> desempenho = new ArrayList<>();
+
     @NotBlank
     @Column(nullable = false)
     private String foto;
 
-    @Column(nullable = false)
-    @NotNull
-    private double pontuacao;
-
-    @Column(nullable = false)
-    @NotNull
-    private int nivel;
-
     private int avaliacao;
 
-    @Column(nullable = false)
     @NotBlank
     private String descricao;
-
-
-    @Id
-    @GeneratedValue (strategy = GenerationType.UUID)
-    private String id;
-    
-    @ManyToMany
-    private List<Paciente> jogador;
 
 }

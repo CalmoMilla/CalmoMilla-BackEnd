@@ -1,9 +1,11 @@
 package com.calmomilla.api.dto.output.paciente;
 
 import com.calmomilla.domain.model.DadosPessoais;
+import com.calmomilla.domain.model.Desempenho;
 import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.utils.UserRole;
+import com.calmomilla.domain.utils.enums.Focos;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +39,10 @@ public class BuscarPacienteOutput {
     private String foto;
 
     private Rotina rotina;
+
+    private Focos focos;
+
+    private Desempenho desempenho;
 
     private DadosPessoais dadosPessoais;
 

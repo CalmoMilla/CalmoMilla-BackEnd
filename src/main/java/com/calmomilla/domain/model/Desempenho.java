@@ -1,5 +1,4 @@
 package com.calmomilla.domain.model;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,15 +12,27 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tarefa{
+public class Desempenho {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(nullable = false)
     @NotNull
-    private String descricaoTarefa;
+    private int nivel;
 
+    @Column(nullable = false)
+    @NotNull
+    private double pontuacao;
 
+    @ManyToOne
+    private Jogo jogos;
+
+    @ManyToOne
+    private Paciente usuario;
 
 }
+
+
+

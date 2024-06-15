@@ -25,5 +25,7 @@ public class Rotina {
     @ManyToMany
     private List<Tarefa> tarefas = new ArrayList<>();
 
+    @OneToOne
+    private Paciente paciente;
 
 }

@@ -1,5 +1,6 @@
 package com.calmomilla.domain.model;
 
+import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,6 +16,11 @@ public class  Paciente extends Usuario{
 
     @OneToMany
     private List<Emocao> emocaos = new ArrayList<>();
+
+    private Focos Foco;
+
+    @OneToMany
+    private List<Desempenho> desempenho = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.REMOVE)
     private DadosPessoais dadosPessoais;
