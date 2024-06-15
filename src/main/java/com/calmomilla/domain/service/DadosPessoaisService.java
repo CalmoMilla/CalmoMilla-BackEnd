@@ -14,6 +14,7 @@ import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.repository.DadosPessoaisRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public class DadosPessoaisService {
 
     private final ModelMapper modelMapper;
     private final DadosPessoaisRepository dadosPessoaisRepository;
+
+    @Lazy
     private final PacienteService pacienteService;
     public ResponseEntity<BuscarDadosPessoaisOutput> buscarPorId(String id){
 

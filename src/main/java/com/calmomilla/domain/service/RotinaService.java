@@ -14,6 +14,7 @@ import com.calmomilla.domain.utils.ModelMapperUtils;
 import com.calmomilla.domain.utils.enums.Focos;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class RotinaService {
     private final RotinaRepository rotinaRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
+
+    @Lazy
     private PacienteService pacienteService;
 
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
