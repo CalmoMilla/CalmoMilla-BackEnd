@@ -22,7 +22,7 @@ public class RotinaController {
     RotinaService rotinaService;
 
     @PostMapping
-    public ResponseEntity<CadastroRotinaOutput> cadastrar (@RequestBody @Valid CadastroRotinaInput cadastroRotinaInput) {
+    public ResponseEntity<CadastroRotinaOutput> cadastrar (@RequestBody @Valid CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
         return rotinaService.criar(cadastroRotinaInput);
     }
 
