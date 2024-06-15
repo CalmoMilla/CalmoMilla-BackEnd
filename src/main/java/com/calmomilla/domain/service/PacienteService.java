@@ -16,6 +16,7 @@ import com.calmomilla.domain.utils.VerificacaoCpf;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ import java.util.Optional;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
-    private final RotinaService rotinaService;
+
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
     private EmailService emailService;
@@ -72,16 +73,6 @@ public class PacienteService {
         return ResponseEntity.ok(pacienteOutput);
     }
 
-    public ResponseEntity<BuscarRotinaOutput> buscarRotina(String id) throws NoSuchMethodException {
-        BuscarPacienteOutput pacienteOutput = buscarPorId(id).getBody();
-        assert pacienteOutput != null;
-        if (pacienteOutput.getRotina() == null){
-            throw new NegocioException("Esse usuario ainda não tem uma rotina");
-        }
-
-        return rotinaService.buscarPorId(pacienteOutput.getRotina().getId());
-
-    }
 
     @Transactional
     public ResponseEntity<CadastroPacienteOutput> cadastrar(CadastroPacienteInput pacienteInput) throws ParseException {

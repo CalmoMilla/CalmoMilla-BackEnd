@@ -36,10 +36,6 @@ public class PacienteController {
         return pacienteService.buscarPorId(id);
     }
 
-    @GetMapping("/rotina/{id}")
-    public ResponseEntity<BuscarRotinaOutput>buscarRotina(@PathVariable String id) throws NoSuchMethodException {
-        return pacienteService.buscarRotina(id);
-    }
 
     @GetMapping("/eu")
     public ResponseEntity<BuscarPacienteEmailOutput> buscarPorEmail(Principal principal) throws NoSuchMethodException {

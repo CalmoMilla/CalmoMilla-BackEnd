@@ -6,12 +6,11 @@ import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.rotina.AtualizarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
+import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Desempenho;
-import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
-import com.calmomilla.domain.utils.enums.Focos;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
@@ -27,8 +26,6 @@ public class RotinaService {
     private final RotinaRepository rotinaRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
-
-    @Lazy
     private PacienteService pacienteService;
 
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
@@ -55,6 +52,18 @@ public class RotinaService {
         BuscarRotinaOutput buscarRotinaOutput = modelMapper.map(rotina, BuscarRotinaOutput.class);
         return ResponseEntity.ok(buscarRotinaOutput);
     }
+
+        public ResponseEntity<BuscarRotinaOutput> buscarRotinaPorPaciente(String id) throws NoSuchMethodException {
+        BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(id).getBody();
+            assert pacienteOutput != null;
+            if (pacienteOutput.getRotina() == null){
+            throw new NegocioException("Esse usuario ainda não tem uma rotina");
+        }
+
+        return buscarPorId(pacienteOutput.getRotina().getId());
+
+    }
+
 
     public List<BuscarRotinaOutput> buscarTodos() {
         List<Rotina> rotinas = rotinaRepository.findAll();

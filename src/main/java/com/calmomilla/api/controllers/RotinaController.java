@@ -36,6 +36,11 @@ public class RotinaController {
         return rotinaService.buscarTodos();
     }
 
+        @GetMapping("/paciente/{id}")
+        public ResponseEntity<BuscarRotinaOutput>buscarRotina(@PathVariable String id) throws NoSuchMethodException {
+        return rotinaService.buscarRotinaPorPaciente(id);
+    }
+
     @PutMapping
     public ResponseEntity<AtualizarRotinaOutput> atualizar
             (@RequestBody @Valid AtualizarRotinaInput atualizarRotinaInput) throws NoSuchMethodException{

@@ -1,5 +1,6 @@
 package com.calmomilla.api.dto.output.rotina;
 
+import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.model.Tarefa;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -20,4 +21,8 @@ public class BuscarRotinaOutput {
     private boolean status;
 
     private List<Tarefa> tarefas = new ArrayList<>();
+
+    private Rotina rotina;
+
+
 }

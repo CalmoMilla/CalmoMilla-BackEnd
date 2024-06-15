@@ -26,8 +26,6 @@ public class DadosPessoaisService {
 
     private final ModelMapper modelMapper;
     private final DadosPessoaisRepository dadosPessoaisRepository;
-
-    @Lazy
     private final PacienteService pacienteService;
     public ResponseEntity<BuscarDadosPessoaisOutput> buscarPorId(String id){
 
