@@ -1,6 +1,7 @@
 package com.calmomilla.api.dto.input.paciente;
 
 import com.calmomilla.domain.model.DadosPessoais;
+import com.calmomilla.domain.model.Desempenho;
 import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.utils.UserRole;
@@ -11,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -50,5 +52,6 @@ public class AtualizarPacienteInput {
 
     private DadosPessoais dadosPessoais;
 
+    private List<Desempenho> desempenhos;
 
 }

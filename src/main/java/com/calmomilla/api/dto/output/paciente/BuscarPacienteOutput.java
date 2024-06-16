@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class BuscarPacienteOutput {
@@ -42,7 +43,7 @@ public class BuscarPacienteOutput {
 
     private Focos focos;
 
-    private Desempenho desempenho;
+    private List<Desempenho> desempenhos;
 
     private DadosPessoais dadosPessoais;
 

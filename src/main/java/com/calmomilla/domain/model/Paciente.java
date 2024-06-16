@@ -1,6 +1,8 @@
 package com.calmomilla.domain.model;
 
 import com.calmomilla.domain.utils.enums.Focos;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,16 +13,17 @@ import java.util.List;
 @Entity
 public class  Paciente extends Usuario{
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Rotina rotina;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Emocao> emocaos = new ArrayList<>();
 
     private Focos Foco;
 
-    @OneToMany
-    private List<Desempenho> desempenho = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<Desempenho> desempenhos = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.REMOVE)
     private DadosPessoais dadosPessoais;

@@ -112,7 +112,7 @@ public class PacienteService {
         BuscarPacienteOutput pacienteOutput = buscarPorId(pacienteInput.getId()).getBody();
 
         Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
-
+        System.out.println(pacienteInput.getDesempenhos());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(pacienteInput.getSenha(), paciente.getSenha())){
             String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
@@ -127,6 +127,7 @@ public class PacienteService {
             pacienteInput.setCpf(cpfCriptografado);
         }
         paciente = modelMapper.map(pacienteInput, Paciente.class);
+        System.out.println(paciente);
         paciente = pacienteRepository.save(paciente);
         AtualizarPacienteOutput atualizarPacienteOutput = modelMapper.map(paciente,AtualizarPacienteOutput.class);
         return ResponseEntity.ok(atualizarPacienteOutput);

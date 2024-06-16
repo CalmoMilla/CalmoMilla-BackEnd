@@ -1,4 +1,5 @@
 package com.calmomilla.domain.model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class Desempenho {
     private Jogo jogos;
 
     @ManyToOne
+    @JsonIgnoreProperties("desempenhos")
     private Paciente usuario;
 
 }

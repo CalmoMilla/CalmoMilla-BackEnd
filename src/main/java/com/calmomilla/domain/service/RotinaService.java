@@ -85,26 +85,26 @@ public class RotinaService {
 
         assert pacienteOutput != null;
         var focos = pacienteOutput.getFocos();
-        Desempenho desempenho = pacienteOutput.getDesempenho();
+        List<Desempenho> desempenho = pacienteOutput.getDesempenhos();
 
         // 20+
         // M >= 20 == PESSIMO
         // M >= 15 +-
         //M >=10 BEM
         //8 == MT BOM
-        if (desempenho.getJogos().getNome().equals("JogoMemoria")) {
-           //jogo da memoria
-            if (desempenho.getNivel() == 1 && desempenho.getPontuacao() == 8) {
-                // MT BOM
-            }
-        }
-        if (desempenho.getJogos().getNome().equals("Sudoku")){
-            //sudoku
-        }
-
-        if (desempenho.getJogos().getNome().equals("Quiz")){
-            //Quiz
-        }
+//        if (desempenho.getJogos().getNome().equals("JogoMemoria")) {
+//           //jogo da memoria
+//            if (desempenho.getNivel() == 1 && desempenho.getPontuacao() == 8) {
+//                // MT BOM
+//            }
+//        }
+//        if (desempenho.getJogos().getNome().equals("Sudoku")){
+//            //sudoku
+//        }
+//
+//        if (desempenho.getJogos().getNome().equals("Quiz")){
+//            //Quiz
+//        }
 
         return null;
     }

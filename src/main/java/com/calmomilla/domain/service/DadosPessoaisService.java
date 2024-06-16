@@ -12,6 +12,7 @@ import com.calmomilla.domain.exception.DataNotFoundException;
 import com.calmomilla.domain.model.DadosPessoais;
 import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.repository.DadosPessoaisRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
@@ -41,7 +42,7 @@ public class DadosPessoaisService {
 
     }
 
-
+@Transactional
     public ResponseEntity<CadastroDadosPessoaisOutput> cadastrar(CadastroDadosPessoaisInput dadosPessoaisInput) throws NoSuchMethodException {
 
         DadosPessoais dadosPessoais = modelMapper.map(dadosPessoaisInput,DadosPessoais.class);
@@ -76,6 +77,7 @@ public class DadosPessoaisService {
 
     }
 
+    @Transactional
     public ResponseEntity<?> deletar(String id) throws NoSuchMethodException {
 
         BuscarDadosPessoaisOutput dadosPessoaisOutput = buscarPorId(id).getBody();

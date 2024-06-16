@@ -69,6 +69,7 @@ public class AuthService {
     public ResponseEntity<?> loginGoogle(LoginGoogleInput loginGoogleInput) {
         String token;
         var usuario = userRepository.findByEmail(loginGoogleInput.getEmail());
+
         if (usuario == null) {
             return ResponseEntity.notFound().build();
         } else {

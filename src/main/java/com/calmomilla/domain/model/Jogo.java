@@ -1,6 +1,7 @@
 package com.calmomilla.domain.model;
 
 import com.calmomilla.domain.utils.enums.Focos;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,10 +27,11 @@ public class Jogo {
     private String nome;
 
     @NotNull
-    private Focos foco;
+    private List<Focos> focos = new ArrayList<>();
 
-    @OneToMany
-    private List<Desempenho> desempenho = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<Desempenho> desempenhos = new ArrayList<>();
 
     @NotBlank
     @Column(nullable = false)
@@ -38,6 +40,8 @@ public class Jogo {
     private int avaliacao;
 
     @NotBlank
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
 }
