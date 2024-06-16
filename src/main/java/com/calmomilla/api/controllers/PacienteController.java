@@ -37,9 +37,15 @@ public class PacienteController {
         return pacienteService.buscarPorId(id);
     }
 
-    @PostMapping("/favoritar")
-    public ResponseEntity<AtualizarPacienteOutput> favoritarPsicologo(@RequestBody FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException {
+    @PostMapping("/favoritos")
+    public ResponseEntity<AtualizarPacienteOutput> favoritarPsicologo(@RequestBody @Valid FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException {
         return pacienteService.favoritar(favoritarPsicologoInput);
+    }
+
+    @DeleteMapping("/favoritos")
+    public ResponseEntity<AtualizarPacienteOutput> deletarPsicologo(@RequestBody @Valid FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException{
+        System.out.println(favoritarPsicologoInput);
+        return pacienteService.deletarPsi(favoritarPsicologoInput);
     }
 
 

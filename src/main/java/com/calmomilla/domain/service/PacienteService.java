@@ -114,14 +114,10 @@ public class PacienteService {
 
 
     public ResponseEntity<AtualizarPacienteOutput>atualizar(AtualizarPacienteInput pacienteInput) throws NoSuchMethodException {
-        System.out.println(pacienteInput.getPsicologos());
         BuscarPacienteOutput pacienteOutput = buscarPorId(pacienteInput.getId()).getBody();
 
         Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
 
-        System.out.println(pacienteInput.getPsicologos());
-
-        System.out.println(pacienteInput.getDesempenhos());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(pacienteInput.getSenha(), paciente.getSenha())){
             String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
@@ -137,13 +133,8 @@ public class PacienteService {
         }
         paciente = modelMapper.map(pacienteInput, Paciente.class);
 
-        System.out.println(pacienteInput.getPsicologos());
-
-        System.out.println(paciente);
         paciente = pacienteRepository.save(paciente);
         AtualizarPacienteOutput atualizarPacienteOutput = modelMapper.map(paciente,AtualizarPacienteOutput.class);
-
-        System.out.println(atualizarPacienteOutput.getPsicologos());
 
         return ResponseEntity.ok(atualizarPacienteOutput);
     }
@@ -180,4 +171,30 @@ public class PacienteService {
 
     }
 
+    public ResponseEntity<AtualizarPacienteOutput> deletarPsi(FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException {
+        Optional<Paciente> paciente = pacienteRepository.findById(favoritarPsicologoInput.getIdPaciente());
+
+        BuscarPsicologoOutput buscarPsicologoOutput = psicologoService.buscarPorId(favoritarPsicologoInput.getIdPsicologo()).getBody();
+
+        if (paciente.isEmpty()) {
+            throw new NoSuchMethodException("Paciente não encontrado");
+        }
+
+        Psicologo psicologo = modelMapper.map(buscarPsicologoOutput, Psicologo.class);
+
+        Paciente pacienteEncontrado = modelMapper.map(paciente.get(), Paciente.class);
+
+        List<Psicologo> psicologosSalvos = pacienteEncontrado.getPsicologos();
+
+        System.out.println(psicologosSalvos);
+        psicologosSalvos.remove(psicologo);
+        System.out.println(psicologosSalvos);
+
+        pacienteEncontrado.setPsicologos(psicologosSalvos);
+        AtualizarPacienteInput atualizarPacienteInput = modelMapper.map(pacienteEncontrado, AtualizarPacienteInput.class);
+
+        return atualizar(atualizarPacienteInput);
+
+
+    }
 }
