@@ -2,6 +2,7 @@ package com.calmomilla.api.dto.input.psicologo;
 
 import com.calmomilla.domain.model.Endereco;
 import com.calmomilla.domain.utils.UserRole;
+import com.calmomilla.domain.utils.enums.Especializacoes;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -40,7 +41,7 @@ public class CadastroPsicologoInput {
     private String foto;
 
     @NotEmpty
-    private List<String> especializacoes;
+    private List<Especializacoes> especializacoes;
 
     @NotBlank
     private String numeroRegistro;

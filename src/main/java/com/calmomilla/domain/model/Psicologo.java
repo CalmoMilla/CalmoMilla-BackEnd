@@ -1,5 +1,6 @@
 package com.calmomilla.domain.model;
 
+import com.calmomilla.domain.utils.enums.Especializacoes;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Psicologo extends Usuario{
 
     @NotNull
-    private List<String> especializacoes;
+    private List<Especializacoes> especializacoes;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
