@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JogoRepository extends JpaRepository<Jogo,String> {
+
+  boolean existsJogoByNome(String nome);
+
 }
