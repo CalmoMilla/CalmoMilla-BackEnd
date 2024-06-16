@@ -36,6 +36,11 @@ public class PacienteController {
         return pacienteService.buscarPorId(id);
     }
 
+    @PostMapping("/favoritar")
+    public ResponseEntity<AtualizarPacienteOutput> favoritarPsicologo(@RequestBody String idPaciente, String idPsicologo) throws NoSuchMethodException {
+        return pacienteService.favoritar(idPaciente, idPsicologo);
+    }
+
 
     @GetMapping("/eu")
     public ResponseEntity<BuscarPacienteEmailOutput> buscarPorEmail(Principal principal) throws NoSuchMethodException {

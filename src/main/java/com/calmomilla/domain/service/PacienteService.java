@@ -6,6 +6,7 @@ import com.calmomilla.api.dto.output.paciente.AtualizarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
+import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Paciente;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,7 @@ import java.util.Optional;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final PsicologoService psicologoService;
 
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
@@ -141,5 +144,29 @@ public class PacienteService {
         return ResponseEntity.noContent().build();
     }
 
+
+    public ResponseEntity<AtualizarPacienteOutput> favoritar(String idPaciente, String idPsicologo) throws NoSuchMethodException {
+        Optional<Paciente> paciente = pacienteRepository.findById(idPaciente);
+
+        BuscarPsicologoOutput buscarPsicologoOutput = psicologoService.buscarPorId(idPsicologo).getBody();
+        if (paciente.isEmpty()) {
+            throw new NoSuchMethodException("Paciente não encontrado");
+        }
+
+        Psicologo psicologo = modelMapper.map(buscarPsicologoOutput, Psicologo.class);
+
+        Paciente pacienteEncontrado = modelMapper.map(paciente.get(), Paciente.class);
+
+        List<Psicologo> psicologosSalvos = pacienteEncontrado.getPsicologosSalvos();
+
+        psicologosSalvos.add(psicologo);
+
+        pacienteEncontrado.setPsicologosSalvos(psicologosSalvos);
+        AtualizarPacienteInput atualizarPacienteInput = modelMapper.map(pacienteEncontrado, AtualizarPacienteInput.class);
+
+        return atualizar(atualizarPacienteInput);
+
+
+    }
 
 }
