@@ -12,6 +12,7 @@ import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Paciente;
 
+import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
 import com.calmomilla.domain.utils.VerificacaoCpf;
