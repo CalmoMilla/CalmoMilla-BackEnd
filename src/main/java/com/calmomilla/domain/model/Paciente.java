@@ -29,6 +29,6 @@ public class  Paciente extends Usuario{
     private DadosPessoais dadosPessoais;
 
     @ManyToMany(cascade = CascadeType.REMOVE)
-    private List<Psicologo> psicologosSalvos = new ArrayList<>();
+    private List<Psicologo> psicologos = new ArrayList<>();
 
 }

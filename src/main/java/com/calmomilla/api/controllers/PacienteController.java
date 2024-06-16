@@ -2,6 +2,7 @@ package com.calmomilla.api.controllers;
 
 
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
+import com.calmomilla.api.dto.input.paciente.FavoritarPsicologoInput;
 import com.calmomilla.api.dto.output.paciente.AtualizarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
@@ -37,8 +38,8 @@ public class PacienteController {
     }
 
     @PostMapping("/favoritar")
-    public ResponseEntity<AtualizarPacienteOutput> favoritarPsicologo(@RequestBody String idPaciente, String idPsicologo) throws NoSuchMethodException {
-        return pacienteService.favoritar(idPaciente, idPsicologo);
+    public ResponseEntity<AtualizarPacienteOutput> favoritarPsicologo(@RequestBody FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException {
+        return pacienteService.favoritar(favoritarPsicologoInput);
     }
 
 

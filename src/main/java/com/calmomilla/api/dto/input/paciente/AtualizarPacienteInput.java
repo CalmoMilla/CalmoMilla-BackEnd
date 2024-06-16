@@ -1,9 +1,6 @@
 package com.calmomilla.api.dto.input.paciente;
 
-import com.calmomilla.domain.model.DadosPessoais;
-import com.calmomilla.domain.model.Desempenho;
-import com.calmomilla.domain.model.Endereco;
-import com.calmomilla.domain.model.Rotina;
+import com.calmomilla.domain.model.*;
 import com.calmomilla.domain.utils.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -53,5 +50,7 @@ public class AtualizarPacienteInput {
     private DadosPessoais dadosPessoais;
 
     private List<Desempenho> desempenhos;
+
+    private List<Psicologo> psicologos;
 
 }
