@@ -171,29 +171,27 @@ public class PacienteService {
 
     }
 
-    public ResponseEntity<AtualizarPacienteOutput> deletarPsi(FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException {
-        Optional<Paciente> paciente = pacienteRepository.findById(favoritarPsicologoInput.getIdPaciente());
+    public ResponseEntity<Void> deletarPsi(FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException {
 
-        BuscarPsicologoOutput buscarPsicologoOutput = psicologoService.buscarPorId(favoritarPsicologoInput.getIdPsicologo()).getBody();
+        Optional<Paciente> pacienteOptional = pacienteRepository.findById(favoritarPsicologoInput.getIdPaciente());
 
-        if (paciente.isEmpty()) {
+        if (pacienteOptional.isEmpty()) {
             throw new NoSuchMethodException("Paciente não encontrado");
         }
 
+        Paciente paciente = pacienteOptional.get();
+
+        BuscarPsicologoOutput buscarPsicologoOutput = psicologoService.buscarPorId(favoritarPsicologoInput.getIdPsicologo()).getBody();
+
         Psicologo psicologo = modelMapper.map(buscarPsicologoOutput, Psicologo.class);
 
-        Paciente pacienteEncontrado = modelMapper.map(paciente.get(), Paciente.class);
+        paciente.getPsicologos().remove(psicologo);
 
-        List<Psicologo> psicologosSalvos = pacienteEncontrado.getPsicologos();
+        System.out.println(paciente.getPsicologos());
 
-        System.out.println(psicologosSalvos);
-        psicologosSalvos.remove(psicologo);
-        System.out.println(psicologosSalvos);
+        pacienteRepository.save(paciente);
 
-        pacienteEncontrado.setPsicologos(psicologosSalvos);
-        AtualizarPacienteInput atualizarPacienteInput = modelMapper.map(pacienteEncontrado, AtualizarPacienteInput.class);
-
-        return atualizar(atualizarPacienteInput);
+        return ResponseEntity.noContent().build();
 
 
     }
