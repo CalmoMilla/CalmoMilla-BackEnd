@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class EmocaoService {
     private final EmocaoRepository emocaoRepository;
     private final ModelMapper modelMapper;
     private final PacienteService pacienteService;
+    private final LocalDateTime brazilLocalDateTime;
 
     public ResponseEntity<List<BuscarEmocaoOutput>>buscarEmocoes(){
 
@@ -93,7 +95,7 @@ public class EmocaoService {
             mensagem = "Poxa vimos que você está se sentindo triste, de um pulinho na nossas seção de Relaxamento.";
             emocaoInput.setDescricao(String.valueOf(Emocoes.TRISTE));
         }
-        emocaoInput.setDataRegistro(LocalDate.now());
+        emocaoInput.setDataRegistro(brazilLocalDateTime.toLocalDate());
         Emocao emocao = modelMapper.map(emocaoInput,Emocao.class);
 
        Emocao emocaoSalva =  emocaoRepository.save(emocao);

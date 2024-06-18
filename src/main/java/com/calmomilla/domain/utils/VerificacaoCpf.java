@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
@@ -28,6 +29,7 @@ public class VerificacaoCpf {
     private String apiToken;
 
     private final ObjectMapper objectMapper;
+    private final LocalDateTime brazilLocalDateTime;
 
     public ResponseEntity<?> enviarDados(VerificacaoDTO verificacaoDTO){
         // Dados que você deseja enviar
@@ -77,7 +79,7 @@ public class VerificacaoCpf {
         try {
             Date date = dateFormat.parse(dataNasc);
             LocalDate dataNascimento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate dataAtual = LocalDate.now();
+            LocalDate dataAtual = brazilLocalDateTime.toLocalDate();
 
             // Calcular a idade
             int idade = Period.between(dataNascimento, dataAtual).getYears();
@@ -106,9 +108,9 @@ public class VerificacaoCpf {
         }
     }
 
-    public static Boolean validarDataNasc(LocalDate dataNasc){
+    public  Boolean validarDataNasc(LocalDate dataNasc){
 
-        LocalDate dataAtual = LocalDate.now();
+        LocalDate dataAtual = brazilLocalDateTime.toLocalDate();
 
         int idade = Period.between(dataNasc, dataAtual).getYears();
 
