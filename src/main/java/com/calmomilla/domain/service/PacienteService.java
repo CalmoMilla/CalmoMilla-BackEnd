@@ -8,7 +8,6 @@ import com.calmomilla.api.dto.output.paciente.BuscarPacienteEmailOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
-import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Paciente;
 
@@ -19,7 +18,6 @@ import com.calmomilla.domain.utils.VerificacaoCpf;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +26,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -183,16 +180,17 @@ public class PacienteService {
 
         BuscarPsicologoOutput buscarPsicologoOutput = psicologoService.buscarPorId(favoritarPsicologoInput.getIdPsicologo()).getBody();
 
-        Psicologo psicologo = modelMapper.map(buscarPsicologoOutput, Psicologo.class);
+        if (buscarPsicologoOutput == null) {
+            throw new NoSuchMethodException("Psicologo não encontrado");
+        }
 
-        paciente.getPsicologos().remove(psicologo);
+        String psicologoId = buscarPsicologoOutput.getId();
 
-        System.out.println(paciente.getPsicologos());
+        paciente.getPsicologos().removeIf(psicologo -> psicologo.getId().equals(psicologoId));
 
         pacienteRepository.save(paciente);
 
         return ResponseEntity.noContent().build();
-
-
     }
+
 }

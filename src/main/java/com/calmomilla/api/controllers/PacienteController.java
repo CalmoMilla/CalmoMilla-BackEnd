@@ -44,7 +44,6 @@ public class PacienteController {
 
     @DeleteMapping("/favoritos")
     public ResponseEntity<Void> deletarPsicologo(@RequestBody @Valid FavoritarPsicologoInput favoritarPsicologoInput) throws NoSuchMethodException{
-        System.out.println(favoritarPsicologoInput);
         return pacienteService.deletarPsi(favoritarPsicologoInput);
     }
 
