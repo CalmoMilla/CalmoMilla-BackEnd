@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -116,7 +117,7 @@ public class PacienteService {
         Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (!passwordEncoder.matches(pacienteInput.getSenha(), paciente.getSenha())){
+        if (!passwordEncoder.matches(pacienteInput.getSenha(), paciente.getSenha()) && !Objects.equals(pacienteInput.getSenha(), paciente.getSenha())){
             String senhaCriptografada = new BCryptPasswordEncoder().encode(pacienteInput.getSenha());
             pacienteInput.setSenha(senhaCriptografada);
         } else {
