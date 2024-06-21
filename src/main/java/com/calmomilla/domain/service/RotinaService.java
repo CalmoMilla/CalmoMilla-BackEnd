@@ -81,7 +81,7 @@ public class RotinaService {
 
     public ResponseEntity<?>gerarRotina(String id) throws NoSuchMethodException {
 
-     BuscarPacienteOutput  pacienteOutput = pacienteService.buscarPorId(id).getBody();
+        BuscarPacienteOutput  pacienteOutput = pacienteService.buscarPorId(id).getBody();
 
         assert pacienteOutput != null;
         var focos = pacienteOutput.getFocos();
@@ -92,22 +92,62 @@ public class RotinaService {
         // M >= 15 +-
         //M >=10 BEM
         //8 == MT BOM
-//        if (desempenho.getJogos().getNome().equals("JogoMemoria")) {
-//           //jogo da memoria
-//            if (desempenho.getNivel() == 1 && desempenho.getPontuacao() == 8) {
-//                // MT BOM
-//            }
-//        }
-//        if (desempenho.getJogos().getNome().equals("Sudoku")){
-//            //sudoku
-//        }
-//
-//        if (desempenho.getJogos().getNome().equals("Quiz")){
-//            //Quiz
-//        }
 
+        int jogoMemoria = 0;
+        int sudoku = 0;
+        int quiz = 0;
+
+        for (Desempenho desempenho1: desempenho){
+            if (desempenho1.getJogos().getNome().equals("JogoMemoria")) {
+                //jogo da memoria nivel 1
+                if (desempenho1.getNivel() == 1 && desempenho1.getPontuacao() >= 8 && desempenho1.getPontuacao() <= 9) {
+                   jogoMemoria += 4;
+                } else if (desempenho1.getNivel() == 1 && desempenho1.getPontuacao() >= 10 && desempenho1.getPontuacao() <= 14) {
+                    jogoMemoria += 3;
+                }else if (desempenho1.getNivel() == 1 && desempenho1.getPontuacao() >= 15 && desempenho1.getPontuacao() <= 19) {
+                    jogoMemoria += 2;
+                }else {
+                    jogoMemoria += 1;
+                }
+                //jogo da memoria nivel 2
+                if (desempenho1.getNivel() == 2 && desempenho1.getPontuacao() >= 8 && desempenho1.getPontuacao() <= 9) {
+                    jogoMemoria += 7;
+                } else if (desempenho1.getNivel() == 2 && desempenho1.getPontuacao() >= 10 && desempenho1.getPontuacao() <= 14) {
+                    jogoMemoria += 6;
+                }else if (desempenho1.getNivel() == 2 && desempenho1.getPontuacao() >= 15 && desempenho1.getPontuacao() <= 19) {
+                    jogoMemoria += 5;
+                }else {
+                    jogoMemoria += 4;
+                }
+                //jogo da memoria nivel 3
+                if (desempenho1.getNivel() == 3 && desempenho1.getPontuacao() >= 18 && desempenho1.getPontuacao() <= 19) {
+                    jogoMemoria += 11;
+                } else if (desempenho1.getNivel() == 3 && desempenho1.getPontuacao() >= 20 && desempenho1.getPontuacao() <= 24) {
+                    jogoMemoria += 10;
+                }else if (desempenho1.getNivel() == 3 && desempenho1.getPontuacao() >= 25 && desempenho1.getPontuacao() <= 29) {
+                    jogoMemoria += 9;
+                }else {
+                    jogoMemoria += 8;
+                }
+
+            }
+            if (desempenho1.getJogos().getNome().equals("Sudoku")){
+                //sudoku
+            }
+
+
+
+            if (desempenho1.getJogos().getNome().equals("Quiz")){
+                //Quiz
+            }
+
+          int menorValor =  Math.min(jogoMemoria,Math.min(quiz,sudoku));
+
+            System.out.println(menorValor);
+
+
+        }
         return null;
     }
-
 
 }

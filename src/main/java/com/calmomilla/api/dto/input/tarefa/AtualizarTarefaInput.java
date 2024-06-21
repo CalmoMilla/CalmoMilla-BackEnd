@@ -18,7 +18,13 @@ public class AtualizarTarefaInput {
     private String id;
 
     @NotNull
-    private String descricaoTarefa;
+    private String titulo;
+
+    @NotBlank
+    private String link;
+
+    @NotNull
+    private boolean status;
 
     @NotNull
     private List<Rotina> rotinas = new ArrayList<>();

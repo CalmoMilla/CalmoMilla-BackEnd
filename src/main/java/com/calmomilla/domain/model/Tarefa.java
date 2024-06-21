@@ -1,6 +1,7 @@
 package com.calmomilla.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +21,12 @@ public class Tarefa{
     private String id;
 
     @NotNull
-    private String descricaoTarefa;
+    private String titulo;
 
+    @NotBlank
+    private String link;
 
+    @NotNull
+    private boolean status;
 
 }
