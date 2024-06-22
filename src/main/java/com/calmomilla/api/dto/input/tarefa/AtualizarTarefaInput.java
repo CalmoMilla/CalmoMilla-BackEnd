@@ -2,6 +2,7 @@ package com.calmomilla.api.dto.input.tarefa;
 
 
 import com.calmomilla.domain.model.Rotina;
+import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -24,8 +25,10 @@ public class AtualizarTarefaInput {
     private String link;
 
     @NotNull
-    private boolean status;
+    private Focos focos;
+
 
     @NotNull
-    private List<Rotina> rotinas = new ArrayList<>();
+    private boolean status;
+
 }

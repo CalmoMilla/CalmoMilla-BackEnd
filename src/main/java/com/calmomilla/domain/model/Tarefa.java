@@ -1,5 +1,6 @@
 package com.calmomilla.domain.model;
 
+import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,11 @@ public class Tarefa{
 
     @NotNull
     private String titulo;
+
+    @NotNull
+    @ElementCollection(targetClass = Focos.class)
+    @Enumerated(EnumType.STRING)
+    private List<Focos> focos;
 
     @NotBlank
     private String link;

@@ -112,6 +112,7 @@ public class PacienteService {
 
 
     public ResponseEntity<AtualizarPacienteOutput>atualizar(AtualizarPacienteInput pacienteInput) throws NoSuchMethodException {
+        System.out.println(pacienteInput);
         BuscarPacienteOutput pacienteOutput = buscarPorId(pacienteInput.getId()).getBody();
 
         Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);

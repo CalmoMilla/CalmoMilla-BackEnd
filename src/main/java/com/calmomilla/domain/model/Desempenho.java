@@ -34,6 +34,17 @@ public class Desempenho {
     @JsonIgnoreProperties("desempenhos")
     private Paciente usuario;
 
+
+    @Override
+    public String toString() {
+        return "Desempenho{" +
+                "id='" + id + '\'' +
+                ", nivel=" + nivel +
+                ", pontuacao=" + pontuacao +
+                ", jogos=" + (jogos != null ? jogos.getId() : "null") +
+                '}';
+    }
+
 }
 
 

@@ -1,13 +1,7 @@
 package com.calmomilla.api.configs;
 
-import com.calmomilla.domain.model.Jogo;
-import com.calmomilla.domain.model.Paciente;
-import com.calmomilla.domain.model.Psicologo;
-import com.calmomilla.domain.model.Usuario;
-import com.calmomilla.domain.repository.JogoRepository;
-import com.calmomilla.domain.repository.PacienteRepository;
-import com.calmomilla.domain.repository.PsicologoRepository;
-import com.calmomilla.domain.repository.UserRepository;
+import com.calmomilla.domain.model.*;
+import com.calmomilla.domain.repository.*;
 import com.calmomilla.domain.utils.UserRole;
 import com.calmomilla.domain.utils.enums.Especializacoes;
 import com.calmomilla.domain.utils.enums.Focos;
@@ -18,7 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -28,6 +24,7 @@ public class DataInitializer implements CommandLineRunner {
     private final JogoRepository jogoRepository;
     private final PacienteRepository pacienteRepository;
     private final PsicologoRepository psicologoRepository;
+    private final TarefaRepository tarefaRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -124,6 +121,40 @@ public class DataInitializer implements CommandLineRunner {
             psicologo.setNumeroRegistro("4429213");
             psicologo.setRole(UserRole.PSICOLOGO);
             psicologoRepository.save(psicologo);
+
+        }
+
+        if (tarefaRepository.findTarefaByLink("/jogodamemoria") != null || tarefaRepository.findTarefaByLink("/sudoku") != null || tarefaRepository.findTarefaByLink("/quiz") != null){
+            System.out.println("tarefas ja adicionadas");
+        }else {
+
+            Tarefa tarefa = new Tarefa();
+            List<Tarefa> tarefas = new ArrayList<>();
+
+            tarefa.setTitulo("jogar jogo da memoria por 10 minutos");
+            tarefa.setLink("/jogodamemoria");
+            tarefa.setStatus(true);
+            tarefa.setFocos(List.of(Focos.ATENCAO,Focos.MEMORIA,Focos.VELOCIDADE));
+
+            Tarefa tarefa2 = new Tarefa();
+
+            tarefa2.setTitulo("jogar sudoku por 10 minutos");
+            tarefa2.setLink("/sudoku");
+            tarefa2.setStatus(true);
+            tarefa2.setFocos(List.of(Focos.ATENCAO,Focos.RESOLUCAO_DE_PROBLEMAS));
+
+            Tarefa tarefa3 = new Tarefa();
+
+            tarefa3.setTitulo("jogar quiz por 5 minutos");
+            tarefa3.setLink("/quiz");
+            tarefa3.setStatus(true);
+            tarefa3.setFocos(List.of(Focos.ATENCAO,Focos.VELOCIDADE));
+
+            tarefas.add(tarefa);
+            tarefas.add(tarefa2);
+            tarefas.add(tarefa3);
+
+            tarefaRepository.saveAll(tarefas);
 
         }
 

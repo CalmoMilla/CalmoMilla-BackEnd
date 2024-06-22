@@ -22,7 +22,7 @@ public class BuscarRotinaOutput {
 
     private List<Tarefa> tarefas = new ArrayList<>();
 
-    private Rotina rotina;
+
 
 
 }

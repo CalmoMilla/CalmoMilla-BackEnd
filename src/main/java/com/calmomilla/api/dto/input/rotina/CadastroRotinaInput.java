@@ -14,14 +14,6 @@ import java.util.List;
 @Setter
 public class CadastroRotinaInput {
 
-    @NotNull
-    private LocalDate diaRotina;
-
-    @NotNull
-    private boolean status;
-
-    @NotNull
-    private List<Tarefa> tarefas = new ArrayList<>();
 
     private Paciente paciente;
 

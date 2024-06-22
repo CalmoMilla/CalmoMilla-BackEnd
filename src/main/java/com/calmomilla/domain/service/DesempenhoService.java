@@ -64,13 +64,13 @@ public class DesempenhoService {
         AdicionarDesempenhoOutput desempenhoOutput = modelMapper.map(desempenho, AdicionarDesempenhoOutput.class);
        BuscarPacienteOutput pacienteOutput =  pacienteService.buscarPorId(desempenho.getUsuario().getId()).getBody();
        AtualizarPacienteInput paciente = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
-
+        System.out.println("a"+paciente.getDesempenhos());
        List<Desempenho> desempenhos = new ArrayList<>();
 
         if (!paciente.getDesempenhos().isEmpty()){
             desempenhos.add((Desempenho) paciente.getDesempenhos());
        }
-
+        desempenhos.add(desempenho);
        paciente.setDesempenhos(desempenhos);
        pacienteService.atualizar(paciente);
 
