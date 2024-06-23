@@ -12,6 +12,7 @@ import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Paciente;
 
 import com.calmomilla.domain.model.Psicologo;
+import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
@@ -28,9 +29,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -102,10 +101,39 @@ public class PacienteService {
         pacienteInput.setCpf(cpfCriptografado);
         Paciente paciente = modelMapper.map(pacienteInput, Paciente.class);
         var data = LocalDate.of(1, 1, 1);
-        var rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
-        System.out.println(rotinaPadrao);
-        paciente.setRotinas(List.of(rotinaPadrao));
-        paciente = pacienteRepository.save(paciente);
+        Rotina rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
+        Rotina rotinaUsuario = new Rotina();
+
+        rotinaUsuario.setDiaRotina(rotinaPadrao.getDiaRotina());
+        rotinaUsuario.setStatus(rotinaPadrao.isStatus());
+        rotinaUsuario.setTarefas(new ArrayList<>(rotinaPadrao.getTarefas()));
+
+        rotinaUsuario =  rotinaRepository.save(rotinaUsuario);
+        System.out.println(rotinaUsuario);
+        paciente.setRotinas(List.of(rotinaUsuario));
+        paciente =  pacienteRepository.save(paciente);
+
+        Optional<Rotina> rotinaPega = rotinaRepository.findById(rotinaUsuario.getId());
+        System.out.println(rotinaPega);
+
+        if (rotinaPega.isEmpty()){
+            throw new NegocioException("Rotina não encontrada");
+        }
+
+        Rotina rotinaMapper = new Rotina();
+
+        rotinaMapper.setId(rotinaPega.get().getId());
+        rotinaMapper.setDiaRotina(rotinaPega.get().getDiaRotina());
+        rotinaMapper.setStatus(rotinaPega.get().isStatus());
+        rotinaMapper.setTarefas(rotinaPega.get().getTarefas());
+
+        rotinaMapper.setPacientes(List.of(paciente));
+
+        System.out.println(rotinaMapper);
+
+        rotinaRepository.save(rotinaMapper);
+
+
         CadastroPacienteOutput pacienteOutput = modelMapper.map(paciente, CadastroPacienteOutput.class);
 
         if (!emailService.enviarEmailDeBoasVindas(paciente.getEmail(), "Novo usuário cadastrado")) {
