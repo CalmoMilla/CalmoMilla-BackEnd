@@ -109,12 +109,12 @@ public class DataInitializer implements CommandLineRunner {
 
             Psicologo psicologo = new Psicologo();
             psicologo.setNome("gabriel");
-            psicologo.setEmail("gbvjb@gmail.com");
+            psicologo.setEmail("gab@gmail.com");
             psicologo.setGenero(Genero.MASCULINO);
             psicologo.setDataNasc(LocalDate.parse("2005-04-17"));
             psicologo.setCpf("24094280880");
             psicologo.setTelefone("119682102859");
-            psicologo.setSenha("010203cd");
+            psicologo.setSenha("123456");
             var senhaPsicologo = new BCryptPasswordEncoder().encode(psicologo.getSenha());
             psicologo.setSenha(senhaPsicologo);
             psicologo.setFoto("https://lh3.googleusercontent.com/a/ACg8ocI0WJi3mbL6zITt7V2Ef4Pb4hEXS1mAL_ioJDtuPuDllqkGyQPc2A=s96-c");
