@@ -85,11 +85,12 @@ public class RotinaService {
 
 
     public ResponseEntity<AtualizarRotinaOutput> atualizar (AtualizarRotinaInput atualizarRotina) throws NoSuchMethodException {
-        System.out.println(atualizarRotina);
+
         BuscarRotinaOutput buscarRotinaOutput = buscarPorId(atualizarRotina.getId()).getBody();
         Rotina rotina = modelMapper.map(buscarRotinaOutput, Rotina.class);
         rotina = modelMapper.map(atualizarRotina, Rotina.class);
         Rotina rotinaSalva = rotinaRepository.save(rotina);
+        System.out.println(rotinaSalva);
         AtualizarRotinaOutput atualizarRotinaOutput = modelMapper.map(rotinaSalva, AtualizarRotinaOutput.class);
         return ResponseEntity.ok(atualizarRotinaOutput);
     }
