@@ -40,7 +40,6 @@ public class CadastroPsicologoInput {
     @NotBlank
     private String foto;
 
-    @NotEmpty
     private List<Especializacoes> especializacoes;
 
     @NotBlank

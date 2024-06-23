@@ -7,6 +7,7 @@ import com.calmomilla.domain.utils.enums.Especializacoes;
 import com.calmomilla.domain.utils.enums.Focos;
 import com.calmomilla.domain.utils.enums.Genero;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

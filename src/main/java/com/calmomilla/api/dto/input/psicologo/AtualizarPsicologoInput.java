@@ -45,7 +45,6 @@ public class AtualizarPsicologoInput {
     @NotBlank
     private String foto;
 
-    @NotEmpty
     private List<Especializacoes> especializacoes;
 
     @NotBlank

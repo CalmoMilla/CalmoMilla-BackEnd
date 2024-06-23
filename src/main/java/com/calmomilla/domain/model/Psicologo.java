@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 public class Psicologo extends Usuario{
 
-    @NotNull
     private List<Especializacoes> especializacoes;
 
     @Column(columnDefinition = "TEXT")
