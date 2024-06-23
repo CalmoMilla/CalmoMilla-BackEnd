@@ -15,8 +15,8 @@ import java.util.List;
 @Entity
 public class  Paciente extends Usuario{
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    private Rotina rotina;
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    private List<Rotina> rotinas;
 
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<Emocao> emocaos = new ArrayList<>();
@@ -32,15 +32,5 @@ public class  Paciente extends Usuario{
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Psicologo> psicologos = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "id=" + getId() + // assumindo que a classe Usuario tem um campo id
-                ", foco=" + foco +
-                ", rotina=" + (rotina != null ? rotina.getId() : "null") +
-                ", dadosPessoais=" + (dadosPessoais != null ? dadosPessoais.getId() : "null") +
-                '}';
-    }
 
 }

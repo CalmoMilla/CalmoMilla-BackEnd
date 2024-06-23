@@ -26,6 +26,7 @@ public class DataInitializer implements CommandLineRunner {
     private final PacienteRepository pacienteRepository;
     private final PsicologoRepository psicologoRepository;
     private final TarefaRepository tarefaRepository;
+    private final RotinaRepository rotinaRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -132,23 +133,23 @@ public class DataInitializer implements CommandLineRunner {
             Tarefa tarefa = new Tarefa();
             List<Tarefa> tarefas = new ArrayList<>();
 
-            tarefa.setTitulo("jogar jogo da memoria por 10 minutos");
+            tarefa.setTitulo("Jogar Jogo da Memória por 10 minutos");
             tarefa.setLink("/jogodamemoria");
-            tarefa.setStatus(true);
+            tarefa.setStatus(false);
             tarefa.setFocos(List.of(Focos.ATENCAO,Focos.MEMORIA,Focos.VELOCIDADE));
 
             Tarefa tarefa2 = new Tarefa();
 
-            tarefa2.setTitulo("jogar sudoku por 10 minutos");
+            tarefa2.setTitulo("Jogar Sudoku por 10 minutos");
             tarefa2.setLink("/sudoku");
-            tarefa2.setStatus(true);
+            tarefa2.setStatus(false);
             tarefa2.setFocos(List.of(Focos.ATENCAO,Focos.RESOLUCAO_DE_PROBLEMAS));
 
             Tarefa tarefa3 = new Tarefa();
 
-            tarefa3.setTitulo("jogar quiz por 5 minutos");
+            tarefa3.setTitulo("Jogar Quiz por 5 minutos");
             tarefa3.setLink("/quiz");
-            tarefa3.setStatus(true);
+            tarefa3.setStatus(false);
             tarefa3.setFocos(List.of(Focos.ATENCAO,Focos.VELOCIDADE));
 
             tarefas.add(tarefa);
@@ -160,6 +161,25 @@ public class DataInitializer implements CommandLineRunner {
         }
 
 
-        System.out.println("Dados inseridos na tabela jogos com sucesso!");
+        if (rotinaRepository.findRotinaByDiaRotina(LocalDate.of(1, 1, 1)) != null){
+            System.out.println("A rotina padrao ja existe");
+        }else {
+            Rotina rotinaPadrao = new Rotina();
+
+            rotinaPadrao.setDiaRotina(LocalDate.of(1, 1, 1));
+            rotinaPadrao.setStatus(false);
+
+            Tarefa tarefamemoria =  tarefaRepository.findTarefaByLink("/jogodamemoria");
+            Tarefa tarefaquiz =  tarefaRepository.findTarefaByLink("/quiz");
+
+            rotinaPadrao.setTarefas(List.of(tarefamemoria,tarefaquiz));
+            rotinaRepository.save(rotinaPadrao);
+            Paciente vitor = pacienteRepository.findByEmail("dndragonbr@gmail.com").get();
+            vitor.setRotinas(List.of(rotinaPadrao));
+            pacienteRepository.save(vitor);
+        }
+
+
+        System.out.println("Dados inseridos nas tabelas com sucesso!");
     }
 }

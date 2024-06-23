@@ -38,4 +38,6 @@ public class AtualizarPacienteOutput {
 
     private List<Psicologo> psicologos;
 
+    private List<Rotina> rotinas;
+
 }

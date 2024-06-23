@@ -46,5 +46,7 @@ public class BuscarPacienteOutput {
 
     private List<Psicologo> psicologos;
 
+    private List<Rotina> rotinas;
+
 
 }

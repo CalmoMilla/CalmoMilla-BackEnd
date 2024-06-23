@@ -13,6 +13,7 @@ import com.calmomilla.domain.model.Paciente;
 
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.repository.PacienteRepository;
+import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
 import com.calmomilla.domain.utils.VerificacaoCpf;
 import jakarta.transaction.Transactional;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -36,7 +38,7 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final PsicologoService psicologoService;
-
+    private RotinaRepository rotinaRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtils mapperUtils;
     private EmailService emailService;
@@ -99,6 +101,10 @@ public class PacienteService {
         String cpfCriptografado = new BCryptPasswordEncoder().encode(pacienteInput.getCpf());
         pacienteInput.setCpf(cpfCriptografado);
         Paciente paciente = modelMapper.map(pacienteInput, Paciente.class);
+        var data = LocalDate.of(1, 1, 1);
+        var rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
+        System.out.println(rotinaPadrao);
+        paciente.setRotinas(List.of(rotinaPadrao));
         paciente = pacienteRepository.save(paciente);
         CadastroPacienteOutput pacienteOutput = modelMapper.map(paciente, CadastroPacienteOutput.class);
 
@@ -108,6 +114,7 @@ public class PacienteService {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteOutput);
+
     }
 
 

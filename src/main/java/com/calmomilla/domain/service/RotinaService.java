@@ -17,11 +17,13 @@ import com.calmomilla.domain.utils.ModelMapperUtils;
 import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -37,12 +39,7 @@ public class RotinaService {
 
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
-        Tarefa tarefa = (Tarefa) gerarRotina(cadastroRotinaInput.getPaciente().getId()).getBody();
-        Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
-        rotina.setStatus(true);
-        rotina.setDiaRotina(dataEHora.brazilLocalDateTime().toLocalDate());
-        assert tarefa != null;
-        rotina.setTarefas(List.of(tarefa));
+        Rotina rotina = gerarRotina(cadastroRotinaInput).getBody();
         Rotina rotinaSalva = rotinaRepository.save(rotina);
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
         AtualizarPacienteInput pacienteInput = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
@@ -86,6 +83,7 @@ public class RotinaService {
         return mapperUtils.mapList(rotinas, BuscarRotinaOutput.class);
     }
 
+
     public ResponseEntity<AtualizarRotinaOutput> atualizar (AtualizarRotinaInput atualizarRotina) throws NoSuchMethodException {
         BuscarRotinaOutput buscarRotinaOutput = buscarPorId(atualizarRotina.getId()).getBody();
         Rotina rotina = modelMapper.map(buscarRotinaOutput, Rotina.class);
@@ -95,9 +93,8 @@ public class RotinaService {
         return ResponseEntity.ok(atualizarRotinaOutput);
     }
 
-    public ResponseEntity<?> gerarRotina(String id) throws NoSuchMethodException {
-        System.out.println(id);
-        BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(id).getBody();
+    public ResponseEntity<Rotina> gerarRotina(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
+        BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
 
         assert pacienteOutput != null;
 
@@ -164,7 +161,13 @@ public class RotinaService {
         assert tarefas != null;
         Random random = new Random();
         Tarefa tarefaSelecionada = tarefas.get(random.nextInt(tarefas.size()));
-        return ResponseEntity.ok(tarefaSelecionada);
+
+        Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
+        rotina.setStatus(true);
+        rotina.setDiaRotina(dataEHora.brazilLocalDateTime().toLocalDate());
+        rotina.setTarefas(List.of(tarefaSelecionada));
+
+        return ResponseEntity.ok(rotina);
     }
 
 }

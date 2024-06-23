@@ -1,6 +1,7 @@
 package com.calmomilla.api.dto.output.paciente;
 
 import com.calmomilla.domain.model.Psicologo;
+import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.utils.UserRole;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +18,6 @@ public class BuscarPacienteEmailOutput {
     private String foto;
     private UserRole role;
     private List<Psicologo> psicologos;
+    private List<Rotina> rotinas;
 
 }

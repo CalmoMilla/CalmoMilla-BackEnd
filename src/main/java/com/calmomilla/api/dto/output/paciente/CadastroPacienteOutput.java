@@ -4,6 +4,8 @@ import com.calmomilla.domain.model.Rotina;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class CadastroPacienteOutput {
@@ -15,5 +17,7 @@ public class CadastroPacienteOutput {
     private String email;
 
     private String foto;
+
+    private List<Rotina> rotinas;
 
 }
