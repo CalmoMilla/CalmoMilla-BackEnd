@@ -19,6 +19,8 @@ public class JogoOutput {
 
     private String foto;
 
+    private String link;
+
     private List<Focos>focos;
 
     private List<Desempenho> desempenhos;

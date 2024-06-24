@@ -64,21 +64,24 @@ public class DesempenhoService {
         AdicionarDesempenhoOutput desempenhoOutput = modelMapper.map(desempenho, AdicionarDesempenhoOutput.class);
        BuscarPacienteOutput pacienteOutput =  pacienteService.buscarPorId(desempenho.getUsuario().getId()).getBody();
        AtualizarPacienteInput paciente = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
-        System.out.println("a"+paciente.getDesempenhos());
        List<Desempenho> desempenhos = new ArrayList<>();
 
         if (!paciente.getDesempenhos().isEmpty()){
-            desempenhos.add((Desempenho) paciente.getDesempenhos());
-       }
+            desempenhos.addAll(paciente.getDesempenhos());
+        }
+
         desempenhos.add(desempenho);
-       paciente.setDesempenhos(desempenhos);
-       pacienteService.atualizar(paciente);
+        paciente.setDesempenhos(desempenhos);
+        pacienteService.atualizar(paciente);
 
         JogoOutput jogoOutput = jogoService.buscarPorId(desempenho.getJogos().getId()).getBody();
+
+        System.out.println(jogoOutput);
+
         AtualizarJogoInput jogoInput = modelMapper.map(jogoOutput,AtualizarJogoInput.class);
         List<Desempenho> desempenhosJogos = new ArrayList<>();
         if (!jogoInput.getDesempenhos().isEmpty()){
-            desempenhosJogos.add((Desempenho)  jogoInput.getDesempenhos());
+            desempenhosJogos.addAll(jogoInput.getDesempenhos());
         }
 
         desempenhosJogos.add(desempenho);

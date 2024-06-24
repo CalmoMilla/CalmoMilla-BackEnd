@@ -14,10 +14,8 @@ public class AdicionarDesempenhoInput {
     @NotNull
     private double pontuacao;
 
-    private Jogo jogos;
-
     private Paciente usuario;
 
-    private Jogo jogo;
+    private Jogo jogos;
 
 }

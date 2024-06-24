@@ -80,6 +80,7 @@ public class DataInitializer implements CommandLineRunner {
             jogo4.setDescricao("Encontre as palavras escondidas na grade e desafie seu vocabulário!");
             jogo4.setFocos(Arrays.asList(Focos.ATENCAO, Focos.RESOLUCAO_DE_PROBLEMAS));
             jogo4.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/palavrasCruzadas.png");
+            jogo4.setLink("/cacapalavras");
             jogo4.setAvaliacao(0);
             jogoRepository.save(jogo4);
         }
