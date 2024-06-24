@@ -42,6 +42,11 @@ public class AtualizarPacienteInput {
     @NotBlank
     private String foto;
 
+    private LocalDate ultimoLogin;
+
+    private boolean logouHoje;
+
+
     @NotNull
     private UserRole role;
 
