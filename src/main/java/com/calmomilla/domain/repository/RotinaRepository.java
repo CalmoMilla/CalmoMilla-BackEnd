@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface RotinaRepository extends JpaRepository<Rotina, String> {
 
-    Rotina findRotinaByDiaRotina(LocalDate data);
+    List<Rotina> findRotinaByDiaRotina(LocalDate data);
     List<Rotina> findRotinasByPacientesOrderByDiaRotinaDesc (Paciente paciente);
 }

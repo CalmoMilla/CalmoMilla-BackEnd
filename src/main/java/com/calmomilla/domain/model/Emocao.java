@@ -33,6 +33,7 @@ public class Emocao {
     @NotNull
     private LocalDate dataRegistro;
 
+
     @ManyToOne
     @JsonIgnore
     private Paciente paciente;

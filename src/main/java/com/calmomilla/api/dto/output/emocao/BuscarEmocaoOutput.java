@@ -23,6 +23,9 @@ public class BuscarEmocaoOutput {
     private List<Emocoes> emocoes = new ArrayList<>();
 
     private LocalDate dataRegistro;
+
+    private LocalDate ultimaAtualizacao;
+
     @JsonIgnore
     private Paciente paciente;
 }

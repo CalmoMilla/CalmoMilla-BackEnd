@@ -1,4 +1,5 @@
 package com.calmomilla.domain.service;
+import com.calmomilla.api.configs.DateTimeConfig;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.paciente.FavoritarPsicologoInput;
@@ -9,10 +10,12 @@ import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.paciente.CadastroPacienteOutput;
 import com.calmomilla.api.dto.output.psicologo.BuscarPsicologoOutput;
 import com.calmomilla.domain.exception.NegocioException;
+import com.calmomilla.domain.model.Emocao;
 import com.calmomilla.domain.model.Paciente;
 
 import com.calmomilla.domain.model.Psicologo;
 import com.calmomilla.domain.model.Rotina;
+import com.calmomilla.domain.repository.EmocaoRepository;
 import com.calmomilla.domain.repository.PacienteRepository;
 import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
@@ -25,6 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
 import java.text.ParseException;
@@ -36,6 +40,8 @@ import java.util.*;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final EmocaoRepository emocaoRepository;
+    private final DateTimeConfig dateTimeConfig;
     private final PsicologoService psicologoService;
     private RotinaRepository rotinaRepository;
     private final ModelMapper modelMapper;
@@ -57,16 +63,31 @@ public class PacienteService {
         BuscarPacienteOutput pacienteOutput = modelMapper.map(paciente.get(), BuscarPacienteOutput.class);
         return ResponseEntity.ok(pacienteOutput);
     }
+    @GetMapping("/buscarInfo")
     public ResponseEntity<BuscarPacienteEmailOutput> buscarInfo(Principal principal) throws NoSuchMethodException {
         Optional<Paciente> paciente = pacienteRepository.findByEmail(principal.getName());
 
         if (paciente.isEmpty()) {
             throw new NoSuchMethodException("Email não encontrado");
         }
-        BuscarPacienteEmailOutput pacienteOutput = modelMapper.map(paciente.get(), BuscarPacienteEmailOutput.class);
+
+        Paciente pacienteEntity = paciente.get();
+        List<Emocao> emocaoList = emocaoRepository.findByPacienteOrderByDataRegistroDesc(pacienteEntity);
+
+        LocalDate hoje = LocalDate.now();
+
+        System.out.println(emocaoList.get(0));
+        boolean precisaPreencherQuestionario = false;
+        System.out.println(emocaoList.get(0).getDataRegistro()+"x"+ hoje);
+        if (!emocaoList.get(0).getDataRegistro().isEqual(hoje)){
+            precisaPreencherQuestionario = true;
+        }
+        
+        BuscarPacienteEmailOutput pacienteOutput = modelMapper.map(pacienteEntity, BuscarPacienteEmailOutput.class);
+        pacienteOutput.setPrecisaPreencherQuestionario(precisaPreencherQuestionario);
+
         return ResponseEntity.ok(pacienteOutput);
     }
-
 
     public ResponseEntity<BuscarPacienteEmailOutput> buscarPorEmail(String email) throws NoSuchMethodException {
         Optional<Paciente> paciente = pacienteRepository.findByEmail(email);
@@ -101,12 +122,12 @@ public class PacienteService {
         pacienteInput.setCpf(cpfCriptografado);
         Paciente paciente = modelMapper.map(pacienteInput, Paciente.class);
         var data = LocalDate.of(1, 1, 1);
-        Rotina rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
+        List<Rotina> rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
         Rotina rotinaUsuario = new Rotina();
 
-        rotinaUsuario.setDiaRotina(rotinaPadrao.getDiaRotina());
-        rotinaUsuario.setStatus(rotinaPadrao.isStatus());
-        rotinaUsuario.setTarefas(new ArrayList<>(rotinaPadrao.getTarefas()));
+        rotinaUsuario.setDiaRotina(rotinaPadrao.get(0).getDiaRotina());
+        rotinaUsuario.setStatus(rotinaPadrao.get(0).isStatus());
+        rotinaUsuario.setTarefas(new ArrayList<>(rotinaPadrao.get(0).getTarefas()));
 
         rotinaUsuario =  rotinaRepository.save(rotinaUsuario);
         System.out.println(rotinaUsuario);

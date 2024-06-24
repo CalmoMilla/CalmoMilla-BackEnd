@@ -16,6 +16,7 @@ public class BuscarPacienteEmailOutput {
     private String email;
     private String nome;
     private String foto;
+    private boolean precisaPreencherQuestionario;
     private UserRole role;
     private List<Psicologo> psicologos;
     private List<Rotina> rotinas;

@@ -15,6 +15,8 @@ import java.util.List;
 @Entity
 public class  Paciente extends Usuario{
 
+    private boolean precisaPreencherQuestionario;
+
     @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Rotina> rotinas;
 
@@ -32,5 +34,7 @@ public class  Paciente extends Usuario{
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Psicologo> psicologos = new ArrayList<>();
+
+
 
 }

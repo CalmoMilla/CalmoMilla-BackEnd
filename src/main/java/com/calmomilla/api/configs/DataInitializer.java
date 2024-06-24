@@ -161,7 +161,7 @@ public class DataInitializer implements CommandLineRunner {
         }
 
 
-        if (rotinaRepository.findRotinaByDiaRotina(LocalDate.of(1, 1, 1)) != null){
+        if (!rotinaRepository.findRotinaByDiaRotina(LocalDate.of(1, 1, 1)).isEmpty()){
             System.out.println("A rotina padrao ja existe");
         }else {
             Rotina rotinaPadrao = new Rotina();

@@ -38,6 +38,8 @@ public class BuscarPacienteOutput {
 
     private Focos focos;
 
+    private boolean precisaPreencherQuestionario;
+
     private List<Desempenho> desempenhos;
 
     private DadosPessoais dadosPessoais;
