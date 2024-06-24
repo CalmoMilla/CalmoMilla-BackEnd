@@ -75,14 +75,18 @@ public class PacienteService {
         List<Emocao> emocaoList = emocaoRepository.findByPacienteOrderByDataRegistroDesc(pacienteEntity);
 
         LocalDate hoje = LocalDate.now();
-
-        System.out.println(emocaoList.get(0));
         boolean precisaPreencherQuestionario = false;
-        System.out.println(emocaoList.get(0).getDataRegistro()+"x"+ hoje);
-        if (!emocaoList.get(0).getDataRegistro().isEqual(hoje)){
+
+        if (!emocaoList.isEmpty()) {
+            System.out.println(emocaoList.get(0));
+            System.out.println(emocaoList.get(0).getDataRegistro()+"x"+ hoje);
+            if (!emocaoList.get(0).getDataRegistro().isEqual(hoje)){
+                precisaPreencherQuestionario = true;
+            }
+        } else {
             precisaPreencherQuestionario = true;
         }
-        
+
         BuscarPacienteEmailOutput pacienteOutput = modelMapper.map(pacienteEntity, BuscarPacienteEmailOutput.class);
         pacienteOutput.setPrecisaPreencherQuestionario(precisaPreencherQuestionario);
 
