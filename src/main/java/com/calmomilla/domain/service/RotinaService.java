@@ -10,6 +10,7 @@ import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Desempenho;
+import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.model.Tarefa;
 import com.calmomilla.domain.repository.RotinaRepository;
@@ -40,6 +41,7 @@ public class RotinaService {
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
         Rotina rotina = gerarRotina(cadastroRotinaInput).getBody();
+        assert rotina != null;
         Rotina rotinaSalva = rotinaRepository.save(rotina);
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
         AtualizarPacienteInput pacienteInput = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
@@ -66,14 +68,17 @@ public class RotinaService {
         return ResponseEntity.ok(buscarRotinaOutput);
     }
 
-        public ResponseEntity<BuscarRotinaOutput> buscarRotinaPorPaciente(String id) throws NoSuchMethodException {
+        public ResponseEntity<?> buscarRotinaPorPaciente(String id) throws NoSuchMethodException {
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(id).getBody();
             assert pacienteOutput != null;
-            if (pacienteOutput.getRotina() == null){
+            if (pacienteOutput.getRotinas() == null){
             throw new NegocioException("Esse usuario ainda não tem uma rotina");
         }
-
-        return buscarPorId(pacienteOutput.getRotina().getId());
+            Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
+           List<Rotina> rotinas = rotinaRepository.findRotinasByPacientes(List.of(paciente));
+            System.out.println(rotinas);
+            System.out.println(paciente );
+        return ResponseEntity.ok(rotinas);
 
     }
 

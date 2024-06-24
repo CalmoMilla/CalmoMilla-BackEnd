@@ -101,12 +101,12 @@ public class PacienteService {
         pacienteInput.setCpf(cpfCriptografado);
         Paciente paciente = modelMapper.map(pacienteInput, Paciente.class);
         var data = LocalDate.of(1, 1, 1);
-        Rotina rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
+        List<Rotina> rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
         Rotina rotinaUsuario = new Rotina();
 
-        rotinaUsuario.setDiaRotina(rotinaPadrao.getDiaRotina());
-        rotinaUsuario.setStatus(rotinaPadrao.isStatus());
-        rotinaUsuario.setTarefas(new ArrayList<>(rotinaPadrao.getTarefas()));
+        rotinaUsuario.setDiaRotina(rotinaPadrao.get(0).getDiaRotina());
+        rotinaUsuario.setStatus(rotinaPadrao.get(0).isStatus());
+        rotinaUsuario.setTarefas(new ArrayList<>(rotinaPadrao.get(0).getTarefas()));
 
         rotinaUsuario =  rotinaRepository.save(rotinaUsuario);
         System.out.println(rotinaUsuario);
@@ -131,8 +131,8 @@ public class PacienteService {
 
         System.out.println(rotinaMapper);
 
-        rotinaRepository.save(rotinaMapper);
-
+     var r =    rotinaRepository.save(rotinaMapper);
+        System.out.println(r);
 
         CadastroPacienteOutput pacienteOutput = modelMapper.map(paciente, CadastroPacienteOutput.class);
 

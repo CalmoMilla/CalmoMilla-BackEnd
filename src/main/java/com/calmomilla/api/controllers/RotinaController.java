@@ -37,7 +37,7 @@ public class RotinaController {
     }
 
         @GetMapping("/pacientes/{id}")
-        public ResponseEntity<BuscarRotinaOutput>buscarRotina(@PathVariable String id) throws NoSuchMethodException {
+        public ResponseEntity<?>buscarRotina(@PathVariable String id) throws NoSuchMethodException {
         return rotinaService.buscarRotinaPorPaciente(id);
     }
 
