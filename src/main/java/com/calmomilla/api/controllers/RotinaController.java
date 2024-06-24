@@ -6,6 +6,7 @@ import com.calmomilla.api.dto.input.rotina.CadastroRotinaInput;
 import com.calmomilla.api.dto.output.rotina.AtualizarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
+import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.service.RotinaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -36,8 +37,8 @@ public class RotinaController {
         return rotinaService.buscarTodos();
     }
 
-        @GetMapping("/pacientes/{id}")
-        public ResponseEntity<BuscarRotinaOutput>buscarRotina(@PathVariable String id) throws NoSuchMethodException {
+    @GetMapping("/pacientes/{id}")
+    public List<Rotina>buscarRotina(@PathVariable String id) throws NoSuchMethodException {
         return rotinaService.buscarRotinaPorPaciente(id);
     }
 

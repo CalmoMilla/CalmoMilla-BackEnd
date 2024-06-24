@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -66,14 +67,22 @@ public class RotinaService {
         return ResponseEntity.ok(buscarRotinaOutput);
     }
 
-        public ResponseEntity<BuscarRotinaOutput> buscarRotinaPorPaciente(String id) throws NoSuchMethodException {
+    public List<Rotina> buscarRotinaPorPaciente(String id) throws NoSuchMethodException {
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(id).getBody();
-            assert pacienteOutput != null;
-            if (pacienteOutput.getRotina() == null){
+        assert pacienteOutput != null;
+        if (pacienteOutput.getRotinas() == null){
             throw new NegocioException("Esse usuario ainda não tem uma rotina");
         }
 
-        return buscarPorId(pacienteOutput.getRotina().getId());
+        List<Rotina> rotinas = new ArrayList<>();
+
+        for (Rotina rotinaSelecionada : pacienteOutput.getRotinas()) {
+            BuscarRotinaOutput buscarRotinaOutput = buscarPorId(rotinaSelecionada.getId()).getBody();
+            Rotina rotina = modelMapper.map(buscarRotinaOutput, Rotina.class);
+            rotinas.add(rotina);
+        }
+
+        return rotinas;
 
     }
 
