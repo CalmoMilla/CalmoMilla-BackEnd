@@ -36,6 +36,8 @@ public class BuscarPacienteOutput {
 
     private String foto;
 
+    private Rotina rotina;
+
     private Focos focos;
 
     private List<Desempenho> desempenhos;
