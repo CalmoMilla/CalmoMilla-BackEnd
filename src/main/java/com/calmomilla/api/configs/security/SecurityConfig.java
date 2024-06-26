@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/pacientes").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.GET,"/pacientes").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/verify/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/emocoes").hasRole("ADMIN")
                         .anyRequest().authenticated()
