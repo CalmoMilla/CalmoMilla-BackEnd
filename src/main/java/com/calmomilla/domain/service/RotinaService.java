@@ -1,6 +1,5 @@
 package com.calmomilla.domain.service;
 
-import com.calmomilla.api.configs.DateTimeConfig;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.input.rotina.AtualizarRotinaInput;
 import com.calmomilla.api.dto.input.rotina.CadastroRotinaInput;
@@ -17,13 +16,14 @@ import com.calmomilla.domain.utils.ModelMapperUtils;
 import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,7 +36,6 @@ public class RotinaService {
     private final ModelMapperUtils mapperUtils;
     private PacienteService pacienteService;
     private TarefaService tarefaService;
-    private final DateTimeConfig dataEHora;
 
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
@@ -175,10 +174,17 @@ public class RotinaService {
 
         Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
         rotina.setStatus(true);
-        rotina.setDiaRotina(dataEHora.brazilLocalDateTime().toLocalDate());
+        rotina.setDiaRotina(getBrazilLocalDateTime().toLocalDate());
         rotina.setTarefas(List.of(tarefaSelecionada));
 
         return ResponseEntity.ok(rotina);
     }
+
+    public LocalDateTime getBrazilLocalDateTime() {
+        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
+        return zonedDateTime.toLocalDateTime();
+    }
+
 
 }

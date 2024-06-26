@@ -14,8 +14,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,6 @@ public class EmocaoService {
     private final EmocaoRepository emocaoRepository;
     private final ModelMapper modelMapper;
     private final PacienteService pacienteService;
-    private final LocalDateTime brazilLocalDateTime;
 
     public ResponseEntity<List<BuscarEmocaoOutput>>buscarEmocoes(){
 
@@ -95,7 +95,7 @@ public class EmocaoService {
             mensagem = "Poxa vimos que você está se sentindo triste, de um pulinho na nossas seção de Relaxamento.";
             emocaoInput.setDescricao(String.valueOf(Emocoes.TRISTE));
         }
-        emocaoInput.setDataRegistro(brazilLocalDateTime.toLocalDate());
+        emocaoInput.setDataRegistro(getBrazilLocalDateTime().toLocalDate());
         Emocao emocao = modelMapper.map(emocaoInput,Emocao.class);
 
        Emocao emocaoSalva =  emocaoRepository.save(emocao);
@@ -104,6 +104,13 @@ public class EmocaoService {
         emocaoOutput.setMensagem(mensagem);
         return ResponseEntity.ok(emocaoOutput);
         }
+
+
+    public LocalDateTime getBrazilLocalDateTime() {
+        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
+        return zonedDateTime.toLocalDateTime();
+    }
 
     }
 

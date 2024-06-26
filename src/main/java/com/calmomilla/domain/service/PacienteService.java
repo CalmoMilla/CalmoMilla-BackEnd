@@ -1,5 +1,4 @@
 package com.calmomilla.domain.service;
-import com.calmomilla.api.configs.DateTimeConfig;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.input.paciente.CadastroPacienteInput;
 import com.calmomilla.api.dto.input.paciente.FavoritarPsicologoInput;
@@ -41,7 +40,6 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final EmocaoRepository emocaoRepository;
-    private final DateTimeConfig dateTimeConfig;
     private final PsicologoService psicologoService;
     private RotinaRepository rotinaRepository;
     private final ModelMapper modelMapper;

@@ -12,10 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Date;
 
 @Service
@@ -29,7 +26,6 @@ public class VerificacaoCpf {
     private String apiToken;
 
     private final ObjectMapper objectMapper;
-    private final LocalDateTime brazilLocalDateTime;
 
     public ResponseEntity<?> enviarDados(VerificacaoDTO verificacaoDTO){
         // Dados que você deseja enviar
@@ -79,7 +75,7 @@ public class VerificacaoCpf {
         try {
             Date date = dateFormat.parse(dataNasc);
             LocalDate dataNascimento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate dataAtual = brazilLocalDateTime.toLocalDate();
+            LocalDate dataAtual = getBrazilLocalDateTime().toLocalDate();
 
             // Calcular a idade
             int idade = Period.between(dataNascimento, dataAtual).getYears();
@@ -110,7 +106,7 @@ public class VerificacaoCpf {
 
     public  Boolean validarDataNasc(LocalDate dataNasc){
 
-        LocalDate dataAtual = brazilLocalDateTime.toLocalDate();
+        LocalDate dataAtual = getBrazilLocalDateTime().toLocalDate();
 
         int idade = Period.between(dataNasc, dataAtual).getYears();
 
@@ -152,5 +148,12 @@ public class VerificacaoCpf {
 
         return (firstDigit == (CPF.charAt(9) - '0')) && (secondDigit == (CPF.charAt(10) - '0'));
     }
+
+    public LocalDateTime getBrazilLocalDateTime() {
+        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
+        return zonedDateTime.toLocalDateTime();
+    }
+
     }
 
