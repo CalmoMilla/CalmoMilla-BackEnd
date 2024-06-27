@@ -1,9 +1,7 @@
 package com.calmomilla.domain.model;
 
 import com.calmomilla.domain.utils.enums.Especializacoes;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -24,5 +22,8 @@ public class Psicologo extends Usuario{
 
     @ManyToMany
     private List<Paciente> pacientes;
+
+    @OneToMany
+    private List<Blog> postagem;
 
 }

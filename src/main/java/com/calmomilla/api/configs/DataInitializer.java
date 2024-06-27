@@ -7,8 +7,9 @@ import com.calmomilla.domain.utils.enums.CategoriaRelaxamento;
 import com.calmomilla.domain.utils.enums.Especializacoes;
 import com.calmomilla.domain.utils.enums.Focos;
 import com.calmomilla.domain.utils.enums.Genero;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.List;
 
 @Component
@@ -29,6 +30,7 @@ public class DataInitializer implements CommandLineRunner {
     private final TarefaRepository tarefaRepository;
     private final RotinaRepository rotinaRepository;
     private final RelaxamentoRepository relaxamentoRepository;
+    private final BlogRepository blogRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -88,18 +90,22 @@ public class DataInitializer implements CommandLineRunner {
         }
 
 
-        if (pacienteRepository.findByEmail("adm@gmail.com").isPresent()) {
+        if (pacienteRepository.findByEmail("contato@calmomilla.org").isPresent()) {
 
-            System.out.println("o paciente adm@gmail.com ja existe");
+            System.out.println("o ADM contato@calmomilla.org ja existe");
         } else {
-            Paciente usuario = new Paciente();
-            usuario.setNome("Admin");
-            usuario.setEmail("adm@gmail.com");
-            usuario.setSenha("123456");
+            Psicologo usuario = new Psicologo();
+            usuario.setNome("Calmomilla");
+            usuario.setEmail("contato@calmomilla.org");
+            usuario.setSenha("010203cd");
             var senhaUsuario = new BCryptPasswordEncoder().encode(usuario.getSenha());
             usuario.setSenha(senhaUsuario);
+            usuario.setGenero(Genero.FEMININO);
+            usuario.setCpf("24089231825");
+            usuario.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/LogoDefinitivaFundo.png");
+            usuario.setTelefone("11968210285");
             usuario.setRole(UserRole.ADMIN);
-            pacienteRepository.save(usuario);
+            psicologoRepository.save(usuario);
         }
 
         if (pacienteRepository.findByEmail("dndragonbr@gmail.com").isPresent()) {
@@ -377,6 +383,146 @@ public class DataInitializer implements CommandLineRunner {
 
             relaxamentoRepository.save(respiracao10);
         }
+
+
+        if (blogRepository.findBlogByTituloPostagem("Entenda a relação entre atividade física e saúde mental") != null){
+            System.out.println("Postagens ja existem");
+        }else {
+
+            Psicologo autorPostagem = psicologoRepository.findByEmail("contato@calmomilla.org").get();
+
+            Blog blog01 = new Blog();
+            blog01.setTituloPostagem("Entenda a relação entre atividade física e saúde mental");
+
+            blog01.setDescPostagem("Manter uma rotina regular de atividade física é essencial não só para o corpo, mas também para a saúde mental. A Organização Mundial da Saúde (OMS) define saúde mental como parte integral do nosso bem-estar, influenciando nossa capacidade de lidar com os desafios diários.\n" +
+                    "\n" +
+                    "A ciência comprova que a prática regular de atividades físicas reduz sintomas de ansiedade e depressão. Exercícios aeróbicos e de resistência, feitos por 150 a 300 minutos por semana, são eficazes na melhora desses quadros.\n" +
+                    "\n" +
+                    "Além de combater problemas mentais, como estresse e burnout, a atividade física eleva o humor, aumenta a autoconfiança e melhora o sono. Atividades em grupo também contribuem para a socialização e fortalecimento de vínculos.\n" +
+                    "\n" +
+                    "Para começar com segurança, consulte um médico e um educador físico. Comece gradualmente, estabelecendo metas realistas e escolhendo atividades que você goste, como caminhadas, natação ou yoga. Varie os exercícios para evitar a monotonia e beneficiar diferentes grupos musculares.\n" +
+                    "\n" +
+                    "Adote uma rotina de atividade física para fortalecer não só seu corpo, mas também sua saúde mental. Invista em seu bem-estar: movimente-se e sinta a diferença!\n" +
+                    "\n" +
+                    "Para mais dicas sobre abandonar o sedentarismo e construir um estilo de vida ativo, confira nosso próximo conteúdo. Lembre-se sempre de consultar um profissional de saúde para orientações personalizadas.");
+            blog01.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/atividadeYoga.avif");
+            blog01.setAutor(autorPostagem);
+            blog01.setRevisao("Calmomilla");
+            blogRepository.save(blog01);
+
+            Blog blog02 = new Blog();
+            blog02.setTituloPostagem("Técnicas de relaxamento para ansiedade");
+            blog02.setDescPostagem("No Brasil, onde a ansiedade é prevalente segundo a OMS, é crucial que as pessoas tenham acesso a informações sobre transtornos mentais e técnicas de relaxamento. A ansiedade, natural em situações como entrevistas ou apresentações, torna-se problemática quando persistente e incapacitante. Transtornos como TAG (Transtorno de Ansiedade Generalizada), síndrome do pânico, TOC (Transtorno Obsessivo-Compulsivo) e fobias específicas são comuns, afetando significativamente a qualidade de vida dos indivíduos.\n" +
+                    "\n" +
+                    "Para enfrentar esses desafios, diversas técnicas de relaxamento têm se mostrado eficazes. Além das tradicionais como meditação, respiração diafragmática e yoga, o relaxamento muscular progressivo e a automassagem também ajudam a reduzir sintomas ansiosos. Estratégias simples, como mentalizar que a crise é passageira e a prática da técnica \"5, 4, 3, 2, 1\", que foca em estimular os sentidos para desviar a atenção da ansiedade, são úteis em momentos de agitação.\n" +
+                    "\n" +
+                    "A psicoterapia desempenha um papel fundamental no tratamento da ansiedade. Abordagens como a Terapia Cognitivo-Comportamental (TCC) são especialmente recomendadas por sua eficácia comprovada em ensinar estratégias de enfrentamento e modificar padrões de pensamento que alimentam a ansiedade. Através da psicoterapia, os pacientes podem explorar seus sentimentos e pensamentos de maneira estruturada, o que promove um maior autoconhecimento e capacidade de lidar com os gatilhos de ansiedade de forma consciente.\n" +
+                    "\n" +
+                    "Portanto, além de aprender técnicas de relaxamento para o dia a dia, é essencial buscar apoio profissional quando necessário. A combinação de métodos de autoajuda com orientação especializada pode proporcionar um caminho mais eficaz para gerenciar a ansiedade e melhorar a qualidade de vida de forma significativa. ");
+            blog02.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/fotoRelaxando.avif");
+            blog02.setAutor(autorPostagem);
+            blog02.setRevisao("Calmomilla");
+            blogRepository.save(blog02);
+
+
+            Blog blog03 = new Blog();
+            blog03.setTituloPostagem("O que é autocuidado? Por que é tão importante?");
+            blog03.setDescPostagem(" O autocuidado é uma prática que vai muito além de cuidar das necessidades físicas básicas. Envolve também cuidar da nossa saúde mental, emocional e espiritual. Ao reservarmos um tempo para nós mesmos, estamos reconhecendo a importância de estar bem para poder lidar com os desafios do dia a dia de forma mais eficaz e saudável.\n" +
+                    "\n" +
+                    "Além das atividades físicas, como exercícios e alimentação saudável, o autocuidado inclui também o cultivo de relacionamentos positivos, o gerenciamento do estresse, o sono adequado e a busca por momentos de relaxamento e prazer. Meditar, praticar hobbies que nos inspiram, ou simplesmente desconectar das tecnologias por um tempo são maneiras poderosas de recarregar nossas energias e promover um equilíbrio interno.\n" +
+                    "\n" +
+                    "Ao implementarmos essas práticas no nosso cotidiano, estamos investindo em nossa própria saúde e felicidade. O autocuidado não é egoísta, mas sim essencial para manter nossa qualidade de vida e bem-estar geral. Quando nos cuidamos, estamos capacitados a ser melhores para nós mesmos e para aqueles ao nosso redor, criando um ciclo positivo de saúde e bem-estar duradouro.\n" +
+                    "\n" +
+                    "\n" +
+                    "\n");
+            blog03.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/9d27d913-3840-4f36-a366-41de17ee74fa.jpg");
+            blog03.setAutor(autorPostagem);
+            blog03.setRevisao("Calmomilla");
+            blogRepository.save(blog03);
+
+            Blog blog05 = new Blog();
+            blog05.setTituloPostagem("Como jogos de estímulos mentais beneficiam sua saúde cerebral");
+            blog05.setDescPostagem("Você já pensou em como os jogos de estímulos mentais podem beneficiar sua saúde cerebral? Incorporar esses jogos à sua rotina não só oferece diversão, mas também exercita áreas cruciais do cérebro. Desafios que envolvem raciocínio, memória e concentração são essenciais para manter a mente ativa e saudável.\n" +
+                    "\n" +
+                    "Primeiramente, esses jogos melhoram a memória ao estimular a memorização de padrões e informações, como quebra-cabeças e jogos de cartas. Além disso, aprimoram o raciocínio ao resolver problemas complexos em jogos de estratégia e quebra-cabeças lógicos, desenvolvendo habilidades críticas e decisórias.\n" +
+                    "\n" +
+                    "Concentração também é um benefício claro. Ao focar em objetivos específicos durante o jogo, você treina a capacidade de manter a atenção por períodos mais longos, o que é fundamental em diversos aspectos da vida.\n" +
+                    "\n" +
+                    "Outro ponto positivo é a redução do estresse. A atividade mental envolvente dos jogos pode diminuir os níveis de cortisol, o hormônio do estresse, proporcionando um alívio mental bem-vindo e promovendo o bem-estar geral.\n" +
+                    "\n" +
+                    "Por fim, jogos de estímulos mentais não são apenas desafiadores, mas também divertidos. A diversão é crucial para o equilíbrio emocional e a saúde mental, além de ser um investimento valioso na saúde cerebral a longo prazo.\n" +
+                    "\n" +
+                    "Então, que tal reservar um tempo diário para resolver palavras cruzadas, jogar Sudoku ou explorar quebra-cabeças no Calmomilla? Cuidar da mente é cuidar de si mesmo. Experimente incorporar esses jogos na sua rotina e sinta a diferença na sua capacidade mental e no seu bem-estar geral. ");
+            blog05.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/saude_mental.png");
+            blog05.setAutor(autorPostagem);
+            blog05.setRevisao("Calmomilla");
+            blogRepository.save(blog05);
+
+            Blog blog04 = new Blog();
+            blog04.setTituloPostagem("Conheça mais sobre a prática do yoga e seus benefícios para a saúdeO que é mindfulness e por que ele beneficia todas as esferas da vida?");
+            blog04.setDescPostagem("A prática regular do yoga oferece inúmeros benefícios, incluindo melhorias no sistema cardíaco e respiratório, controle do estresse e ansiedade, maior equilíbrio e fortalecimento do tônus muscular, contribuindo para a disposição e produtividade nas atividades diárias. Originária da palavra sânscrita \"Yuji\", que significa união, o yoga é uma prática indiana que alinha corpo e mente. Patanjali foi o primeiro a reunir seus princípios na obra \"Yoga Sutras\". As práticas de yoga incluem meditação, exercícios respiratórios e posturas específicas, proporcionando relaxamento e diversos benefícios para a saúde física e mental. No Ocidente, popularizou-se principalmente pelos asanas, posturas corporais realizadas em estabilidade e conforto.\n" +
+                    "\n" +
+                    "Existem vários tipos de yoga, adaptáveis às preferências e limitações individuais. O Hatha Yoga é a forma clássica, focada em técnicas de respiração e posturas que estimulam a energia do corpo. O Vinyasa Flow Yoga é mais dinâmico, com uma boa conexão entre movimento e respiração. O Ashtanga Vinyasa Yoga é uma prática disciplinada com séries fixas de posturas e ênfase na respiração. O Hot Yoga é praticado em uma sala aquecida, promovendo grande sudorese. Já o Iyengar Yoga foca no alinhamento da postura, utilizando equipamentos para facilitar a adaptação das posturas.\n" +
+                    "\n" +
+                    "Os benefícios do yoga incluem aumento da flexibilidade, melhora da respiração, diminuição do estresse, alívio da ansiedade e auxílio no tratamento da depressão. Para começar a praticar yoga, é importante buscar um profissional qualificado, vestir roupas adequadas, pesquisar sobre técnicas de respiração e posturas para iniciantes, e definir objetivos pessoais, respeitando os próprios limites.\n" +
+                    "\n" +
+                    "Consultar um médico antes de iniciar a prática é essencial para garantir que o yoga seja adequado às suas condições físicas. Com o auxílio de um profissional qualificado, é possível alcançar os benefícios desejados. ");
+            blog04.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/yoga.png");
+            blog04.setAutor(autorPostagem);
+            blog04.setRevisao("Calmomilla");
+
+            blogRepository.save(blog04);
+
+            Blog blog06 = new Blog();
+            blog06.setTituloPostagem("O que é mindfulness e por que ele beneficia todas as esferas da vida?");
+            blog06.setDescPostagem("O mundo moderno é caótico e estamos sempre sobrecarregados de tarefas, o que não é saudável a longo prazo. O mindfulness, ou \"atenção plena\", é uma prática que se concentra no presente, ajudando a melhorar a qualidade de vida e a saúde mental. Consiste em focar na nossa mente, sentimentos e sensações, além do ambiente ao nosso redor, e pode ser incorporada em diferentes momentos da rotina.\n" +
+                    "\n" +
+                    "O mindfulness é popular atualmente devido ao ritmo frenético da vida moderna, que aumenta a busca por concentração, foco e tranquilidade. Seus benefícios incluem redução do estresse, controle dos sintomas de ansiedade e depressão, aumento da atenção e foco, melhora da produtividade e memória, promoção do autoconhecimento e otimização das relações interpessoais.\n" +
+                    "\n" +
+                    "No ambiente de trabalho, o mindfulness é incentivado para melhorar a produtividade, aumentar a atenção dos colaboradores, diminuir conflitos e otimizar o trabalho em equipe. Para aderir ao mindfulness, é importante reduzir distrações, conectar-se com o mundo ao redor, dialogar com suas emoções e pensamentos, desacelerar pela manhã e à noite, e reservar um tempo para meditar. Implementar o mindfulness na rotina pode trazer significativas melhorias para a vida diária. Assine a nossa newsletter para receber mais informações relevantes! ");
+            blog06.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/meditacao.png");
+            blog06.setAutor(autorPostagem);
+            blog06.setRevisao("Calmomilla");
+
+            blogRepository.save(blog06);
+
+            Blog blog07 = new Blog();
+            blog07.setTituloPostagem("Confira os cuidados essenciais com a saúde mental na melhor idade");
+            blog07.setDescPostagem("\n" +
+                    "Estamos vivenciando um envelhecimento populacional global, e a expectativa de vida aumentou graças aos avanços da medicina. A Organização Mundial da Saúde (OMS) prevê que a proporção de idosos pode dobrar até 2050. Contudo, a saúde mental dos idosos necessita de atenção especial, pois transtornos mentais e neurológicos, como demência e depressão, afetam mais de 20% das pessoas acima de 60 anos.\n" +
+                    "\n" +
+                    "O envelhecimento natural leva à perda de habilidades motoras e mentais, aumentando a dependência e a suscetibilidade a transtornos mentais. Fatores de risco incluem doenças físicas, luto, dificuldades socioeconômicas e abuso, além de predisposições genéticas para doenças neurodegenerativas. A depressão, muitas vezes subdiagnosticada, é comum e pode resultar em isolamento e perda de autoestima. A demência, especialmente o Alzheimer, causa declínio cognitivo significativo e é frequentemente confundida com o envelhecimento normal.\n" +
+                    "\n" +
+                    "Para identificar problemas, é crucial observar sinais como tristeza persistente, falta de motivação, excesso de preocupações e perda de memória. O diagnóstico é realizado por especialistas baseando-se na história clínica, exames físicos e, se necessário, exames complementares.\n" +
+                    "\n" +
+                    "Cuidar da saúde mental na terceira idade envolve cultivar hábitos saudáveis, manter interações sociais e se sentir parte de um grupo. O conceito de \"envelhecimento ativo\" da OMS promove a participação contínua dos idosos em questões sociais e culturais, buscando uma maior inclusão social. Políticas públicas são essenciais para criar condições de vida que apoiem o bem-estar dos idosos.\n" +
+                    "\n" +
+                    "Compartilhe essas informações com amigos e familiares e assine nossa newsletter para se manter atualizado sobre novidades em nosso blog. ");
+            blog07.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/veios.png");
+            blog07.setAutor(autorPostagem);
+            blog07.setRevisao("Calmomilla");
+
+            blogRepository.save(blog07);
+
+            Blog blog08 = new Blog();
+            blog08.setTituloPostagem("Como cuidar da saúde de jovens e adolescentes?");
+            blog08.setDescPostagem(" A adolescência é um período de intensas transformações físicas, psicológicas e sociais, situando-se entre a infância e a idade adulta. Esse estágio, que envolve autoconhecimento e interações sociais, é caracterizado por rápido crescimento físico, cognitivo e psicossocial, afetando a forma como os jovens pensam, tomam decisões e interagem com o mundo. Segundo a OMS, 1,2 bilhão de pessoas no mundo são adolescentes, e esse número deve crescer até 2050, especialmente em países de baixa e média renda. Anualmente, mais de 1 milhão de adolescentes morrem por causas evitáveis, como violência, suicídio e acidentes de trânsito.\n" +
+                    "\n" +
+                    "A adolescência é dividida em três fases: pré-adolescência (10-14 anos), adolescência (15-17 anos) e juventude (18-24 anos). A pré-adolescência é marcada pelo início da puberdade e maturação sexual, enquanto a adolescência envolve conflitos e dúvidas pela transição para a vida adulta. A juventude marca o desenvolvimento completo e a entrada na vida adulta.\n" +
+                    "\n" +
+                    "Esse período pode afetar a saúde mental dos jovens, que frequentemente enfrentam autocrítica exacerbada, baixa autoestima, flutuações de humor e a busca por independência. A interação social pode gerar desafios adicionais, como bullying e risco de envolvimento com drogas e álcool. A depressão e o suicídio são problemas graves nessa faixa etária, tornando crucial o apoio socioemocional familiar e escolar.\n" +
+                    "\n" +
+                    "Para apoiar a saúde mental dos adolescentes, pais e responsáveis devem ser bons exemplos, incentivar reflexões sobre decisões, ser empáticos, e manter um diálogo aberto. Além disso, consultas médicas periódicas são recomendadas para monitorar a saúde física e mental, prevenir sobrepeso e obesidade, e promover a educação sobre saúde sexual e reprodutiva.\n" +
+                    "\n" +
+                    "A vacinação também é crucial, especialmente contra o HPV, que é recomendada para meninas de 9 a 14 anos e meninos de 11 a 14 anos. A prevenção de ISTs, o incentivo ao uso de preservativos, e a educação sobre os riscos do uso de substâncias são fundamentais para garantir a saúde dos adolescentes. Para mais informações, sempre busque orientação médica.");
+            blog08.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/adolecentes.png");
+            blog08.setAutor(autorPostagem);
+            blog08.setRevisao("Calmomilla");
+
+            blogRepository.save(blog08);
+
+        }
+
         System.out.println("Dados inseridos nas tabelas com sucesso!");
     }
 }
