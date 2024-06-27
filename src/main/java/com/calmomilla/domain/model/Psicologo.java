@@ -1,6 +1,7 @@
 package com.calmomilla.domain.model;
 
 import com.calmomilla.domain.utils.enums.Especializacoes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,6 +25,7 @@ public class Psicologo extends Usuario{
     private List<Paciente> pacientes;
 
     @OneToMany(mappedBy = "autor")
+    @JsonIgnore
     private List<Blog> postagem;
 
 }

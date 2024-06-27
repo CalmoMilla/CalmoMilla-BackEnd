@@ -9,7 +9,9 @@ import lombok.Data;
 @Data
 public class BuscarPostagemOutput {
 
-    private  String tituloPostagem;
+    private String id;
+
+    private String tituloPostagem;
 
     private String descPostagem;
 
