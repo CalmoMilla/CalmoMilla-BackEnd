@@ -104,6 +104,7 @@ public class DataInitializer implements CommandLineRunner {
             usuario.setCpf("24089231825");
             usuario.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/LogoDefinitivaFundo.png");
             usuario.setTelefone("11968210285");
+            usuario.setNumeroRegistro("2312323");
             usuario.setRole(UserRole.ADMIN);
             psicologoRepository.save(usuario);
         }

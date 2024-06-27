@@ -19,8 +19,8 @@ public class Blog {
     @Column(nullable = false)
     private  String tituloPostagem;
 
-    @Column(nullable = false)
     @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String descPostagem;
 
     @Column(nullable = false)
@@ -30,7 +30,7 @@ public class Blog {
     private String revisao;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name = "autor_id", nullable = false)  // Use @JoinColumn aqui
     private Psicologo autor;
 
 

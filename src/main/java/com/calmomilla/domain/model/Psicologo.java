@@ -23,7 +23,7 @@ public class Psicologo extends Usuario{
     @ManyToMany
     private List<Paciente> pacientes;
 
-    @OneToMany
+    @OneToMany(mappedBy = "autor")
     private List<Blog> postagem;
 
 }

@@ -115,6 +115,7 @@ public class RotinaService {
         int quiz = 0;
 
         for (Desempenho desempenho : desempenhos) {
+
             String nomeJogo = desempenho.getJogos().getNome();
             int nivel = desempenho.getNivel();
             double pontuacao = desempenho.getPontuacao();
