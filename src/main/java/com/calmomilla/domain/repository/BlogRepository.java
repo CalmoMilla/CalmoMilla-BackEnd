@@ -15,4 +15,6 @@ public interface BlogRepository extends JpaRepository<Blog, String> {
     List<Blog> findAllByOrderByTituloPostagemAsc();
 
 
+
+
 }

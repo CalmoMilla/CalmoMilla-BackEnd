@@ -1,5 +1,6 @@
 package com.calmomilla.domain.model;
 
+import com.calmomilla.domain.utils.ListToStringConverter;
 import com.calmomilla.domain.utils.enums.Especializacoes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -21,6 +22,7 @@ public class Psicologo extends Usuario{
     @NotBlank
     private String numeroRegistro;
 
+    @Convert(converter = ListToStringConverter.class)
     @Column(columnDefinition = "TEXT")
     private List<String> servicosOferecidos;
 
