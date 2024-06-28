@@ -159,7 +159,7 @@ public class DataInitializer implements CommandLineRunner {
             anaCarolina.setDescricao("Psicanalista com doutorado em Psicologia, Linguagem e Educação pela Universidade de São Paulo e pela Université Paris VIII (França). Especialista em psicanálise pelo Instituto SEDES Sapientiae. Pesquisadora e consultora em temáticas relacionadas à saúde mental da população negra. Coordenadora-geral da Casa de Marias.");
             anaCarolina.setEmail("anacasademarias@gmail.com");
             anaCarolina.setNumeroRegistro("06/116044");
-            anaCarolina.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/Ana_Carolina.jpg");
+            anaCarolina.setFoto("");
             anaCarolina.setEspecializacoes(List.of(Especializacoes.PSICANALISE,Especializacoes.PSICOTERAPIA_ADOLESCENTES,Especializacoes.PSICOTERAPIA_ADULTOS));
             anaCarolina.setGenero(Genero.FEMININO);
             anaCarolina.setServicosOferecidos(List.of("Curso Preparatório para Entrada na Pós Graduação;","Grupo de Escrita Acadêmica Entre Mulheres;","Grupo de estudos em teoria psicanalítica;","Psicoterapia individual para adolescentes;","Psicoterapia individual para adultos;","Supervisão clínica em grupo;","Supervisão clínica individual;","Consultoria e acompanhamento individual para elaboração de projetos (mestrado e doutorado);","Consultoria, cursos, formações e workshops especializados para instituições."));
@@ -170,6 +170,87 @@ public class DataInitializer implements CommandLineRunner {
 
             psicologoRepository.save(anaCarolina);
         }
+
+        if (psicologoRepository.findByNumeroRegistro("05/55818") != null){
+            System.out.println("Débora Bonfim");
+        }else {
+            Psicologo deboraBonfim = new Psicologo();
+            deboraBonfim.setNome("Débora Bonfim");
+            deboraBonfim.setDescricao("Psicóloga Clínica, Pedagoga, Palestrante e Modelo Plus Size. Pós graduada em Gestalt terapia, em curso pós graduação em Sexualidade Humana. Idealizadora do Projeto Foco em Mim que une a Psicologia e a fotografia com o intuito de trabalhar a Autoestima, Empoderamento feminino, auto aceitação corporal dentre outras questões relacionadas ao universo feminino." + "Atuo como voluntária na Comissão de Igualdade Racial da OAB/Nilópolis e na Amazaoest que trabalha com questões relacionadas à Violência Doméstica. Autoestima da Mulher Negra. Nas horas de lazer, amo dançar! Embaixadora Musa Plus Size Beleza Negra.");
+            deboraBonfim.setEmail("deboracasademarias@gmail.com");
+            deboraBonfim.setNumeroRegistro("05/55818");
+            deboraBonfim.setFoto("");
+            deboraBonfim.setEspecializacoes(List.of(Especializacoes.GESTALT_TERAPIA,Especializacoes.PSICOTERAPIA_ADOLESCENTES,Especializacoes.PSICOTERAPIA_ADULTOS,Especializacoes.PSICOTERAPIA_MULHERES_NEGRAS,Especializacoes.PSICOLOGIA_ESCOLAR));
+            deboraBonfim.setGenero(Genero.FEMININO);
+            deboraBonfim.setServicosOferecidos(List.of("Psicoterapia individual para adolescentes;","Psicoterapia individual para adultos;","Psicoterapia individual para mulheres negras;","Grupo Terapêutico para mulheres;","Grupo Terapêutico para mulheres negras;","Supervisão Clínica Individual ou grupal em Gestalt terapia;","Palestras/ Lives/ Reuniões de Pais e Professores;","Experiência em Psicologia Escolar."));
+            deboraBonfim.setSenha("123456");
+            var senhaPsicologo = new BCryptPasswordEncoder().encode(deboraBonfim.getSenha());
+            deboraBonfim.setSenha(senhaPsicologo);
+            deboraBonfim.setRole(UserRole.PSICOLOGO);
+
+            psicologoRepository.save(deboraBonfim);
+        }
+
+        if (psicologoRepository.findByNumeroRegistro("06/176623") != null){
+                System.out.println("Luana França");
+        }else {
+                Psicologo luanaFranca = new Psicologo();
+                luanaFranca.setNome("Luana França");
+                luanaFranca.setDescricao("Olá me chamo Luana, sou uma pessoa que estou sempre me atualizando, graduada em Psicologia pela UNIP, pós-graduada em Psicanálise Clínica pela Faculdade Metropolitana." + "Meus estudos estão direcionando em me aperfeiçoar para oferecer um atendimento de qualidade e resultado para meus pacientes que buscam ajuda para lidar com suas dificuldades." + "Tenho experiência em tratamentos nos transtornos de ansiedade, transtornos de depressão, Luto e entre outras questões emocionais.");
+                luanaFranca.setEmail("luanacasademarias@gmail.com");
+                luanaFranca.setNumeroRegistro("06/176623");
+                luanaFranca.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/Luana.jpg");
+                luanaFranca.setEspecializacoes(List.of(Especializacoes.PSICANALISE));
+                luanaFranca.setGenero(Genero.FEMININO);
+                luanaFranca.setServicosOferecidos(List.of("Psicoterapia Individual;","Roda de conversas;","Palestras."));
+                luanaFranca.setSenha("123456");
+                var senhaPsicologo = new BCryptPasswordEncoder().encode(luanaFranca.getSenha());
+                luanaFranca.setSenha(senhaPsicologo);
+                luanaFranca.setRole(UserRole.PSICOLOGO);
+
+                psicologoRepository.save(luanaFranca);
+            }
+
+        if (psicologoRepository.findByNumeroRegistro("06/178319") != null){
+            System.out.println("Samara Agata de Souza");
+        }else{
+            Psicologo samaraAgata = new Psicologo();
+            samaraAgata.setNome("Samara Agata de Souza");
+            samaraAgata.setDescricao("Formada em Psicologia pela Faculdades Metropolitanas Unidas(FMU), especializando em Psicologia Preta Afroperspectivada pela Universidade Federal de Delta de Parnaíba (UFDPA). Atua com a abordagem da psicanálise para os atendimentos e a perspectiva afrocentrada.");
+            samaraAgata.setEmail("samaracasademarias@gmail.com");
+            samaraAgata.setNumeroRegistro("06/178319");
+            samaraAgata.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/Samara.jpg");
+            samaraAgata.setEspecializacoes(List.of(Especializacoes.PSICOLOGIA_PRETA_AFROPERSPECTIVADA,Especializacoes.PSICOTERAPIA_ADOLESCENTES,Especializacoes.PSICOTERAPIA_CRIANCAS));
+            samaraAgata.setGenero(Genero.FEMININO);
+            samaraAgata.setServicosOferecidos((List.of("Atendimento para crianças e adolescentes vítimas de violência doméstica e familiar (violência física, psicológica, sexual, negligência);","Atua com crianças e adolescentes em situação de trabalho infantil e em situação de rua;","Atendimento para adolescentes que estejam em Serviço de Medida Sócio Educativa em Meio Aberto;","Atua com crianças e adolescentes em descumprimento de condicionalidades do PET;","Atendimento para famílias e indivíduos com seus direitos violados com vínculos familiares e comunitários rompidos ou não.")));
+            samaraAgata.setSenha("123456");
+            var senhaPsicologo = new BCryptPasswordEncoder().encode(samaraAgata.getSenha());
+            samaraAgata.setSenha((senhaPsicologo));
+            samaraAgata.setRole(UserRole.PSICOLOGO);
+
+            psicologoRepository.save(samaraAgata);
+        }
+
+        if (psicologoRepository.findByNumeroRegistro("06/134511") != null){
+            System.out.println("Tâmara Teixeira Calheira");
+        }else{
+            Psicologo tamaraTeixeira = new Psicologo();
+            tamaraTeixeira.setNome("Tâmara Teixeira Calheira");
+            tamaraTeixeira.setDescricao("Formada em Psicologia pela Universidade Nove de Julho e Pós graduação em Saúde Mental em equipe Multiprofissionais, pela Unip. Experiências: no atendimento clínico há cinco anos priorizando a Psicanálise e abarcando todos os perfis; Psicologia social: às famílias em situação de vulnerabilidade social, trabalho em equipe multidisciplinar, pessoas em situação de rua e grupos com mulheres.");
+            tamaraTeixeira.setEmail("tamaracasademarias@gmail.com");
+            tamaraTeixeira.setNumeroRegistro("06/134511");
+            tamaraTeixeira.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/Tamara.jpeg");
+            tamaraTeixeira.setEspecializacoes(List.of(Especializacoes.PSICANALISE,Especializacoes.PSICOLOGIA_SOCIAL));
+            tamaraTeixeira.setGenero((Genero.FEMININO));
+            tamaraTeixeira.setServicosOferecidos(List.of("Psicoterapia individual para adolescentes;","Psicoterapia individual para adultos;","Psicoterapia individual para idosos;","Psicoterapia individual para casais."));
+            tamaraTeixeira.setSenha("123456");
+            var senhaPsicologo = new BCryptPasswordEncoder().encode(tamaraTeixeira.getSenha());
+            tamaraTeixeira.setSenha((senhaPsicologo));
+            tamaraTeixeira.setRole(UserRole.PSICOLOGO);
+
+            psicologoRepository.save(tamaraTeixeira);
+        }
+
 
         if (tarefaRepository.findTarefaByLink("/jogodamemoria") != null || tarefaRepository.findTarefaByLink("/sudoku") != null || tarefaRepository.findTarefaByLink("/quiz") != null) {
             System.out.println("tarefas ja adicionadas");
