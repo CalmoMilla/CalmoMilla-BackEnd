@@ -13,5 +13,7 @@ public interface PsicologoRepository extends JpaRepository<Psicologo,String> {
 
     boolean existsByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
 
+    Psicologo findByNumeroRegistro(String numeroRegistro);
+
 
 }

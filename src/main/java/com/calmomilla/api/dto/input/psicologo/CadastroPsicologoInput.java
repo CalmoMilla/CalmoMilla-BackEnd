@@ -48,7 +48,8 @@ public class CadastroPsicologoInput {
     @NotNull
     private UserRole role;
 
-    private String servicosOferecidos;
+    private List<String> servicosOferecidos;
+
 
 
 

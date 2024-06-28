@@ -14,7 +14,7 @@ public class BuscarPsicologoEmailOutput {
     private String foto;
     private UserRole role;
     private String descricao;
-    private String servicosOferecidos;
+private java.util.List<String> servicosOferecidos;
 
 
 }

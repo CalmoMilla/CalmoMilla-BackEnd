@@ -21,8 +21,8 @@ public class Psicologo extends Usuario{
     @NotBlank
     private String numeroRegistro;
 
-    
-    private String servicosOferecidos;
+    @Column(columnDefinition = "TEXT")
+    private List<String> servicosOferecidos;
 
     @ManyToMany
     private List<Paciente> pacientes;
