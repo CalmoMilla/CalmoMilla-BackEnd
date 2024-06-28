@@ -39,4 +39,7 @@ public class AtualizarPsicologoOutput {
 
     private String descricao;
 
+    private String servicosOferecidos;
+
+
 }

@@ -17,7 +17,7 @@ public class BlogService {
     private final ModelMapperUtils mapperUtils;
     public List<BuscarPostagemOutput> buscarTudo(){
 
-        List<Blog> blog = blogRepository.findAll();
+        List<Blog> blog = blogRepository.findAllByOrderByTituloPostagemAsc();
 
         return mapperUtils.mapList(blog,BuscarPostagemOutput.class);
 

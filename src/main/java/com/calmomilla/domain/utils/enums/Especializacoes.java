@@ -1,7 +1,8 @@
 package com.calmomilla.domain.utils.enums;
 
 public enum Especializacoes {
-    PSICOLOGIA_GERAL,
+    PSICANALISE,
     PSICOLOGIA_CLINICA,
-    PSICOLOGIA_ESCOLAR
+    PSICOLOGIA_ESCOLAR,
+    PSICOLOGIA_GERAL
 }

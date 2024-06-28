@@ -53,4 +53,7 @@ public class AtualizarPsicologoInput {
     @NotNull
     private UserRole role;
 
+    private String servicosOferecidos;
+
+
 }

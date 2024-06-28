@@ -43,4 +43,5 @@ public class CadastroPacienteInput {
     private UserRole role;
 
 
+
 }

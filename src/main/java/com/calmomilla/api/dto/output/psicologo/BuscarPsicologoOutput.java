@@ -42,4 +42,7 @@ public class BuscarPsicologoOutput {
 
     private String numeroRegistro;
 
+    private String servicosOferecidos;
+
+
 }

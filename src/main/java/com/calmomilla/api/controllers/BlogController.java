@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/blog")
 public class BlogController {
 
-    private final BlogRepository blogRepository;
     private final BlogService blogService;
 
     @GetMapping

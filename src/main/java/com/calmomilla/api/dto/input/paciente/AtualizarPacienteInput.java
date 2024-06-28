@@ -47,6 +47,9 @@ public class AtualizarPacienteInput {
 
     private Rotina rotina;
 
+
+
+
     private DadosPessoais dadosPessoais;
 
     private List<Desempenho> desempenhos;
