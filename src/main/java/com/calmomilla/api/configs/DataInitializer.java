@@ -159,7 +159,7 @@ public class DataInitializer implements CommandLineRunner {
             anaCarolina.setDescricao("Psicanalista com doutorado em Psicologia, Linguagem e Educação pela Universidade de São Paulo e pela Université Paris VIII (França). Especialista em psicanálise pelo Instituto SEDES Sapientiae. Pesquisadora e consultora em temáticas relacionadas à saúde mental da população negra. Coordenadora-geral da Casa de Marias.");
             anaCarolina.setEmail("anacasademarias@gmail.com");
             anaCarolina.setNumeroRegistro("06/116044");
-            anaCarolina.setFoto("");
+            anaCarolina.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/Ana+Carolina.jpg");
             anaCarolina.setEspecializacoes(List.of(Especializacoes.PSICANALISE,Especializacoes.PSICOTERAPIA_ADOLESCENTES,Especializacoes.PSICOTERAPIA_ADULTOS));
             anaCarolina.setGenero(Genero.FEMININO);
             anaCarolina.setServicosOferecidos(List.of("Curso Preparatório para Entrada na Pós Graduação;","Grupo de Escrita Acadêmica Entre Mulheres;","Grupo de estudos em teoria psicanalítica;","Psicoterapia individual para adolescentes;","Psicoterapia individual para adultos;","Supervisão clínica em grupo;","Supervisão clínica individual;","Consultoria e acompanhamento individual para elaboração de projetos (mestrado e doutorado);","Consultoria, cursos, formações e workshops especializados para instituições."));
@@ -179,7 +179,7 @@ public class DataInitializer implements CommandLineRunner {
             deboraBonfim.setDescricao("Psicóloga Clínica, Pedagoga, Palestrante e Modelo Plus Size. Pós graduada em Gestalt terapia, em curso pós graduação em Sexualidade Humana. Idealizadora do Projeto Foco em Mim que une a Psicologia e a fotografia com o intuito de trabalhar a Autoestima, Empoderamento feminino, auto aceitação corporal dentre outras questões relacionadas ao universo feminino." + "Atuo como voluntária na Comissão de Igualdade Racial da OAB/Nilópolis e na Amazaoest que trabalha com questões relacionadas à Violência Doméstica. Autoestima da Mulher Negra. Nas horas de lazer, amo dançar! Embaixadora Musa Plus Size Beleza Negra.");
             deboraBonfim.setEmail("deboracasademarias@gmail.com");
             deboraBonfim.setNumeroRegistro("05/55818");
-            deboraBonfim.setFoto("");
+            deboraBonfim.setFoto("https://calmomilla-fotos.s3.sa-east-1.amazonaws.com/Debora.png");
             deboraBonfim.setEspecializacoes(List.of(Especializacoes.GESTALT_TERAPIA,Especializacoes.PSICOTERAPIA_ADOLESCENTES,Especializacoes.PSICOTERAPIA_ADULTOS,Especializacoes.PSICOTERAPIA_MULHERES_NEGRAS,Especializacoes.PSICOLOGIA_ESCOLAR));
             deboraBonfim.setGenero(Genero.FEMININO);
             deboraBonfim.setServicosOferecidos(List.of("Psicoterapia individual para adolescentes;","Psicoterapia individual para adultos;","Psicoterapia individual para mulheres negras;","Grupo Terapêutico para mulheres;","Grupo Terapêutico para mulheres negras;","Supervisão Clínica Individual ou grupal em Gestalt terapia;","Palestras/ Lives/ Reuniões de Pais e Professores;","Experiência em Psicologia Escolar."));
