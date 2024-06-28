@@ -1,6 +1,6 @@
 <div align="center">
 <img src="https://uploaddeimagens.com.br/images/004/806/043/thumb/CalmoMilla.png?1719604486" width="100px"  height="100px" > 
- <h1>💛CalmoMilla🤍</h1>
+ <h1>CalmoMilla</h1>
  </div>
 
  <br/>
