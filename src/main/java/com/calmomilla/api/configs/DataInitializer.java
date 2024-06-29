@@ -129,28 +129,28 @@ public class DataInitializer implements CommandLineRunner {
             pacienteRepository.save(vitor);
         }
 
-        if (psicologoRepository.findByEmail("gab@gmail.com").isPresent()) {
-
-            System.out.println("o psicologo gbvjb@gmail.com ja existe");
-        } else {
-
-            Psicologo psicologo = new Psicologo();
-            psicologo.setNome("gabriel");
-            psicologo.setEmail("gab@gmail.com");
-            psicologo.setGenero(Genero.MASCULINO);
-            psicologo.setDataNasc(LocalDate.parse("2005-04-17"));
-            psicologo.setCpf("24094280");
-            psicologo.setTelefone("119682102859");
-            psicologo.setSenha("123456");
-            var senhaPsicologo = new BCryptPasswordEncoder().encode(psicologo.getSenha());
-            psicologo.setSenha(senhaPsicologo);
-            psicologo.setFoto("https://lh3.googleusercontent.com/a/ACg8ocI0WJi3mbL6zITt7V2Ef4Pb4hEXS1mAL_ioJDtuPuDllqkGyQPc2A=s96-c");
-            psicologo.setEspecializacoes(List.of(Especializacoes.PSICANALISE));
-            psicologo.setNumeroRegistro("4429213");
-            psicologo.setRole(UserRole.PSICOLOGO);
-            psicologoRepository.save(psicologo);
-
-        }
+//        if (psicologoRepository.findByEmail("gab@gmail.com").isPresent()) {
+//
+//            System.out.println("o psicologo gbvjb@gmail.com ja existe");
+//        } else {
+//
+//            Psicologo psicologo = new Psicologo();
+//            psicologo.setNome("gabriel");
+//            psicologo.setEmail("gab@gmail.com");
+//            psicologo.setGenero(Genero.MASCULINO);
+//            psicologo.setDataNasc(LocalDate.parse("2005-04-17"));
+//            psicologo.setCpf("24094280");
+//            psicologo.setTelefone("119682102859");
+//            psicologo.setSenha("123456");
+//            var senhaPsicologo = new BCryptPasswordEncoder().encode(psicologo.getSenha());
+//            psicologo.setSenha(senhaPsicologo);
+//            psicologo.setFoto("https://lh3.googleusercontent.com/a/ACg8ocI0WJi3mbL6zITt7V2Ef4Pb4hEXS1mAL_ioJDtuPuDllqkGyQPc2A=s96-c");
+//            psicologo.setEspecializacoes(List.of(Especializacoes.PSICANALISE));
+//            psicologo.setNumeroRegistro("4429213");
+//            psicologo.setRole(UserRole.PSICOLOGO);
+//            psicologoRepository.save(psicologo);
+//
+//        }
         if (psicologoRepository.findByNumeroRegistro("06/116044") != null){
             System.out.println("Ana Carolina Barros Silva");
         }else {
