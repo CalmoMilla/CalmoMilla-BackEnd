@@ -1,4 +1,4 @@
-<div align="center">
+![image](https://github.com/CalmoMilla/CalmoMilla-BackEnd/assets/88356338/22881a61-984f-46d9-bba2-1cb54c8a074d)<div align="center">
 <img src="https://uploaddeimagens.com.br/images/004/806/043/thumb/CalmoMilla.png?1719604486" width="100px"  height="100px" > 
  <h1>CalmoMilla</h1>
  </div>
@@ -50,7 +50,7 @@ Além disso, escolhemos a AWS (Amazon Web Services) para hospedar o backend do m
     </td>
      <td align="center">
       <a href="https://github.com/vitorvhsilva" title="Github Vitor">
-        <img src="https://uploaddeimagens.com.br/images/004/806/093/thumb/vitor2.jpg?1719608853" width="100px;" height="100px" alt="Foto de um membro"/><br>
+        <img src="https://uploaddeimagens.com.br/images/004/806/182/thumb/Pitch_CalmoMilla.png?1719619231" width="100px;" height="100px" alt="Foto de um membro"/><br>
         <sub>
           <b>Vitor Hugo</b>
         </sub>
