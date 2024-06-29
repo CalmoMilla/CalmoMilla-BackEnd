@@ -1,4 +1,4 @@
-![image](https://github.com/CalmoMilla/CalmoMilla-BackEnd/assets/88356338/22881a61-984f-46d9-bba2-1cb54c8a074d)<div align="center">
+<div align="center">
 <img src="https://uploaddeimagens.com.br/images/004/806/043/thumb/CalmoMilla.png?1719604486" width="100px"  height="100px" > 
  <h1>CalmoMilla</h1>
  </div>
@@ -30,7 +30,7 @@ Além disso, escolhemos a AWS (Amazon Web Services) para hospedar o backend do m
 
 <h2 align="center">👨‍💻 Desenvolvedores:</h2>
 
-<table align="center">
+<table align="center" >
   <tr>
     <td align="center">
       <a href="https://github.com/selingindev" title="Github Arthur">
