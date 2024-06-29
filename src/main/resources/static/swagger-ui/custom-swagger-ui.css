@@ -1,0 +1,58 @@
+/* custom-swagger-ui.css */
+
+/* Definir o esquema de cores */
+:root {
+    --primary-color: #FFCE55;
+    --secondary-color: #8766A1;
+    --tertiary-color: #D4F47B;
+    --quaternary-color: #8ECD48;
+    --quinary-color: #61B8AB;
+    --highlight-color: #F5AF00;
+    --background-color: #FFFFFF;
+}
+
+/* Aplicar estilos ao Swagger UI */
+body {
+    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+}
+
+.swagger-ui {
+    font-family: Arial, sans-serif;
+}
+
+.topbar {
+    background-color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.topbar .topbar-wrapper .topbar-title {
+    color: var(--background-color);
+}
+
+.swagger-ui .info {
+    background-color: var(--quaternary-color);
+    border-top: 4px solid var(--highlight-color);
+}
+
+.swagger-ui .scheme-container {
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+}
+
+.swagger-ui .endpoint {
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.swagger-ui .btn {
+    background-color: var(--tertiary-color);
+    color: var(--background-color);
+    border: none;
+}
+
+.swagger-ui .btn:hover {
+    background-color: var(--highlight-color);
+    color: var(--background-color);
+}
+
+/* Adicione mais estilos conforme necessário */

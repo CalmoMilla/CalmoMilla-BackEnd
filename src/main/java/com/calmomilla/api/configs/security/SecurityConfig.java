@@ -32,7 +32,11 @@ public class SecurityConfig {
 //                        .requestMatchers(HttpMethod.GET,"/pacientes").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/verify/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/emocoes").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                                .requestMatchers(HttpMethod.OPTIONS, "/swagger-ui/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS, "/v3/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/v3/**").permitAll()
+                                .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

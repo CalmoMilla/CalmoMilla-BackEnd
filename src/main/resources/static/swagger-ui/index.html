@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/swagger-ui/swagger-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/swagger-ui/custom-swagger-ui.css" />
+</head>
+<body>
+<div id="swagger-ui"></div>
+<div style="position: fixed; top: 10px; left: 10px; background: yellow; padding: 5px; z-index: 9999;">Custom Swagger UI Loaded</div>
+<script src="/webjars/swagger-ui/swagger-ui-bundle.js"></script>
+<script src="/webjars/swagger-ui/swagger-ui-standalone-preset.js"></script>
+<script>
+    window.onload = function() {
+        const ui = SwaggerUIBundle({
+            url: "/v3/api-docs", // URL padrão do Springdoc-OpenAPI para a especificação OpenAPI
+            dom_id: '#swagger-ui',
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            layout: "StandaloneLayout"
+        });
+        window.ui = ui;
+    };
+</script>
+</body>
+</html>
