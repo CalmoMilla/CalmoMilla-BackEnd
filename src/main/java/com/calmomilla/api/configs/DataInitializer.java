@@ -464,25 +464,6 @@ public class DataInitializer implements CommandLineRunner {
             respiracao06.setCategoria(CategoriaRelaxamento.RESPIRACAO);
             relaxamentoRepository.save(respiracao06);
 
-//            Relaxamento respiracao07 = new Relaxamento();
-//            respiracao07.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-//            respiracao07.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-//            relaxamentoRepository.save(respiracao07);
-//
-//            Relaxamento respiracao08 = new Relaxamento();
-//            respiracao08.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-//            respiracao08.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-//            relaxamentoRepository.save(respiracao08);
-//
-//            Relaxamento respiracao09 = new Relaxamento();
-//            respiracao09.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-//            respiracao09.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-//            relaxamentoRepository.save(respiracao09);
-//
-//            Relaxamento respiracao10 = new Relaxamento();
-//            respiracao10.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-//            respiracao10.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-//            relaxamentoRepository.save(respiracao10);
         }
 
 
