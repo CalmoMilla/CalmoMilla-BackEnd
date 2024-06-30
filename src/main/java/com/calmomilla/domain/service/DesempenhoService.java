@@ -6,10 +6,12 @@ import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.output.desempenho.BuscarDesempenhoOutput;
 import com.calmomilla.api.dto.output.desempenho.AdicionarDesempenhoOutput;
 import com.calmomilla.api.dto.output.desempenho.BuscarDesempenhoUsuarioOutput;
+import com.calmomilla.api.dto.output.desempenho.BuscarEstatisticasOutput;
 import com.calmomilla.api.dto.output.jogoOutput.JogoOutput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.domain.exception.DataNotFoundException;
 import com.calmomilla.domain.model.Desempenho;
+import com.calmomilla.domain.model.Jogo;
 import com.calmomilla.domain.model.Paciente;
 import com.calmomilla.domain.repository.DesempenhoRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -52,6 +55,54 @@ public class DesempenhoService {
         List<Desempenho> desempenhos = desempenhoRepository.findByUsuario(paciente);
         List<BuscarDesempenhoUsuarioOutput> desempenhoOutput = mapperUtils.mapList(desempenhos, BuscarDesempenhoUsuarioOutput.class);
         return ResponseEntity.ok(desempenhoOutput);
+    }
+
+    public ResponseEntity<BuscarEstatisticasOutput> buscarEstatisticas(String id) throws NoSuchMethodException {
+
+        BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(id).getBody();
+        Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
+        List<Desempenho> desempenhos = desempenhoRepository.findByUsuario(paciente);
+
+        List<Desempenho> desempenhoJogoMemoria = new ArrayList<>();
+        List<Desempenho> desempenhoSudoku = new ArrayList<>();
+        List<Desempenho> desempenhoQuiz = new ArrayList<>();
+
+        double somaPontuacaoJogoMemoria = 0;
+        double somaPontuacaoSudoku = 0;
+        double somaPontuacaoQuiz = 0;
+
+        System.out.println(desempenhos);
+
+        // Mapeia os jogos com seus desempenhos
+        for (Desempenho desempenho : desempenhos) {
+            Jogo jogo = modelMapper.map(jogoService.buscarPorId(desempenho.getJogos().getId()).getBody(), Jogo.class);
+            if (jogo.getNome().equals("Jogo da Memória")) {
+                desempenhoJogoMemoria.add(desempenho);
+                somaPontuacaoJogoMemoria += desempenho.getPontuacao();
+            } else if (jogo.getNome().equals("Sudoku")) {
+                desempenhoSudoku.add(desempenho);
+                somaPontuacaoSudoku += desempenho.getPontuacao();
+            } else if (jogo.getNome().equals("Quiz")) {
+                desempenhoQuiz.add(desempenho);
+                somaPontuacaoQuiz += desempenho.getPontuacao();
+            }
+        }
+
+        // Calcula a média das pontuações para cada jogo
+        double mediaJogoMemoria = !desempenhoJogoMemoria.isEmpty() ? somaPontuacaoJogoMemoria / desempenhoJogoMemoria.size() : 0;
+        double mediaSudoku = !desempenhoSudoku.isEmpty() ? somaPontuacaoSudoku / desempenhoSudoku.size() : 0;
+        double mediaQuiz = !desempenhoQuiz.isEmpty() ? somaPontuacaoQuiz / desempenhoQuiz.size() : 0;
+
+        BuscarEstatisticasOutput estatisticasOutput = new BuscarEstatisticasOutput(
+                desempenhoJogoMemoria,
+                desempenhoSudoku,
+                desempenhoQuiz,
+                mediaJogoMemoria,
+                mediaSudoku,
+                mediaQuiz
+        );
+
+        return ResponseEntity.ok(estatisticasOutput);
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package com.calmomilla.domain.service;
 import com.calmomilla.api.dto.input.paciente.AtualizarPacienteInput;
 import com.calmomilla.api.dto.input.rotina.AtualizarRotinaInput;
 import com.calmomilla.api.dto.input.rotina.CadastroRotinaInput;
+import com.calmomilla.api.dto.input.tarefa.CadastroTarefaInput;
 import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.rotina.AtualizarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
@@ -43,16 +44,20 @@ public class RotinaService {
 
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
-        Rotina rotina = gerarRotina(cadastroRotinaInput).getBody();
+        ResponseEntity<Rotina> response = gerarRotina(cadastroRotinaInput);
+        Rotina rotina = response.getBody();
         assert rotina != null;
         Rotina rotinaSalva = rotinaRepository.save(rotina);
+
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
         AtualizarPacienteInput pacienteInput = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
-        pacienteInput.setRotina(rotina);
+        pacienteInput.setRotina(rotinaSalva);
         pacienteService.atualizar(pacienteInput);
+
         CadastroRotinaOutput cadastroRotinaOutput = modelMapper.map(rotinaSalva, CadastroRotinaOutput.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(cadastroRotinaOutput);
     }
+
 
     public ResponseEntity<Void> deletar (String id) throws NoSuchMethodException {
         if (rotinaRepository.findById(id).isEmpty()) {
@@ -108,6 +113,7 @@ public class RotinaService {
         return ResponseEntity.ok(atualizarRotinaOutput);
     }
 
+    @Transactional
     public ResponseEntity<Rotina> gerarRotina(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
 
@@ -160,47 +166,50 @@ public class RotinaService {
                     }
                 }
                 case "Sudoku" -> {
-
-                    // Adicione a lógica de pontuação para Sudoku aqui
-
-                    String tempo = String.valueOf(pontuacao);
-//'Fácil',
-//        'Médio',
-//        'Difícil',
-//        'Muito Difícil',
-//        'Insano',
-//        'Profissional'
-
-                    if (nivel == 1 ){
-                        
-                    } else if (nivel == 2 ) {
-
-                    } else if (nivel == 3 ) {
-
+                    pontuacao /= 60;
+                    if (nivel == 1) {
+                        if (pontuacao <= 5) {
+                            sudoku += 4;
+                        } else if (pontuacao <= 10) {
+                            sudoku += 3;
+                        } else {
+                            sudoku += 2;
+                        }
+                    } else if (nivel == 2) {
+                        if (pontuacao <= 15) {
+                            sudoku += 8;
+                        } else if (pontuacao <= 25) {
+                            sudoku += 6;
+                        } else {
+                            sudoku += 4;
+                        }
+                    } else if (nivel == 3) {
+                        if (pontuacao <= 20) {
+                            sudoku += 15;
+                        } else if (pontuacao <= 35) {
+                            sudoku += 10;
+                        } else {
+                            sudoku += 8;
+                        }
                     }
-
                 }
-
                 case "Quiz" -> {
-
-                    if (pontuacao <= 10 && pontuacao >= 8){
-                        quiz = quiz + 10;
+                    if (pontuacao <= 10 && pontuacao >= 8) {
+                        quiz += 10;
                     } else if (pontuacao <= 7 && pontuacao >= 5) {
-                        quiz = quiz + 7;
-                    }else if (pontuacao <= 4 && pontuacao >= 2){
-                        quiz = quiz + 4;
-                    }else if (pontuacao <= 1 && pontuacao >= 0){
-                        quiz = quiz + 3;
+                        quiz += 7;
+                    } else if (pontuacao <= 4 && pontuacao >= 2) {
+                        quiz += 4;
+                    } else if (pontuacao <= 1 && pontuacao >= 0) {
+                        quiz += 3;
                     }
-
                 }
-
             }
         }
 
         int menorValor = Math.min(jogoMemoria, Math.min(quiz, sudoku));
         List<Tarefa> tarefas;
-        List<Relaxamento>relaxamentos;
+        List<Relaxamento> relaxamentos;
         Random random = new Random();
         Tarefa tarefaRelaxamento = new Tarefa();
 
@@ -208,7 +217,7 @@ public class RotinaService {
             tarefas = tarefaService.buscarPorFoco(List.of(Focos.MEMORIA, Focos.ATENCAO)).getBody();
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.MEDITACAO);
             assert tarefas != null;
-            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(tarefas.size()));
+            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(relaxamentos.size()));
             tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
@@ -217,7 +226,7 @@ public class RotinaService {
             tarefas = tarefaService.buscarPorFoco(List.of(Focos.VELOCIDADE, Focos.ATENCAO)).getBody();
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
             assert tarefas != null;
-            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(tarefas.size()));
+            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(relaxamentos.size()));
             tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
@@ -226,7 +235,7 @@ public class RotinaService {
             tarefas = tarefaService.buscarPorFoco(List.of(Focos.VELOCIDADE, Focos.ATENCAO)).getBody();
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
             assert tarefas != null;
-            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(tarefas.size()));
+            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(relaxamentos.size()));
             tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
@@ -235,10 +244,21 @@ public class RotinaService {
 
         Tarefa tarefaSelecionada = tarefas.get(random.nextInt(tarefas.size()));
 
+        // Salva as tarefas antes de associá-las à rotina
+        System.out.println(tarefaSelecionada);
+        CadastroTarefaInput tarefaInput = modelMapper.map(tarefaSelecionada,CadastroTarefaInput.class);
+        System.out.println(tarefaInput);
+
+        tarefaService.criar(tarefaInput);
+        System.out.println(tarefaRelaxamento);
+        CadastroTarefaInput tarefaRelaxamentoInput = modelMapper.map(tarefaRelaxamento,CadastroTarefaInput.class);
+        System.out.println(tarefaRelaxamentoInput);
+        tarefaService.criar(tarefaRelaxamentoInput);
+
         Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
         rotina.setStatus(true);
         rotina.setDiaRotina(getBrazilLocalDateTime().toLocalDate());
-        rotina.setTarefas(List.of(tarefaSelecionada,tarefaRelaxamento));
+        rotina.setTarefas(List.of(tarefaSelecionada, tarefaRelaxamento));
 
         return ResponseEntity.ok(rotina);
     }

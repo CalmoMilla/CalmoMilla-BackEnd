@@ -4,6 +4,7 @@ import com.calmomilla.api.dto.input.desempenho.AdicionarDesempenhoInput;
 import com.calmomilla.api.dto.output.desempenho.AdicionarDesempenhoOutput;
 import com.calmomilla.api.dto.output.desempenho.BuscarDesempenhoOutput;
 import com.calmomilla.api.dto.output.desempenho.BuscarDesempenhoUsuarioOutput;
+import com.calmomilla.api.dto.output.desempenho.BuscarEstatisticasOutput;
 import com.calmomilla.domain.service.DesempenhoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,11 @@ public class DesempenhoController {
     @GetMapping("/usuario/{id}")
     public ResponseEntity<List<BuscarDesempenhoUsuarioOutput>> buscarPorIdUsuario(@PathVariable String id) throws NoSuchMethodException {
         return desempenhoService.buscarPorIdUsuario(id);
+    }
+
+    @GetMapping("/usuario/estatistca/{id}")
+    public ResponseEntity<BuscarEstatisticasOutput> buscarPorEstatistica(@PathVariable String id) throws NoSuchMethodException {
+        return desempenhoService.buscarEstatisticas(id);
     }
 
     @PostMapping
