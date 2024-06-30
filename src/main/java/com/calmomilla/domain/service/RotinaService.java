@@ -9,10 +9,13 @@ import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Desempenho;
+import com.calmomilla.domain.model.Relaxamento;
 import com.calmomilla.domain.model.Rotina;
 import com.calmomilla.domain.model.Tarefa;
+import com.calmomilla.domain.repository.RelaxamentoRepository;
 import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
+import com.calmomilla.domain.utils.enums.CategoriaRelaxamento;
 import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -36,10 +39,12 @@ public class RotinaService {
     private final ModelMapperUtils mapperUtils;
     private PacienteService pacienteService;
     private TarefaService tarefaService;
+    private RelaxamentoRepository relaxamentoRepository;
 
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
         Rotina rotina = gerarRotina(cadastroRotinaInput).getBody();
+        assert rotina != null;
         Rotina rotinaSalva = rotinaRepository.save(rotina);
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
         AtualizarPacienteInput pacienteInput = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
@@ -120,63 +125,120 @@ public class RotinaService {
             int nivel = desempenho.getNivel();
             double pontuacao = desempenho.getPontuacao();
 
-            if (nomeJogo.equals("JogoMemoria")) {
-                if (nivel == 1) {
-                    if (pontuacao >= 8 && pontuacao <= 9) {
-                        jogoMemoria += 4;
-                    } else if (pontuacao >= 10 && pontuacao <= 14) {
-                        jogoMemoria += 3;
-                    } else if (pontuacao >= 15 && pontuacao <= 19) {
-                        jogoMemoria += 2;
-                    } else {
-                        jogoMemoria += 1;
-                    }
-                } else if (nivel == 2) {
-                    if (pontuacao >= 8 && pontuacao <= 9) {
-                        jogoMemoria += 7;
-                    } else if (pontuacao >= 10 && pontuacao <= 14) {
-                        jogoMemoria += 6;
-                    } else if (pontuacao >= 15 && pontuacao <= 19) {
-                        jogoMemoria += 5;
-                    } else {
-                        jogoMemoria += 4;
-                    }
-                } else if (nivel == 3) {
-                    if (pontuacao >= 18 && pontuacao <= 19) {
-                        jogoMemoria += 11;
-                    } else if (pontuacao >= 20 && pontuacao <= 24) {
-                        jogoMemoria += 10;
-                    } else if (pontuacao >= 25 && pontuacao <= 29) {
-                        jogoMemoria += 9;
-                    } else {
-                        jogoMemoria += 8;
+            switch (nomeJogo) {
+                case "JogoMemoria" -> {
+                    if (nivel == 1) {
+                        if (pontuacao >= 8 && pontuacao <= 9) {
+                            jogoMemoria += 4;
+                        } else if (pontuacao >= 10 && pontuacao <= 14) {
+                            jogoMemoria += 3;
+                        } else if (pontuacao >= 15 && pontuacao <= 19) {
+                            jogoMemoria += 2;
+                        } else {
+                            jogoMemoria += 1;
+                        }
+                    } else if (nivel == 2) {
+                        if (pontuacao >= 8 && pontuacao <= 9) {
+                            jogoMemoria += 7;
+                        } else if (pontuacao >= 10 && pontuacao <= 14) {
+                            jogoMemoria += 6;
+                        } else if (pontuacao >= 15 && pontuacao <= 19) {
+                            jogoMemoria += 5;
+                        } else {
+                            jogoMemoria += 4;
+                        }
+                    } else if (nivel == 3) {
+                        if (pontuacao >= 18 && pontuacao <= 19) {
+                            jogoMemoria += 11;
+                        } else if (pontuacao >= 20 && pontuacao <= 24) {
+                            jogoMemoria += 10;
+                        } else if (pontuacao >= 25 && pontuacao <= 29) {
+                            jogoMemoria += 9;
+                        } else {
+                            jogoMemoria += 8;
+                        }
                     }
                 }
-            } else if (nomeJogo.equals("Sudoku")) {
-                // Adicione a lógica de pontuação para Sudoku aqui
-            } else if (nomeJogo.equals("Quiz")) {
-                // Adicione a lógica de pontuação para Quiz aqui
+                case "Sudoku" -> {
+
+                    // Adicione a lógica de pontuação para Sudoku aqui
+
+                    String tempo = String.valueOf(pontuacao);
+//'Fácil',
+//        'Médio',
+//        'Difícil',
+//        'Muito Difícil',
+//        'Insano',
+//        'Profissional'
+
+                    if (nivel == 1 ){
+                        
+                    } else if (nivel == 2 ) {
+
+                    } else if (nivel == 3 ) {
+
+                    }
+
+                }
+
+                case "Quiz" -> {
+
+                    if (pontuacao <= 10 && pontuacao >= 8){
+                        quiz = quiz + 10;
+                    } else if (pontuacao <= 7 && pontuacao >= 5) {
+                        quiz = quiz + 7;
+                    }else if (pontuacao <= 4 && pontuacao >= 2){
+                        quiz = quiz + 4;
+                    }else if (pontuacao <= 1 && pontuacao >= 0){
+                        quiz = quiz + 3;
+                    }
+
+                }
+
             }
         }
 
         int menorValor = Math.min(jogoMemoria, Math.min(quiz, sudoku));
         List<Tarefa> tarefas;
+        List<Relaxamento>relaxamentos;
+        Random random = new Random();
+        Tarefa tarefaRelaxamento = new Tarefa();
 
         if (menorValor == jogoMemoria) {
             tarefas = tarefaService.buscarPorFoco(List.of(Focos.MEMORIA, Focos.ATENCAO)).getBody();
+            relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.MEDITACAO);
+            assert tarefas != null;
+            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(tarefas.size()));
+            tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
+            tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
+            tarefaRelaxamento.setStatus(false);
+            tarefaRelaxamento.setFocos(List.of(Focos.MEMORIA, Focos.ATENCAO));
         } else if (menorValor == quiz) {
             tarefas = tarefaService.buscarPorFoco(List.of(Focos.VELOCIDADE, Focos.ATENCAO)).getBody();
+            relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
+            assert tarefas != null;
+            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(tarefas.size()));
+            tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
+            tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
+            tarefaRelaxamento.setStatus(false);
+            tarefaRelaxamento.setFocos(List.of(Focos.VELOCIDADE, Focos.ATENCAO));
         } else {
-            tarefas = tarefaService.buscarPorFoco(List.of(Focos.RESOLUCAO_DE_PROBLEMAS, Focos.ATENCAO, Focos.MEMORIA)).getBody();
+            tarefas = tarefaService.buscarPorFoco(List.of(Focos.VELOCIDADE, Focos.ATENCAO)).getBody();
+            relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
+            assert tarefas != null;
+            Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(tarefas.size()));
+            tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
+            tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
+            tarefaRelaxamento.setStatus(false);
+            tarefaRelaxamento.setFocos(List.of(Focos.VELOCIDADE, Focos.ATENCAO));
         }
-        assert tarefas != null;
-        Random random = new Random();
+
         Tarefa tarefaSelecionada = tarefas.get(random.nextInt(tarefas.size()));
 
         Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
         rotina.setStatus(true);
         rotina.setDiaRotina(getBrazilLocalDateTime().toLocalDate());
-        rotina.setTarefas(List.of(tarefaSelecionada));
+        rotina.setTarefas(List.of(tarefaSelecionada,tarefaRelaxamento));
 
         return ResponseEntity.ok(rotina);
     }

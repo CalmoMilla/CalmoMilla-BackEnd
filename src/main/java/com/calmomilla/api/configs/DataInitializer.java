@@ -312,52 +312,72 @@ public class DataInitializer implements CommandLineRunner {
         } else {
 
         Relaxamento meditacao01 = new Relaxamento();
-        meditacao01.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao01.setLink("M51mNYV7jzA?si=bNOb4M6xEYW-BsHu");
+        meditacao01.setTitulo("MEDITAÇÃO GUIADA - VISUALIZAÇÃO CRIATIVA - IMAGINE O SEU EU IDEAL E SINTA ESSAS EMOÇÕES!");
+        meditacao01.setDescricao("A nossa mente é poderosíssima, mas também tem seus mecanismos que ainda não dominamos tão bem.  Mas você pode usa-la da melhor forma possível. Ao invés de usar seu tempo remoendo passado ou com preocupações sem foco na solução, use-o para criar o seu ideal."+"O mesmo mecanismo de memória é usado para criar. Então, crie o melhor possível!.  Você pode sentir as emoções que quer sentir, você pode usar imagens, sons, vozes, todos os sentidos para idealizar o melhor para você!"+ "Não subestime este exercício! Ele além de fazer muito bem à sua auto-estima, treinará sua mente a funcionar da forma como idealizou, mostrando caminhos, dando insights, melhorando seu comportamento..."+"Dê asas à sua imaginação! Sinta com toda a sua força!  E vá para o seu dia se sentindo como imaginou!  A música foi mixada com a frequência 528hz do amor e dos milagres.");
         meditacao01.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao01);
 
         Relaxamento meditacao02 = new Relaxamento();
-        meditacao02.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao02.setLink("o-jN8LGHqvA?si=wYlmigtegE195SvU");
+        meditacao02.setTitulo("MEDITAÇÃO RELAXAMENTO PROFUNDO - BATIDAS BINAURAIS 8 HZ - ONDAS ALFA");
+        meditacao02.setDescricao("A terapia de tons/ondas/batimentos binaurais é uma forma emergente de terapia por ondas sonoras. Faz uso do fato de que os ouvidos direito e esquerdo recebem, cada um, um tom de frequência ligeiramente diferente, embora o cérebro os perceba como um único tom."+"Esta técnica é recomendada como um grande auxílio para o tratamento de ansiedade, estresse e distúrbios relacionados."+"Este áudio está em frequência 8hz, induzindo as ondas alfa, que estimulam o relaxamento profundo e o estado de meditação."+"Use esta ferramenta como auxílio no seu tratamento de ansiedade e para se conectar cada vez mais com o seu estado interno, de forma a compreende-lo, acolhe-lo e cura-lo.");
         meditacao02.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao02);
 
         Relaxamento meditacao03 = new Relaxamento();
-        meditacao03.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao03.setLink("vyMEKLxS1qc?si=vrB-PegaKhPzlfKm");
+        meditacao03.setTitulo("MEDITAÇÃO - ESTAR NO MOMENTO PRESENTE - ESTEJA CONSCIENTE NO PRESENTE - RELAXAMENTO PROFUNDO - 528HZ");
+        meditacao03.setDescricao("Um dos objetivos da meditação é estar no momento presente. Nem no passado, com memórias e recordações, nem no futuro, com planos e ansiedade.  Ao ficarmos neste momento, estamos em tudo que há - o presente.  E isto lhe dará uma profunda sensação de relaxamento e de consciência de si mesmo.");
         meditacao03.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao03);
 
         Relaxamento meditacao04 = new Relaxamento();
-        meditacao04.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao04.setLink("SBUX8cqKBfI?si=H2xQZrd82BhS4Gpb");
+        meditacao04.setTitulo("MÚSICA DE MEDITAÇÃO - COERÊNCIA CORAÇÃO E MENTE - 528HZ - AUMENTE A FORÇA DO SEU CORAÇÃO");
+        meditacao04.setDescricao("Criar coerência entre nosso coração e nossa mente é um dos principais objetivos da meditação.  O"+"Dr. Joe Dispenza, grande entusiasta e estudioso do assunto meditação, fala frequentemente sobre a importância dessa harmonização.  A coerência cria harmonia, resiliência e cria o estado mental perfeito para manifestação, em que nos tornamos felizes com quem somos, em paz, criando um novo campo eletromagnético."+"Experimente sentar em silêncio, e mandar a intenção de sincronizar as energias desses dois importantes centros, o coração e a mente."+"A música foi mixada com a frequência 528hz, a frequência do amor e dos milagres.");
         meditacao04.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao04);
 
         Relaxamento meditacao05 = new Relaxamento();
-        meditacao05.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao05.setLink("YiRg6qe3ea8?si=sKUourh9f1-bK_lb");
+        meditacao05.setTitulo("MEDITAÇÃO GUIADA PARA COMEÇAR O DIA COM ENTUSIASMO");
+        meditacao05.setDescricao("Entusiasmo é uma energia que podemos cultivar. Ela existe dentro de nós, mas muitas vezes a esquecemos, habituados a nossas rotinas, anestesiados com tanta informação e iludidos com desejos e expectativas muitas vezes irreais."+"Mas podemos sim, olhar para nossas vidas e ter entusiasmo com coisas simples."+"Podemos cultivar essa virtude.  Você tem isso dentro da sua alma. Olhe para dentro e busque. Está lá, querendo ser descoberta."+"Verá como a vida fica mais leve, mais alegre, e os objetivos ficam mais claros."+"Pratique com frequência, até sentir que isto se tornou a sua essência. Que acordar cedo, planejar o dia e enfrentá-lo com entusiasmo é o seu normal!");
         meditacao05.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao05);
 
         Relaxamento meditacao06 = new Relaxamento();
-        meditacao06.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao06.setLink("XxwwaJ0ND-g?si=ay5UrBIyEgmOKuTm");
+        meditacao06.setTitulo("MEDITAÇÃO GUIADA PERSISTÊNCIA - MANTER O ENTUSIASMO EM TODOS OS MOMENTOS");
+        meditacao06.setDescricao("Muitas vezes ao longo de um dia, ou no meio de um projeto, de uma jornada precisamos buscar em nós a energia para manter o entusiasmo.  É um sentimento humano normal perder o entusiasmo inicial em relação a algo. Mas é justamente a persistência que nos leva ao nosso destino.  E nós temos dentro de nós essa força! Temos sim!  E é preciso manter esse entusiasmo! Com força! Com persistência!"+"Ouça antes de dormir. Ouça pelo menos por 20 minutos ao dia, por pelo menos 30 dias."+"Foque em você, na sua força e no seu amor!");
         meditacao06.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao06);
 
         Relaxamento meditacao07 = new Relaxamento();
-        meditacao07.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao07.setLink("MC2LeSj9jMM?si=MMwD-0zXB4Rbe6wH");
+        meditacao07.setTitulo("MÚSICA DE MEDITAÇÃO PARA INDUÇÃO AO ESTADO ALFA - RELAXAMENTO PROFUNDO - BATIDAS BINAURAIS");
+        meditacao07.setDescricao("Depois de um dia de trabalho, nada como sentar (ou deitar) um pouco, se permitir relaxar e deixar a mente se aquietar.  Deixe-se levar pela música que irá induzir as ondas cerebrais ao estado alfa, que é o estado de relaxamento."+"Você pode simplesmente relaxar ou aproveitar o estado em que se acessa o subconsciente e induzir a sua mente a afirmações ou mesmo visualizar o seu eu ideal, ou um projeto, ou um objetivo que queira concretizado."+"Treine sua mente!"+"A música está com efeitos binaurais, para indução ao estado alfa e deve ser ouvida com fones.");
         meditacao07.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao07);
 
         Relaxamento meditacao08 = new Relaxamento();
-        meditacao08.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao08.setLink("n-wWSHmJFI8?si=v0XmSnr-x1jqSoa-");
+        meditacao08.setTitulo("OS DIVERSOS TIPOS DE MEDITAÇÃO - PORQUE HÁ TANTAS FORMAS DE MEDITAR?");
+        meditacao08.setDescricao(" A meditação tem se tornado tema cada vez mais frequente entre as pessoas que buscam um desenvolvimento pessoal e melhora no bem-estar."+"Apesar desta crescente busca, há ainda muita confusão acerca do que se trata esta prática, agravada pelo fato de haver uma diversidade enorme de tipos de meditações."+"Queremos que você compreenda um pouco mais esta prática e compreenda porque muitas vezes ela é vista como algo excêntrico, ou ainda vinculado a uma religião ou cultura.  Queremos ainda que você compreenda que esta foi a gênese da meditação, mas que isto não significa que precisa ser assim. Você pode optar por uma prática sem necessariamente seguir qualquer religião, linha filosófica ou cultura."+"Entenda que se trata tão somente de uma técnica de acompanhamento mental."+"Compreenda e se anime a começar a praticar!!!");
         meditacao08.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao08);
 
         Relaxamento meditacao09 = new Relaxamento();
-        meditacao09.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao09.setLink("Sm3LCMES5Ik?si=YE_nYG4xn4VdzOFE");
+        meditacao09.setTitulo("COMO SE PREPARAR PARA A PRÁTICA DA MEDITAÇÃO");
+        meditacao09.setDescricao("A prática de meditação na verdade é feita de uma maneira simples.  Mas se fizermos disso um ritual especial, faremos dessa prática um momento especial para cuidar de nós mesmos.  Faça isso diariamente.");
         meditacao09.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao09);
 
         Relaxamento meditacao10 = new Relaxamento();
-        meditacao10.setLink("xrkeHKLBcY4?si=pqBTjexETq6WAJqQ");
+        meditacao10.setLink("ByByZV8WeSQ?si=SNjvjogcLNTTxlPH");
+        meditacao10.setTitulo("MEDITAÇÃO GUIADA ACALMAR A MENTE COM A FORÇA DA ALMA");
+        meditacao10.setDescricao(" A mente não pára de pensar e isso é normal, especialmente nos dias atuais, com tanta informação disponível e com tanto dinamismo das relações humanas e situações e eventos que vivemos."+"Mas nós podemos acalmá-la. Podemos domar estes pensamentos para que sejam a nosso favor."+"Existem várias técnicas para acalmar a mente."+"Uma delas é, em vez de focar em acalmar, focar na força da sua alma, que vem de dentro do coração, para fazer esta força levar luz e paz à sua mente. Você tem esta força dentro de você e pode fazer isto!"+"Foque em você, na sua força e no seu amor!");
         meditacao10.setCategoria(CategoriaRelaxamento.MEDITACAO);
         relaxamentoRepository.save(meditacao10);
     }
@@ -367,122 +387,102 @@ public class DataInitializer implements CommandLineRunner {
         }else {
 
             Relaxamento yoga01 = new Relaxamento();
-            yoga01.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
+            yoga01.setLink("bPFqsL5TDOk?si=1HYxmRUaeyPw1MYq");
+            yoga01.setTitulo("Prática de Yoga Relaxante - Ale Toledo Yoga");
             yoga01.setCategoria(CategoriaRelaxamento.YOGA);
-
             relaxamentoRepository.save(yoga01);
 
 
             Relaxamento yoga02 = new Relaxamento();
-            yoga02.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
+            yoga02.setLink("WRxSuAvlezM?si=kC4fgp8B09gNqph5");
+            yoga02.setTitulo("Mobilidade de quadril - Ale Toledo yoga");
             yoga02.setCategoria(CategoriaRelaxamento.YOGA);
             relaxamentoRepository.save(yoga02);
 
 
             Relaxamento yoga03 = new Relaxamento();
-            yoga03.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
+            yoga03.setLink("pxTfAeufUag?si=sHGnA1BubbYltlLV");
+            yoga03.setTitulo("Aula completa de yoga - Ale Toledo Yoga");
             yoga03.setCategoria(CategoriaRelaxamento.YOGA);
             relaxamentoRepository.save(yoga03);
 
             Relaxamento yoga04 = new Relaxamento();
-            yoga04.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
+            yoga04.setLink("77NGF2xeY5A?si=j0x9bWgUm9bZhzSy");
+            yoga04.setTitulo("Yoga para iniciantes - Ale Toledo Yoga");
             yoga04.setCategoria(CategoriaRelaxamento.YOGA);
             relaxamentoRepository.save(yoga04);
 
             Relaxamento yoga05 = new Relaxamento();
-            yoga05.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
+            yoga05.setLink("H66yCpR8OpU?si=N7fRalFIHf49VUAB");
+            yoga05.setTitulo("Prática de Yoga - Torções - Ale Toledo Yoga");
             yoga05.setCategoria(CategoriaRelaxamento.YOGA);
             relaxamentoRepository.save(yoga05);
-
-            Relaxamento yoga06 = new Relaxamento();
-            yoga06.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
-            yoga06.setCategoria(CategoriaRelaxamento.YOGA);
-            relaxamentoRepository.save(yoga06);
-
-            Relaxamento yoga07 = new Relaxamento();
-            yoga07.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
-            yoga07.setCategoria(CategoriaRelaxamento.YOGA);
-            relaxamentoRepository.save(yoga07);
-
-            Relaxamento yoga08 = new Relaxamento();
-            yoga08.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
-            yoga08.setCategoria(CategoriaRelaxamento.YOGA);
-            relaxamentoRepository.save(yoga08);
-
-
-            Relaxamento yoga09 = new Relaxamento();
-            yoga09.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
-            yoga09.setCategoria(CategoriaRelaxamento.YOGA);
-            relaxamentoRepository.save(yoga09);
-
-            Relaxamento yoga10 = new Relaxamento();
-            yoga10.setLink("Z_ksB-TO5GA?si=PXerSmoLICoICM3r");
-            yoga10.setCategoria(CategoriaRelaxamento.YOGA);
-            relaxamentoRepository.save(yoga10);
         }
 
         if (!relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO).isEmpty()){
             System.out.println("Já foi persistido os dados de Meditação");
         }else {
             Relaxamento respiracao01 = new Relaxamento();
-            respiracao01.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+            respiracao01.setLink("s1sXqx9kxVo?si=cE_FeNWNS7FMOaRy");
+            respiracao01.setTitulo("TÉCNICA DE RESPIRAÇÃO PARA DORMIR - RELAXAMENTO PROFUNDO PARA DORMIR");
+            respiracao01.setDescricao("Um sono bem regulado é fundamental para o bom funcionamento do nosso sistema.  Nos dias atuais, tem sido mais recorrente o aumento de pessoas que encontram dificuldades para dormir."+"O stress, as preocupações, o excesso de informação, o excesso de estímulo tecnológico... tudo isto contribuiu para aumentar a dificuldade em relaxar profundamente e dormir.  A respiração pode ser uma grande aliada no processo de relaxamento, enviando ao cérebro a mensagem de que \"está tudo bem\" e que ele pode diminuir seu ritmo."+"Não se frustre se não conseguir na primeira noite. Faça repetidamente, de forma que seu sistema compreenda que aquele momento é o seu momento para relaxar e dormir."+"Tudo em nossa vida é um hábito. Inclusive dormir bem.");
             respiracao01.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
             relaxamentoRepository.save(respiracao01);
 
             Relaxamento respiracao02 = new Relaxamento();
-            respiracao02.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+            respiracao02.setLink("tbyBNfkVYkg?si=UPNr9pW92pjA1mZl");
+            respiracao02.setTitulo("COMO A RESPIRAÇÃO INFLUENCIA A MEDITAÇÃO");
+            respiracao02.setDescricao("A respiração e a meditação se conectam, se completam, se misturam. Entenda como funciona esse processo e veja como isto irá te trazer mais clareza e facilidade para meditar!");
             respiracao02.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
             relaxamentoRepository.save(respiracao02);
 
             Relaxamento respiracao03 = new Relaxamento();
-            respiracao03.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+            respiracao03.setLink("gVPXTW6ela4?si=HCN65mEJOINcZ_MK");
+            respiracao03.setTitulo("RESPIRAÇÃO PARA O CONTROLE DAS NOSSAS ATITUDES");
+            respiracao03.setDescricao("A respiração tem uma grande influência na prática de meditação. Em muitas práticas, para começar, ela é o próprio foco da meditação.");
             respiracao03.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
             relaxamentoRepository.save(respiracao03);
 
             Relaxamento respiracao04 = new Relaxamento();
-            respiracao04.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+            respiracao04.setLink("a1i5rgjunpw?si=A0l2JyNR43jc6vuM");
+            respiracao04.setTitulo("AFIRMAÇÕES E RESPIRAÇÃO PROFUNDA PARA CURAR ANSIEDADE");
+            respiracao04.setDescricao("Amamos afirmações! É uma técnica poderosa que manda para o seu inconsciente comandos para melhorar seu comportamento. Se aliadas com uma boa técnica de respiração, ficam ainda mais eficientes."+"Repita sempre! O inconsciente precisa de repetição e muita emoção."+"Sabemos que a ansiedade vem atingindo a todos das mais diversas formas. Mas podemos mandar os comandos para o inconsciente de que está tudo bem, que sabemos nos manter sob controle."+"Cuide bem de você!");
             respiracao04.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
             relaxamentoRepository.save(respiracao04);
 
             Relaxamento respiracao05 = new Relaxamento();
-            respiracao05.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+            respiracao05.setLink("7Xrlihwkykc?si=gnFCFFmndHrZv0vP");
+            respiracao05.setTitulo("RESPIRAÇÃO ENERGÉTICA PELA MANHÃ PARA RENOVAR A SUAS ENERGIAS");
+            respiracao05.setDescricao("Ouça esta meditação guiada todas as manhãs e defina seu dia e sua mente com o pontapé inicial perfeito. Esta meditação consciente lhe dará a clareza mental e o espaço necessários para se ancorar com um belo foco e definir seu dia no caminho perfeito para o sucesso e a realização. Encontrar um espaço tranquilo para sentar em paz, quietude e meditar consigo mesmo pode facilmente ser um dos presentes mais benéficos que podemos dar a nós mesmos. Uma prática regular pode mudar a maneira como você se sente, a energia em seu corpo e toda a sua experiência humana do dia a dia. Que você encontre exatamente o que precisa.");
             respiracao05.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
             relaxamentoRepository.save(respiracao05);
 
             Relaxamento respiracao06 = new Relaxamento();
-            respiracao06.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+            respiracao06.setLink("iUIBd2LvbDM?si=wFwVtxrMvOhwbkxk");
+            respiracao06.setTitulo("O PODER DA RESPIRAÇÃO PARA ALCANÇAR EQUILIBRIO E ENERGIA PARA A VIDA");
+            respiracao06.setDescricao("Ouça antes de dormir. Ouça pelo menos por 20 minutos ao dia, por pelo menos 30 dias."+"Foque em você, na sua força e no seu amor!");
             respiracao06.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
             relaxamentoRepository.save(respiracao06);
 
-            Relaxamento respiracao07 = new Relaxamento();
-            respiracao07.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-            respiracao07.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
-            relaxamentoRepository.save(respiracao07);
-
-            Relaxamento respiracao08 = new Relaxamento();
-            respiracao08.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-            respiracao08.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
-            relaxamentoRepository.save(respiracao08);
-
-            Relaxamento respiracao09 = new Relaxamento();
-            respiracao09.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-            respiracao09.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
-            relaxamentoRepository.save(respiracao09);
-
-            Relaxamento respiracao10 = new Relaxamento();
-            respiracao10.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
-            respiracao10.setCategoria(CategoriaRelaxamento.RESPIRACAO);
-
-            relaxamentoRepository.save(respiracao10);
+//            Relaxamento respiracao07 = new Relaxamento();
+//            respiracao07.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+//            respiracao07.setCategoria(CategoriaRelaxamento.RESPIRACAO);
+//            relaxamentoRepository.save(respiracao07);
+//
+//            Relaxamento respiracao08 = new Relaxamento();
+//            respiracao08.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+//            respiracao08.setCategoria(CategoriaRelaxamento.RESPIRACAO);
+//            relaxamentoRepository.save(respiracao08);
+//
+//            Relaxamento respiracao09 = new Relaxamento();
+//            respiracao09.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+//            respiracao09.setCategoria(CategoriaRelaxamento.RESPIRACAO);
+//            relaxamentoRepository.save(respiracao09);
+//
+//            Relaxamento respiracao10 = new Relaxamento();
+//            respiracao10.setLink("a1i5rgjunpw?si=-ldZIM_bbBmZq6rj");
+//            respiracao10.setCategoria(CategoriaRelaxamento.RESPIRACAO);
+//            relaxamentoRepository.save(respiracao10);
         }
 
 
