@@ -30,7 +30,7 @@ public class DesempenhoController {
         return desempenhoService.buscarPorIdUsuario(id);
     }
 
-    @GetMapping("/usuario/estatistca/{id}")
+    @GetMapping("/usuario/estatistica/{id}")
     public ResponseEntity<BuscarEstatisticasOutput> buscarPorEstatistica(@PathVariable String id) throws NoSuchMethodException {
         return desempenhoService.buscarEstatisticas(id);
     }

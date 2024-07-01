@@ -8,6 +8,7 @@ import com.calmomilla.api.dto.output.paciente.BuscarPacienteOutput;
 import com.calmomilla.api.dto.output.rotina.AtualizarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.BuscarRotinaOutput;
 import com.calmomilla.api.dto.output.rotina.CadastroRotinaOutput;
+import com.calmomilla.api.dto.output.tarefa.CadastroTarefaOutput;
 import com.calmomilla.domain.exception.NegocioException;
 import com.calmomilla.domain.model.Desempenho;
 import com.calmomilla.domain.model.Relaxamento;
@@ -218,6 +219,7 @@ public class RotinaService {
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.MEDITACAO);
             assert tarefas != null;
             Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(relaxamentos.size()));
+            tarefaRelaxamento.setId(relaxamentoSelecionado.getId());
             tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
@@ -227,6 +229,7 @@ public class RotinaService {
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
             assert tarefas != null;
             Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(relaxamentos.size()));
+            tarefaRelaxamento.setId(relaxamentoSelecionado.getId());
             tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
@@ -236,29 +239,42 @@ public class RotinaService {
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
             assert tarefas != null;
             Relaxamento relaxamentoSelecionado = relaxamentos.get(random.nextInt(relaxamentos.size()));
+            tarefaRelaxamento.setId(relaxamentoSelecionado.getId());
             tarefaRelaxamento.setTitulo(relaxamentoSelecionado.getTitulo());
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
             tarefaRelaxamento.setFocos(List.of(Focos.VELOCIDADE, Focos.ATENCAO));
         }
 
+        System.out.println("tarefa relaxamento:" + tarefaRelaxamento);
+        Tarefa tarefaRelaxamentoCriada = new Tarefa(tarefaRelaxamento.getTitulo(), tarefaRelaxamento.getFocos(),
+                tarefaRelaxamento.getLink(), tarefaRelaxamento.isStatus());
+
+        CadastroTarefaInput cadastroTarefaRelaxamento = new CadastroTarefaInput(tarefaRelaxamentoCriada.getTitulo(), tarefaRelaxamentoCriada.getFocos(),
+                tarefaRelaxamentoCriada.getLink(), tarefaRelaxamentoCriada.isStatus());
+
+        CadastroTarefaOutput cadastroOutputRelaxamento = tarefaService.criar(cadastroTarefaRelaxamento).getBody();
+        Tarefa tarefaOutputRelaxamento = modelMapper.map(cadastroOutputRelaxamento, Tarefa.class);
+
         Tarefa tarefaSelecionada = tarefas.get(random.nextInt(tarefas.size()));
 
         // Salva as tarefas antes de associá-las à rotina
-        System.out.println(tarefaSelecionada);
-        CadastroTarefaInput tarefaInput = modelMapper.map(tarefaSelecionada,CadastroTarefaInput.class);
-        System.out.println(tarefaInput);
+        System.out.println("tarefa jogo:" + tarefaSelecionada);
 
-        tarefaService.criar(tarefaInput);
-        System.out.println(tarefaRelaxamento);
-        CadastroTarefaInput tarefaRelaxamentoInput = modelMapper.map(tarefaRelaxamento,CadastroTarefaInput.class);
-        System.out.println(tarefaRelaxamentoInput);
-        tarefaService.criar(tarefaRelaxamentoInput);
+        Tarefa tarefaJogoCriada = new Tarefa(tarefaSelecionada.getTitulo(), tarefaSelecionada.getFocos(),
+                tarefaSelecionada.getLink(), tarefaSelecionada.isStatus());
+
+        CadastroTarefaInput cadastroTarefaJogo = new CadastroTarefaInput(tarefaJogoCriada.getTitulo(), tarefaJogoCriada.getFocos(),
+                tarefaJogoCriada.getLink(), tarefaJogoCriada.isStatus());
+
+        CadastroTarefaOutput cadastroOutputJogo = tarefaService.criar(cadastroTarefaJogo).getBody();
+        Tarefa tarefaOutputJogo = modelMapper.map(cadastroOutputJogo, Tarefa.class);
+
 
         Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
         rotina.setStatus(true);
         rotina.setDiaRotina(getBrazilLocalDateTime().toLocalDate());
-        rotina.setTarefas(List.of(tarefaSelecionada, tarefaRelaxamento));
+        rotina.setTarefas(List.of(tarefaOutputJogo, tarefaOutputRelaxamento));
 
         return ResponseEntity.ok(rotina);
     }

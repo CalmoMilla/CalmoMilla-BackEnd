@@ -35,4 +35,10 @@ public class Tarefa{
     @NotNull
     private boolean status;
 
+    public Tarefa(String titulo, List<Focos> focos, String link, boolean status) {
+        this.titulo = titulo;
+        this.focos = focos;
+        this.link = link;
+        this.status = status;
+    }
 }

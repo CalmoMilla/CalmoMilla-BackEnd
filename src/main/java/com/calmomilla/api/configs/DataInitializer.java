@@ -287,23 +287,24 @@ public class DataInitializer implements CommandLineRunner {
         }
 
 
-        if (!rotinaRepository.findRotinaByDiaRotina(LocalDate.of(1, 1, 1)).isEmpty()) {
-            System.out.println("A rotina padrao ja existe");
-        } else {
-            Rotina rotinaPadrao = new Rotina();
-
-            rotinaPadrao.setDiaRotina(LocalDate.of(1, 1, 1));
-            rotinaPadrao.setStatus(false);
-
-            Tarefa tarefamemoria = tarefaRepository.findTarefaByLink("/jogodamemoria");
-            Tarefa tarefaquiz = tarefaRepository.findTarefaByLink("/quiz");
-
-            rotinaPadrao.setTarefas(List.of(tarefamemoria, tarefaquiz));
-            rotinaRepository.save(rotinaPadrao);
-            Paciente vitor = pacienteRepository.findByEmail("dndragonbr@gmail.com").get();
-            vitor.setRotinas(List.of(rotinaPadrao));
-            pacienteRepository.save(vitor);
-        }
+//        if (!rotinaRepository.findRotinaByDiaRotina(LocalDate.of(1, 1, 1)).isEmpty()) {
+//            System.out.println("A rotina padrao ja existe");
+//        } else {
+//            Rotina rotinaPadrao = new Rotina();
+//
+//            rotinaPadrao.setDiaRotina(LocalDate.of(1, 1, 1));
+//            rotinaPadrao.setStatus(false);
+//
+//            Tarefa tarefamemoria = tarefaRepository.findTarefaByLink("/jogodamemoria");
+//            Tarefa tarefaquiz = tarefaRepository.findTarefaByLink("/quiz");
+//
+//            rotinaPadrao.setTarefas(List.of(tarefamemoria, tarefaquiz));
+//            rotinaRepository.save(rotinaPadrao);
+//            Paciente vitor = pacienteRepository.findByEmail("dndragonbr@gmail.com").get();
+//            vitor.setRotinas(List.of(rotinaPadrao));
+//            System.out.println("Rotina salva");
+//            pacienteRepository.save(vitor);
+//        }
 
         if (!relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.MEDITACAO).isEmpty()) {
 
