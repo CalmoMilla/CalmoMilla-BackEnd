@@ -71,8 +71,6 @@ public class DesempenhoService {
         double somaPontuacaoSudoku = 0;
         double somaPontuacaoQuiz = 0;
 
-        System.out.println(desempenhos);
-
         // Mapeia os jogos com seus desempenhos
         for (Desempenho desempenho : desempenhos) {
             Jogo jogo = modelMapper.map(jogoService.buscarPorId(desempenho.getJogos().getId()).getBody(), Jogo.class);
@@ -126,8 +124,6 @@ public class DesempenhoService {
         pacienteService.atualizar(paciente);
 
         JogoOutput jogoOutput = jogoService.buscarPorId(desempenho.getJogos().getId()).getBody();
-
-        System.out.println(jogoOutput);
 
         AtualizarJogoInput jogoInput = modelMapper.map(jogoOutput,AtualizarJogoInput.class);
         List<Desempenho> desempenhosJogos = new ArrayList<>();

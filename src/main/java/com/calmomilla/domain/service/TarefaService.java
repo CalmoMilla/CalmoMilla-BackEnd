@@ -27,7 +27,6 @@ public class TarefaService {
     private final ModelMapperUtils mapperUtils;
 
     public ResponseEntity<CadastroTarefaOutput> criar(CadastroTarefaInput cadastroTarefaInput) {
-        System.out.println(cadastroTarefaInput);
         Tarefa tarefa = modelMapper.map(cadastroTarefaInput, Tarefa.class);
         Tarefa tarefaSalva =  tarefaRepository.save(tarefa);
         CadastroTarefaOutput tarefaOutput = modelMapper.map(tarefaSalva, CadastroTarefaOutput.class);

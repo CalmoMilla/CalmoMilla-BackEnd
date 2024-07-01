@@ -50,7 +50,6 @@ public class AuthService {
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException(e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new NegocioException("Erro ao autenticar o usuario");
         }
 

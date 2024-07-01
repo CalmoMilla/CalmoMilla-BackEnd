@@ -119,7 +119,7 @@ public class PsicologoService {
             String senhaCriptografada = new BCryptPasswordEncoder().encode(psicologoInput.getSenha());
             psicologoInput.setSenha(senhaCriptografada);
         }
-        System.out.println(psicologo.getCpf());
+
         if (!psicologo.getCpf().equals(psicologoInput.getCpf())){
             String cpfCriptografado = new  BCryptPasswordEncoder().encode(psicologoInput.getCpf());
             psicologoInput.setCpf(cpfCriptografado);

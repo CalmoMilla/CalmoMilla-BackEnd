@@ -76,8 +76,6 @@ public class PacienteService {
         boolean precisaPreencherQuestionario = false;
 
         if (!emocaoList.isEmpty()) {
-            System.out.println(emocaoList.get(0));
-            System.out.println(emocaoList.get(0).getDataRegistro()+"x"+ hoje);
             if (!emocaoList.get(0).getDataRegistro().isEqual(hoje)){
                 precisaPreencherQuestionario = true;
             }
@@ -132,12 +130,11 @@ public class PacienteService {
         rotinaUsuario.setTarefas(new ArrayList<>(rotinaPadrao.get(0).getTarefas()));
 
         rotinaUsuario =  rotinaRepository.save(rotinaUsuario);
-        System.out.println(rotinaUsuario);
         paciente.setRotinas(List.of(rotinaUsuario));
         paciente =  pacienteRepository.save(paciente);
 
         Optional<Rotina> rotinaPega = rotinaRepository.findById(rotinaUsuario.getId());
-        System.out.println(rotinaPega);
+
 
         if (rotinaPega.isEmpty()){
             throw new NegocioException("Rotina não encontrada");
@@ -152,7 +149,6 @@ public class PacienteService {
 
         rotinaMapper.setPacientes(List.of(paciente));
 
-        System.out.println(rotinaMapper);
 
         rotinaRepository.save(rotinaMapper);
 
@@ -170,7 +166,6 @@ public class PacienteService {
 
 
     public ResponseEntity<AtualizarPacienteOutput>atualizar(AtualizarPacienteInput pacienteInput) throws NoSuchMethodException {
-        System.out.println(pacienteInput);
         BuscarPacienteOutput pacienteOutput = buscarPorId(pacienteInput.getId()).getBody();
 
         Paciente paciente = modelMapper.map(pacienteOutput, Paciente.class);
@@ -188,9 +183,7 @@ public class PacienteService {
             String cpfCriptografado = new  BCryptPasswordEncoder().encode(pacienteInput.getCpf());
             pacienteInput.setCpf(cpfCriptografado);
         }
-        System.out.println("r"+pacienteInput.getRotinas());
         paciente = modelMapper.map(pacienteInput, Paciente.class);
-        System.out.println(paciente);
         paciente = pacienteRepository.save(paciente);
         AtualizarPacienteOutput atualizarPacienteOutput = modelMapper.map(paciente,AtualizarPacienteOutput.class);
 

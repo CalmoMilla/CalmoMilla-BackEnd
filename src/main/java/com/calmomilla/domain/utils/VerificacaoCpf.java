@@ -79,7 +79,6 @@ public class VerificacaoCpf {
 
             // Calcular a idade
             int idade = Period.between(dataNascimento, dataAtual).getYears();
-            System.out.println("Idade: " + idade);
 
             // Verificar se a pessoa é maior de idade
             if (idade >= 18) {
@@ -88,7 +87,6 @@ public class VerificacaoCpf {
                 return ResponseEntity.badRequest().body("Você é menor de idade, não pode efetuar cadastro.");
             }
         } catch (ParseException e) {
-            System.out.println("Erro ao formatar a data: " + e.getMessage());
             throw new NegocioException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

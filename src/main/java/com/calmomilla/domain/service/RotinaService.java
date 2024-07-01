@@ -47,9 +47,7 @@ public class RotinaService {
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
 
-        List<Rotina> rotinas = buscarRotinaPorPaciente(cadastroRotinaInput.getPaciente().getId());
-        System.out.println(rotinas.get(0).getDiaRotina()+ "+" +getBrazilLocalDateTime().toLocalDate());
-        if (!rotinas.isEmpty()) {
+        List<Rotina> rotinas = buscarRotinaPorPaciente(cadastroRotinaInput.getPaciente().getId());if (!rotinas.isEmpty()) {
             if (rotinas.get(0).getDiaRotina() == getBrazilLocalDateTime().toLocalDate()) {
                 throw new NegocioException("Rotina repetida animal ");
             }
@@ -63,7 +61,6 @@ public class RotinaService {
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
         AtualizarPacienteInput pacienteInput = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
         pacienteInput.setRotinas(List.of(rotinaSalva));
-        System.out.println(pacienteInput);
         pacienteService.atualizar(pacienteInput);
 
         CadastroRotinaOutput cadastroRotinaOutput = modelMapper.map(rotinaSalva, CadastroRotinaOutput.class);
@@ -120,7 +117,6 @@ public class RotinaService {
         Rotina rotina = modelMapper.map(buscarRotinaOutput, Rotina.class);
         rotina = modelMapper.map(atualizarRotina, Rotina.class);
         Rotina rotinaSalva = rotinaRepository.save(rotina);
-        System.out.println(rotinaSalva);
         AtualizarRotinaOutput atualizarRotinaOutput = modelMapper.map(rotinaSalva, AtualizarRotinaOutput.class);
         return ResponseEntity.ok(atualizarRotinaOutput);
     }
@@ -265,7 +261,6 @@ public class RotinaService {
             tarefaRelaxamento.setCategoriaTarefa(CategoriaTarefa.RESPIRACAO);
         }
 
-        System.out.println("tarefa relaxamento:" + tarefaRelaxamento);
         Tarefa tarefaRelaxamentoCriada = new Tarefa(tarefaRelaxamento.getTitulo(), tarefaRelaxamento.getFocos(),
                 tarefaRelaxamento.getLink(), tarefaRelaxamento.isStatus(),tarefaRelaxamento.getCategoriaTarefa());
 
@@ -278,7 +273,6 @@ public class RotinaService {
         Tarefa tarefaSelecionada = tarefas.get(random.nextInt(tarefas.size()));
 
         // Salva as tarefas antes de associá-las à rotina
-        System.out.println("tarefa jogo:" + tarefaSelecionada);
 
         Tarefa tarefaJogoCriada = new Tarefa(tarefaSelecionada.getTitulo(), tarefaSelecionada.getFocos(),
                 tarefaSelecionada.getLink(), tarefaSelecionada.isStatus(), tarefaSelecionada.getCategoriaTarefa());

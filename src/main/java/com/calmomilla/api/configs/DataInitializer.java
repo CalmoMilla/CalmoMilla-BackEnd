@@ -34,7 +34,6 @@ public class DataInitializer implements CommandLineRunner {
         // Criar objetos Jogo
 
         if (jogoRepository.existsJogoByNome("Jogo da Memória")) {
-            System.out.println("Jogo da Memória ja existe");
         } else {
             Jogo jogo1 = new Jogo();
             jogo1.setNome("Jogo da Memória");
