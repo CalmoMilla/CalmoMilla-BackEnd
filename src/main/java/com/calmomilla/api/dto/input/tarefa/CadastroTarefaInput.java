@@ -2,6 +2,7 @@ package com.calmomilla.api.dto.input.tarefa;
 
 
 import com.calmomilla.domain.model.Rotina;
+import com.calmomilla.domain.utils.enums.CategoriaTarefa;
 import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +29,9 @@ public class CadastroTarefaInput {
 
     @NotNull
     private boolean status;
+
+    @NotNull
+    private CategoriaTarefa categoriaTarefa;
 
 
 

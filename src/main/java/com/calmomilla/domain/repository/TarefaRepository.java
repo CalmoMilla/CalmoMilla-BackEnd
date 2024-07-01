@@ -18,6 +18,6 @@ public interface TarefaRepository extends JpaRepository<Tarefa, String> {
     @Query("SELECT t FROM Tarefa t JOIN t.focos f WHERE f IN :focos")
     List<Tarefa> findTarefasByFocosIn(@Param("focos") List<Focos> focos);
 
-    Tarefa findTarefaByLink(String link);
+    List<Tarefa> findTarefaByLink(String link);
 
 }

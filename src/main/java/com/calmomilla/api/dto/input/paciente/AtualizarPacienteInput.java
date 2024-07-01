@@ -45,10 +45,7 @@ public class AtualizarPacienteInput {
     @NotNull
     private UserRole role;
 
-    private Rotina rotina;
-
-
-
+    private List<Rotina> rotinas;
 
     private DadosPessoais dadosPessoais;
 

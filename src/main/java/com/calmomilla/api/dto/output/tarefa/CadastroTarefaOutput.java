@@ -2,6 +2,7 @@ package com.calmomilla.api.dto.output.tarefa;
 
 
 import com.calmomilla.domain.model.Rotina;
+import com.calmomilla.domain.utils.enums.CategoriaTarefa;
 import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,8 @@ public class CadastroTarefaOutput {
 
     private boolean status;
 
-    private Focos focos;
+    private CategoriaTarefa categoriaTarefa;
+
+    private List<Focos> focos;
 
 }

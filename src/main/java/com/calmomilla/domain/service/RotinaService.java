@@ -18,6 +18,7 @@ import com.calmomilla.domain.repository.RelaxamentoRepository;
 import com.calmomilla.domain.repository.RotinaRepository;
 import com.calmomilla.domain.utils.ModelMapperUtils;
 import com.calmomilla.domain.utils.enums.CategoriaRelaxamento;
+import com.calmomilla.domain.utils.enums.CategoriaTarefa;
 import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,15 @@ public class RotinaService {
 
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
+
+        List<Rotina> rotinas = buscarRotinaPorPaciente(cadastroRotinaInput.getPaciente().getId());
+        System.out.println(rotinas.get(0).getDiaRotina()+ "+" +getBrazilLocalDateTime().toLocalDate());
+        if (!rotinas.isEmpty()) {
+            if (rotinas.get(0).getDiaRotina() == getBrazilLocalDateTime().toLocalDate()) {
+                throw new NegocioException("Rotina repetida animal ");
+            }
+        }
+
         ResponseEntity<Rotina> response = gerarRotina(cadastroRotinaInput);
         Rotina rotina = response.getBody();
         assert rotina != null;
@@ -52,7 +62,8 @@ public class RotinaService {
 
         BuscarPacienteOutput pacienteOutput = pacienteService.buscarPorId(cadastroRotinaInput.getPaciente().getId()).getBody();
         AtualizarPacienteInput pacienteInput = modelMapper.map(pacienteOutput, AtualizarPacienteInput.class);
-        pacienteInput.setRotina(rotinaSalva);
+        pacienteInput.setRotinas(List.of(rotinaSalva));
+        System.out.println(pacienteInput);
         pacienteService.atualizar(pacienteInput);
 
         CadastroRotinaOutput cadastroRotinaOutput = modelMapper.map(rotinaSalva, CadastroRotinaOutput.class);
@@ -121,6 +132,11 @@ public class RotinaService {
         assert pacienteOutput != null;
 
         List<Desempenho> desempenhos = pacienteOutput.getDesempenhos();
+
+        if (desempenhos.isEmpty()){
+            throw new NegocioException("Você ainda não possui desempenhos, jogue algum jogo ");
+
+        }
 
         int jogoMemoria = 0;
         int sudoku = 0;
@@ -224,6 +240,7 @@ public class RotinaService {
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
             tarefaRelaxamento.setFocos(List.of(Focos.MEMORIA, Focos.ATENCAO));
+            tarefaRelaxamento.setCategoriaTarefa(CategoriaTarefa.MEDITACAO);
         } else if (menorValor == quiz) {
             tarefas = tarefaService.buscarPorFoco(List.of(Focos.VELOCIDADE, Focos.ATENCAO)).getBody();
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
@@ -234,6 +251,7 @@ public class RotinaService {
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
             tarefaRelaxamento.setFocos(List.of(Focos.VELOCIDADE, Focos.ATENCAO));
+            tarefaRelaxamento.setCategoriaTarefa(CategoriaTarefa.RESPIRACAO);
         } else {
             tarefas = tarefaService.buscarPorFoco(List.of(Focos.VELOCIDADE, Focos.ATENCAO)).getBody();
             relaxamentos = relaxamentoRepository.findRelaxamentoByCategoria(CategoriaRelaxamento.RESPIRACAO);
@@ -244,14 +262,15 @@ public class RotinaService {
             tarefaRelaxamento.setLink(relaxamentoSelecionado.getLink());
             tarefaRelaxamento.setStatus(false);
             tarefaRelaxamento.setFocos(List.of(Focos.VELOCIDADE, Focos.ATENCAO));
+            tarefaRelaxamento.setCategoriaTarefa(CategoriaTarefa.RESPIRACAO);
         }
 
         System.out.println("tarefa relaxamento:" + tarefaRelaxamento);
         Tarefa tarefaRelaxamentoCriada = new Tarefa(tarefaRelaxamento.getTitulo(), tarefaRelaxamento.getFocos(),
-                tarefaRelaxamento.getLink(), tarefaRelaxamento.isStatus());
+                tarefaRelaxamento.getLink(), tarefaRelaxamento.isStatus(),tarefaRelaxamento.getCategoriaTarefa());
 
         CadastroTarefaInput cadastroTarefaRelaxamento = new CadastroTarefaInput(tarefaRelaxamentoCriada.getTitulo(), tarefaRelaxamentoCriada.getFocos(),
-                tarefaRelaxamentoCriada.getLink(), tarefaRelaxamentoCriada.isStatus());
+                tarefaRelaxamentoCriada.getLink(), tarefaRelaxamentoCriada.isStatus(), tarefaRelaxamentoCriada.getCategoriaTarefa());
 
         CadastroTarefaOutput cadastroOutputRelaxamento = tarefaService.criar(cadastroTarefaRelaxamento).getBody();
         Tarefa tarefaOutputRelaxamento = modelMapper.map(cadastroOutputRelaxamento, Tarefa.class);
@@ -262,17 +281,17 @@ public class RotinaService {
         System.out.println("tarefa jogo:" + tarefaSelecionada);
 
         Tarefa tarefaJogoCriada = new Tarefa(tarefaSelecionada.getTitulo(), tarefaSelecionada.getFocos(),
-                tarefaSelecionada.getLink(), tarefaSelecionada.isStatus());
+                tarefaSelecionada.getLink(), tarefaSelecionada.isStatus(), tarefaSelecionada.getCategoriaTarefa());
 
         CadastroTarefaInput cadastroTarefaJogo = new CadastroTarefaInput(tarefaJogoCriada.getTitulo(), tarefaJogoCriada.getFocos(),
-                tarefaJogoCriada.getLink(), tarefaJogoCriada.isStatus());
+                tarefaJogoCriada.getLink(), tarefaJogoCriada.isStatus(), tarefaJogoCriada.getCategoriaTarefa());
 
         CadastroTarefaOutput cadastroOutputJogo = tarefaService.criar(cadastroTarefaJogo).getBody();
         Tarefa tarefaOutputJogo = modelMapper.map(cadastroOutputJogo, Tarefa.class);
 
 
         Rotina rotina = modelMapper.map(cadastroRotinaInput, Rotina.class);
-        rotina.setStatus(true);
+        rotina.setStatus(false);
         rotina.setDiaRotina(getBrazilLocalDateTime().toLocalDate());
         rotina.setTarefas(List.of(tarefaOutputJogo, tarefaOutputRelaxamento));
 

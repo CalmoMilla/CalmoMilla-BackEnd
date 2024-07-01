@@ -188,8 +188,9 @@ public class PacienteService {
             String cpfCriptografado = new  BCryptPasswordEncoder().encode(pacienteInput.getCpf());
             pacienteInput.setCpf(cpfCriptografado);
         }
+        System.out.println("r"+pacienteInput.getRotinas());
         paciente = modelMapper.map(pacienteInput, Paciente.class);
-
+        System.out.println(paciente);
         paciente = pacienteRepository.save(paciente);
         AtualizarPacienteOutput atualizarPacienteOutput = modelMapper.map(paciente,AtualizarPacienteOutput.class);
 

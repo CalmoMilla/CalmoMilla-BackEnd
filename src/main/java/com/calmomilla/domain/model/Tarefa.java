@@ -1,5 +1,6 @@
 package com.calmomilla.domain.model;
 
+import com.calmomilla.domain.utils.enums.CategoriaTarefa;
 import com.calmomilla.domain.utils.enums.Focos;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -33,12 +34,16 @@ public class Tarefa{
     private String link;
 
     @NotNull
+    private CategoriaTarefa categoriaTarefa;
+
+    @NotNull
     private boolean status;
 
-    public Tarefa(String titulo, List<Focos> focos, String link, boolean status) {
+    public Tarefa(String titulo, List<Focos> focos, String link, boolean status, CategoriaTarefa categoriaTarefa) {
         this.titulo = titulo;
         this.focos = focos;
         this.link = link;
+        this.categoriaTarefa = categoriaTarefa;
         this.status = status;
     }
 }

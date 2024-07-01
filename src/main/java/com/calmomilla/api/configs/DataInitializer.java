@@ -3,10 +3,7 @@ package com.calmomilla.api.configs;
 import com.calmomilla.domain.model.*;
 import com.calmomilla.domain.repository.*;
 import com.calmomilla.domain.utils.UserRole;
-import com.calmomilla.domain.utils.enums.CategoriaRelaxamento;
-import com.calmomilla.domain.utils.enums.Especializacoes;
-import com.calmomilla.domain.utils.enums.Focos;
-import com.calmomilla.domain.utils.enums.Genero;
+import com.calmomilla.domain.utils.enums.*;
 import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import org.aspectj.weaver.ast.Var;
@@ -252,7 +249,7 @@ public class DataInitializer implements CommandLineRunner {
         }
 
 
-        if (tarefaRepository.findTarefaByLink("/jogodamemoria") != null || tarefaRepository.findTarefaByLink("/sudoku") != null || tarefaRepository.findTarefaByLink("/quiz") != null) {
+        if (!tarefaRepository.findTarefaByLink("/jogodamemoria").isEmpty()) {
             System.out.println("tarefas ja adicionadas");
         } else {
 
@@ -263,6 +260,7 @@ public class DataInitializer implements CommandLineRunner {
             tarefa.setLink("/jogodamemoria");
             tarefa.setStatus(false);
             tarefa.setFocos(List.of(Focos.ATENCAO, Focos.MEMORIA, Focos.VELOCIDADE));
+            tarefa.setCategoriaTarefa(CategoriaTarefa.JOGO);
 
             Tarefa tarefa2 = new Tarefa();
 
@@ -270,6 +268,7 @@ public class DataInitializer implements CommandLineRunner {
             tarefa2.setLink("/sudoku");
             tarefa2.setStatus(false);
             tarefa2.setFocos(List.of(Focos.ATENCAO, Focos.RESOLUCAO_DE_PROBLEMAS));
+            tarefa2.setCategoriaTarefa(CategoriaTarefa.JOGO);
 
             Tarefa tarefa3 = new Tarefa();
 
@@ -277,6 +276,7 @@ public class DataInitializer implements CommandLineRunner {
             tarefa3.setLink("/quiz");
             tarefa3.setStatus(false);
             tarefa3.setFocos(List.of(Focos.ATENCAO, Focos.VELOCIDADE));
+            tarefa3.setCategoriaTarefa(CategoriaTarefa.JOGO);
 
             tarefas.add(tarefa);
             tarefas.add(tarefa2);
