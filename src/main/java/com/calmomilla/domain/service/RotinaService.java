@@ -48,12 +48,6 @@ public class RotinaService {
     @Transactional
     public ResponseEntity<CadastroRotinaOutput> criar(CadastroRotinaInput cadastroRotinaInput) throws NoSuchMethodException {
 
-        List<Rotina> rotinas = buscarRotinaPorPaciente(cadastroRotinaInput.getPaciente().getId());if (!rotinas.isEmpty()) {
-            if (rotinas.get(0).getDiaRotina() == getBrazilLocalDateTime().toLocalDate()) {
-                throw new NegocioException("Rotina repetida animal ");
-            }
-        }
-
         ResponseEntity<Rotina> response = gerarRotina(cadastroRotinaInput);
         Rotina rotina = response.getBody();
         assert rotina != null;
