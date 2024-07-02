@@ -121,37 +121,7 @@ public class PacienteService {
         String cpfCriptografado = new BCryptPasswordEncoder().encode(pacienteInput.getCpf());
         pacienteInput.setCpf(cpfCriptografado);
         Paciente paciente = modelMapper.map(pacienteInput, Paciente.class);
-        var data = LocalDate.of(1, 1, 1);
-        List<Rotina> rotinaPadrao = rotinaRepository.findRotinaByDiaRotina(data);
-        Rotina rotinaUsuario = new Rotina();
-
-        rotinaUsuario.setDiaRotina(rotinaPadrao.get(0).getDiaRotina());
-        rotinaUsuario.setStatus(rotinaPadrao.get(0).isStatus());
-        rotinaUsuario.setTarefas(new ArrayList<>(rotinaPadrao.get(0).getTarefas()));
-
-        rotinaUsuario =  rotinaRepository.save(rotinaUsuario);
-        paciente.setRotinas(List.of(rotinaUsuario));
         paciente =  pacienteRepository.save(paciente);
-
-        Optional<Rotina> rotinaPega = rotinaRepository.findById(rotinaUsuario.getId());
-
-
-        if (rotinaPega.isEmpty()){
-            throw new NegocioException("Rotina não encontrada");
-        }
-
-        Rotina rotinaMapper = new Rotina();
-
-        rotinaMapper.setId(rotinaPega.get().getId());
-        rotinaMapper.setDiaRotina(rotinaPega.get().getDiaRotina());
-        rotinaMapper.setStatus(rotinaPega.get().isStatus());
-        rotinaMapper.setTarefas(rotinaPega.get().getTarefas());
-
-        rotinaMapper.setPacientes(List.of(paciente));
-
-
-        rotinaRepository.save(rotinaMapper);
-
 
         CadastroPacienteOutput pacienteOutput = modelMapper.map(paciente, CadastroPacienteOutput.class);
 
