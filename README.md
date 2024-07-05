@@ -22,6 +22,10 @@ Para o banco de dados, utilizamos um sistema SQL, devido à sua capacidade compr
 
 Além disso, escolhemos a AWS (Amazon Web Services) para hospedar o backend do meu site. A AWS oferece uma infraestrutura escalável e confiável para executar aplicativos, permitindo fácil escalonamento conforme a demanda e oferecendo uma ampla gama de serviços de computação, armazenamento e gerenciamento de dados que complementam perfeitamente o ambiente Java e Spring Boot.
 
+<br/>
+
+Documentação completa: 
+href="http://ec2-18-230-88-220.sa-east-1.compute.amazonaws.com:8080/swagger-ui/index.html" title="Documentação backend">
 
 
    </p>
