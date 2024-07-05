@@ -24,10 +24,6 @@ Além disso, escolhemos a AWS (Amazon Web Services) para hospedar o backend do m
 
 <br/>
 
-Documentação completa 
-
-<a href="http://ec2-18-230-88-220.sa-east-1.compute.amazonaws.com:8080/swagger-ui/index.html" title="Documentação completa">
-</a>
 
    </p>
 <br/>
